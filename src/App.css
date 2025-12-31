@@ -1,0 +1,211 @@
+/* Global variables */
+* {
+  box-sizing: border-box;
+}
+:root {
+  --font-family: 'Montserrat', sans-serif;
+  --color-bg-light: #fdfdfd;
+  --color-bg-dark: #121212;
+  --color-text-light: #2c3e50;
+  --color-text-dark: #e0e0e0;
+  --primary-color: #3498db;
+  --header-bg-light: rgba(255, 255, 255, 0.8);
+  --header-bg-dark: rgba(30, 30, 30, 0.8);
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #2c3e50;
+  --text-secondary: #666666;
+}
+
+[data-theme="light"] {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-light);
+}
+
+[data-theme="dark"] {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark);
+  --bg-primary: #1a1c1e;
+  --bg-secondary: #2a2c2e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #aaaaaa;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  overflow: hidden;
+}
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  background: var(--header-bg-light);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+[data-theme="dark"] .app-header {
+  background: var(--header-bg-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.app-header h1 {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 700;
+  background: linear-gradient(90deg, #3498db, #8e44ad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 4px;
+  border-radius: 12px;
+}
+
+[data-theme="dark"] .header-buttons {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.icon-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.icon-btn.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Fix generic inputs/selects for Dark Mode */
+input, select, textarea {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 8px;
+  border-radius: 6px;
+  font-family: inherit;
+  user-select: text !important;
+}
+
+input, select, textarea, button {
+  pointer-events: auto !important;
+}
+
+[data-theme="dark"] input, 
+[data-theme="dark"] select, 
+[data-theme="dark"] textarea {
+  background-color: #2c3e50;
+  color: var(--color-text-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+[data-theme="dark"] input:focus, 
+[data-theme="dark"] select:focus, 
+[data-theme="dark"] textarea:focus {
+  background-color: rgba(255,255,255,0.08) !important;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+.content-area {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background: inherit;
+  color: inherit;
+}
+
+/* Global Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: var(--bg-primary, #fff);
+  padding: 2.5rem;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  animation: modalIn 0.3s ease-out;
+  position: relative;
+}
+
+[data-theme="dark"] .modal-content {
+  background: #1e272e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

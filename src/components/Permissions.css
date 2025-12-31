@@ -1,0 +1,68 @@
+.permissions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.permissions-table-wrapper {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .permissions-table-wrapper {
+  background: #1a1c1e;
+}
+
+.permissions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.permissions-table th {
+  padding: 1.2rem;
+  background: rgba(0, 0, 0, 0.02);
+  text-align: left;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .permissions-table th {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.permissions-table td {
+  padding: 1.2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.section-name {
+  font-weight: 600;
+}
+
+.toggle-cell {
+  text-align: center;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.6rem;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.toggle-btn.visible {
+  color: #2ecc71;
+  background: rgba(46, 204, 113, 0.1);
+}
+
+.toggle-btn.hidden {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+}
+
+.toggle-btn:hover {
+  transform: scale(1.1);
+}

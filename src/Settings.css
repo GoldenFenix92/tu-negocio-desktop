@@ -1,0 +1,100 @@
+.settings-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 1rem;
+}
+
+[data-theme="dark"] .settings-tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.settings-tabs button {
+  background: transparent;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: inherit;
+  opacity: 0.6;
+  transition: all 0.2s;
+}
+
+.settings-tabs button.active {
+  background: var(--primary-color);
+  color: white;
+  opacity: 1;
+}
+
+.settings-content {
+  animation: fadeIn 0.4s ease-out;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.form-group input, .form-group select {
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] .form-group input, 
+[data-theme="dark"] .form-group select {
+  border-color: rgba(255,255,255,0.1);
+  background: #2c3e50;
+}
+
+.logo-preview {
+  margin-top: 1rem;
+  max-width: 200px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  align-self: flex-start;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+

@@ -1,0 +1,54 @@
+{
+  "name": "tu-negocio-desktop",
+  "version": "1.0.0",
+  "description": "Tu Negocio Desktop POS application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "webpack --mode development && electron .",
+    "build": "webpack --mode production && electron-builder"
+  },
+  "build": {
+    "appId": "com.tunegocio.desktop",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/app_icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Tu Negocio Desktop"
+    },
+    "directories": {
+      "output": "dist-electron"
+    }
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.22.5",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
+    "electron": "^39.2.7",
+    "electron-builder": "^24.0.0",
+    "html-webpack-plugin": "^5.6.5",
+    "i18next": "^23.4.6",
+    "mysql2": "^3.9.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^13.2.2",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "lucide-react": "^0.562.0",
+    "papaparse": "^5.5.3",
+    "react-router-dom": "^7.11.0"
+  }
+}
