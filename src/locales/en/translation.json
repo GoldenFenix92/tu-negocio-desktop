@@ -146,7 +146,12 @@
     "has_theme_logos": "Logo has Light/Dark versions",
     "favicon": "Favicon",
     "favicon_default": "If not specified, the default icon will be used",
-    "typography": "Typography"
+    "typography": "Typography",
+    "themes": "Themes & Designs",
+    "theme_subtitle": "Select the visual design you prefer for each mode",
+    "light_designs": "Light Mode",
+    "dark_designs": "Dark Mode",
+    "theme_applied": "Design applied"
   },
   "setup": {
     "title": "Set up your business",

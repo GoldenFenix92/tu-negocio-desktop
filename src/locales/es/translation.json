@@ -146,7 +146,12 @@
     "has_theme_logos": "El logo tiene versión Light/Dark",
     "favicon": "Favicon",
     "favicon_default": "Si no se especifica, se usará el icono por defecto",
-    "typography": "Tipografía"
+    "typography": "Tipografía",
+    "themes": "Temas y Diseños",
+    "theme_subtitle": "Selecciona el diseño visual que prefieras para cada modo",
+    "light_designs": "Modo Claro",
+    "dark_designs": "Modo Oscuro",
+    "theme_applied": "Diseño aplicado"
   },
   "setup": {
     "title": "Configura tu negocio",

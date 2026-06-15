@@ -6,6 +6,7 @@ import { ConfigProvider, theme } from 'antd';
 import { ToastProvider } from './ToastContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import SetupWizard from './components/SetupWizard';
+import { resolveDesign, applyDesignCSS, getDesign } from './themeDesigns';
 import './App.css';
 
 import Login from './components/Login';
@@ -36,6 +37,7 @@ function loadFont(family) {
 function AppContent() {
   const { t, i18n } = useTranslation();
   const [themeMode, setThemeMode] = useState(localStorage.getItem('theme') || 'system');
+  const [designId, setDesignId] = useState(localStorage.getItem('themeDesign') || 'light-default');
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [businessConfig, setBusinessConfig] = useState(null);
   const [configLoaded, setConfigLoaded] = useState(false);
@@ -65,6 +67,12 @@ function AppContent() {
     root.classList.toggle('dark', appliedTheme === 'dark');
     localStorage.setItem('theme', themeMode);
   }, [themeMode]);
+
+  useEffect(() => {
+    const design = getDesign(designId);
+    applyDesignCSS(design);
+    localStorage.setItem('themeDesign', designId);
+  }, [designId]);
 
   const loadBusinessConfig = async () => {
     try {
@@ -109,20 +117,19 @@ function AppContent() {
   const businessName = businessConfig?.businessName || t('app.title');
   const needsSetup = configLoaded && user && !businessConfig?.businessName;
 
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const resolvedTheme = themeMode === 'system' ? (prefersDark ? 'dark' : 'light') : themeMode;
+  const design = useMemo(() => resolveDesign(themeMode, designId), [themeMode, designId]);
   const antdTheme = useMemo(() => ({
-    algorithm: resolvedTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    algorithm: design.mode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
     token: {
-      colorPrimary: '#4f46e5',
-      borderRadius: 10,
+      colorPrimary: design.colors.primary,
+      borderRadius: design.antd.borderRadius,
       fontSize: 14,
     },
     components: {
       Button: { controlHeight: 38 },
-      Table: { headerBg: resolvedTheme === 'dark' ? '#1f1f1f' : '#fafafa' },
+      Table: { headerBg: design.mode === 'dark' ? '#1f1f1f' : '#fafafa' },
     },
-  }), [resolvedTheme]);
+  }), [design]);
 
   if (!user) {
     return <Login onLogin={handleLogin} businessName={businessName} />;
@@ -180,7 +187,7 @@ function AppContent() {
                   <Route path="/clients" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><Clients /></ProtectedRoute>} />
                   <Route path="/coupons" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Coupons /></ProtectedRoute>} />
                   <Route path="/reports" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Reports /></ProtectedRoute>} />
-                  <Route path="/settings" element={<ProtectedRoute allowedRoles={['Administrator']}><Settings /></ProtectedRoute>} />
+                  <Route path="/settings" element={<ProtectedRoute allowedRoles={['Administrator']}><Settings designId={designId} onDesignChange={setDesignId} /></ProtectedRoute>} />
                   <Route path="/profile" element={<UserProfile user={user} onUpdateUser={handleLogin} />} />
                   <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
