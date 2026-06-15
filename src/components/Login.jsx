@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LogIn, User, Lock } from 'lucide-react';
+import { LogIn, User, Lock, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import './Login.css';
 
@@ -8,6 +8,10 @@ export default function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const handleExit = () => {
+    window.api.quitApp();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,6 +81,9 @@ export default function Login({ onLogin }) {
           
           <button type="submit" className="login-button">
             {t('login.button')}
+          </button>
+          <button type="button" className="exit-button" onClick={handleExit}>
+            <LogOut size={16} /> {t('login.exit')}
           </button>
         </form>
         

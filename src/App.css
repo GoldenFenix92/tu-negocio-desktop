@@ -37,10 +37,64 @@ body {
   overflow: hidden;
 }
 
-.app-layout {
+.titlebar {
+  height: 44px;
   display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: var(--header-bg-light);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+[data-theme="dark"] .titlebar {
+  background: var(--header-bg-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.titlebar-drag {
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.titlebar-favicon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.titlebar-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+
+.titlebar-business-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
+}
+
+.app-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
 }
 
 .main-content {

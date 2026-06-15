@@ -439,10 +439,64 @@ body {
   overflow: hidden;
 }
 
-.app-layout {
+.titlebar {
+  height: 44px;
   display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: var(--header-bg-light);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+[data-theme="dark"] .titlebar {
+  background: var(--header-bg-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.titlebar-drag {
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.titlebar-favicon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.titlebar-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+
+.titlebar-business-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
+}
+
+.app-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
 }
 
 .main-content {
@@ -720,7 +774,7 @@ input:focus, select:focus, textarea:focus {
   border-color: rgba(255,255,255,0.1);
   background: #2c3e50;
 }
-`, "",{"version":3,"sources":["webpack://./src/App.css"],"names":[],"mappings":"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","sourcesContent":["/* Global variables */\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n:root {\r\n  --font-family: 'Montserrat', sans-serif;\r\n  --color-bg-light: #fdfdfd;\r\n  --color-bg-dark: #121212;\r\n  --color-text-light: #2c3e50;\r\n  --color-text-dark: #e0e0e0;\r\n  --primary-color: #3498db;\r\n  --header-bg-light: rgba(255, 255, 255, 0.8);\r\n  --header-bg-dark: rgba(30, 30, 30, 0.8);\r\n  --bg-primary: #ffffff;\r\n  --bg-secondary: #f8f9fa;\r\n  --text-primary: #2c3e50;\r\n  --text-secondary: #666666;\r\n}\r\n\r\n[data-theme=\"light\"] {\r\n  background-color: var(--color-bg-light);\r\n  color: var(--color-text-light);\r\n}\r\n\r\n[data-theme=\"dark\"] {\r\n  background-color: var(--color-bg-dark);\r\n  color: var(--color-text-dark);\r\n  --bg-primary: #1a1c1e;\r\n  --bg-secondary: #2a2c2e;\r\n  --text-primary: #e0e0e0;\r\n  --text-secondary: #aaaaaa;\r\n}\r\n\r\nbody {\r\n  margin: 0;\r\n  font-family: var(--font-family);\r\n  overflow: hidden;\r\n}\r\n\r\n.app-layout {\r\n  display: flex;\r\n  height: 100vh;\r\n  width: 100vw;\r\n}\r\n\r\n.main-content {\r\n  flex: 1;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n}\r\n\r\n.app-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 0.8rem 2rem;\r\n  background: var(--header-bg-light);\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  z-index: 10;\r\n}\r\n\r\n[data-theme=\"dark\"] .app-header {\r\n  background: var(--header-bg-dark);\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.app-header h1 {\r\n  font-size: 1.2rem;\r\n  margin: 0;\r\n  font-weight: 700;\r\n  background: linear-gradient(90deg, #3498db, #8e44ad);\r\n  -webkit-background-clip: text;\r\n  background-clip: text;\r\n  -webkit-text-fill-color: transparent;\r\n}\r\n\r\n.header-right {\r\n  display: flex;\r\n  gap: 1rem;\r\n  align-items: center;\r\n}\r\n\r\n.header-buttons {\r\n  display: flex;\r\n  gap: 0.5rem;\r\n  background: rgba(0, 0, 0, 0.05);\r\n  padding: 4px;\r\n  border-radius: 12px;\r\n}\r\n\r\n[data-theme=\"dark\"] .header-buttons {\r\n  background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.icon-btn {\r\n  background: transparent;\r\n  border: none;\r\n  padding: 6px 10px;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  color: inherit;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: all 0.2s ease;\r\n  font-weight: 500;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.icon-btn:hover {\r\n  background: rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n[data-theme=\"dark\"] .icon-btn:hover {\r\n  background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.icon-btn.active {\r\n  background: var(--primary-color);\r\n  color: white;\r\n  box-shadow: 0 2px 5px rgba(0,0,0,0.2);\r\n}\r\n\r\n/* Fix generic inputs/selects for Dark Mode */\r\ninput, select, textarea {\r\n  background-color: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  padding: 8px;\r\n  border-radius: 6px;\r\n  font-family: inherit;\r\n  user-select: text !important;\r\n}\r\n\r\ninput, select, textarea, button {\r\n  pointer-events: auto !important;\r\n}\r\n\r\n[data-theme=\"dark\"] input, \r\n[data-theme=\"dark\"] select, \r\n[data-theme=\"dark\"] textarea {\r\n  background-color: #2c3e50;\r\n  color: var(--color-text-dark);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\ninput:focus, select:focus, textarea:focus {\r\n  outline: none;\r\n  border-color: var(--primary-color);\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);\r\n}\r\n\r\n[data-theme=\"dark\"] input:focus, \r\n[data-theme=\"dark\"] select:focus, \r\n[data-theme=\"dark\"] textarea:focus {\r\n  background-color: rgba(255,255,255,0.08) !important;\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);\r\n}\r\n\r\n.content-area {\r\n  flex: 1;\r\n  padding: 2rem;\r\n  overflow-y: auto;\r\n  background: inherit;\r\n  color: inherit;\r\n}\r\n\r\n/* Global Modal Styles */\r\n.modal-overlay {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background: rgba(0, 0, 0, 0.5);\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  z-index: 9999;\r\n  backdrop-filter: blur(4px);\r\n  pointer-events: auto;\r\n}\r\n\r\n.modal-content {\r\n  background: var(--bg-primary, #fff);\r\n  padding: 2.5rem;\r\n  border-radius: 20px;\r\n  width: 90%;\r\n  max-width: 550px;\r\n  max-height: 90vh;\r\n  overflow-y: auto;\r\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);\r\n  animation: modalIn 0.3s ease-out;\r\n  position: relative;\r\n}\r\n\r\n[data-theme=\"dark\"] .modal-content {\r\n  background: #1e272e;\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n@keyframes modalIn {\r\n  from { opacity: 0; transform: scale(0.95) translateY(20px); }\r\n  to { opacity: 1; transform: scale(1) translateY(0); }\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from { opacity: 0; transform: translateY(10px); }\r\n  to { opacity: 1; transform: translateY(0); }\r\n}\r\n\r\n.toast-container {\r\n  position: fixed;\r\n  top: 1rem;\r\n  right: 1rem;\r\n  z-index: 10000;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.5rem;\r\n  pointer-events: none;\r\n}\r\n\r\n.toast {\r\n  pointer-events: auto;\r\n  padding: 0.75rem 1.25rem;\r\n  border-radius: 10px;\r\n  color: #fff;\r\n  font-weight: 500;\r\n  font-size: 0.9rem;\r\n  cursor: pointer;\r\n  animation: slideIn 0.3s ease-out;\r\n  box-shadow: 0 4px 12px rgba(0,0,0,0.15);\r\n  max-width: 400px;\r\n}\r\n\r\n.toast-success { background: #27ae60; }\r\n.toast-error { background: #e74c3c; }\r\n.toast-info { background: #3498db; }\r\n.toast-warning { background: #f39c12; }\r\n\r\n@keyframes slideIn {\r\n  from { transform: translateX(100%); opacity: 0; }\r\n  to { transform: translateX(0); opacity: 1; }\r\n}\r\n\r\n.kpi-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));\r\n  gap: 1rem;\r\n  margin-top: 1.5rem;\r\n}\r\n\r\n.kpi-card {\r\n  background: var(--bg-secondary);\r\n  padding: 1.25rem;\r\n  border-radius: 12px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n  animation: fadeIn 0.3s ease-out;\r\n}\r\n\r\n.kpi-icon { flex-shrink: 0; }\r\n\r\n.kpi-card div {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.kpi-value {\r\n  font-size: 1.5rem;\r\n  font-weight: 700;\r\n  color: var(--text-primary);\r\n}\r\n\r\n.kpi-label {\r\n  font-size: 0.8rem;\r\n  color: var(--text-secondary);\r\n}\r\n\r\n.sales-history .sales-split {\r\n  display: flex;\r\n  gap: 1rem;\r\n  margin-top: 1rem;\r\n}\r\n\r\n.sales-list-panel { flex: 1; min-width: 0; }\r\n.sale-detail-panel {\r\n  width: 400px;\r\n  flex-shrink: 0;\r\n  background: var(--bg-secondary);\r\n  padding: 1.25rem;\r\n  border-radius: 12px;\r\n  animation: fadeIn 0.3s ease-out;\r\n}\r\n\r\n.sale-detail-panel .detail-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.sale-detail-panel h3 { margin: 0; }\r\n.selected-row { background: rgba(52, 152, 219, 0.1); }\r\n\r\n.search-bar label input[type=\"date\"] {\r\n  padding: 0.4rem 0.6rem;\r\n  border-radius: 6px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  background: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  font-size: 0.85rem;\r\n}\r\n\r\n[data-theme=\"dark\"] .search-bar label input[type=\"date\"] {\r\n  border-color: rgba(255,255,255,0.1);\r\n  background: #2c3e50;\r\n}\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/App.css"],"names":[],"mappings":"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","sourcesContent":["/* Global variables */\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n:root {\r\n  --font-family: 'Montserrat', sans-serif;\r\n  --color-bg-light: #fdfdfd;\r\n  --color-bg-dark: #121212;\r\n  --color-text-light: #2c3e50;\r\n  --color-text-dark: #e0e0e0;\r\n  --primary-color: #3498db;\r\n  --header-bg-light: rgba(255, 255, 255, 0.8);\r\n  --header-bg-dark: rgba(30, 30, 30, 0.8);\r\n  --bg-primary: #ffffff;\r\n  --bg-secondary: #f8f9fa;\r\n  --text-primary: #2c3e50;\r\n  --text-secondary: #666666;\r\n}\r\n\r\n[data-theme=\"light\"] {\r\n  background-color: var(--color-bg-light);\r\n  color: var(--color-text-light);\r\n}\r\n\r\n[data-theme=\"dark\"] {\r\n  background-color: var(--color-bg-dark);\r\n  color: var(--color-text-dark);\r\n  --bg-primary: #1a1c1e;\r\n  --bg-secondary: #2a2c2e;\r\n  --text-primary: #e0e0e0;\r\n  --text-secondary: #aaaaaa;\r\n}\r\n\r\nbody {\r\n  margin: 0;\r\n  font-family: var(--font-family);\r\n  overflow: hidden;\r\n}\r\n\r\n.titlebar {\r\n  height: 44px;\r\n  display: flex;\r\n  align-items: center;\r\n  padding: 0 16px;\r\n  background: var(--header-bg-light);\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  flex-shrink: 0;\r\n  user-select: none;\r\n}\r\n\r\n[data-theme=\"dark\"] .titlebar {\r\n  background: var(--header-bg-dark);\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.titlebar-drag {\r\n  -webkit-app-region: drag;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n.titlebar-favicon {\r\n  width: 20px;\r\n  height: 20px;\r\n  border-radius: 4px;\r\n  object-fit: contain;\r\n}\r\n\r\n.titlebar-logo {\r\n  height: 28px;\r\n  width: auto;\r\n  object-fit: contain;\r\n}\r\n\r\n.titlebar-business-name {\r\n  font-size: 1rem;\r\n  font-weight: 600;\r\n  color: var(--text-primary);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.app-root {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 100vh;\r\n  width: 100vw;\r\n}\r\n\r\n.app-layout {\r\n  display: flex;\r\n  flex: 1;\r\n  min-height: 0;\r\n}\r\n\r\n.main-content {\r\n  flex: 1;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n}\r\n\r\n.app-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 0.8rem 2rem;\r\n  background: var(--header-bg-light);\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  z-index: 10;\r\n}\r\n\r\n[data-theme=\"dark\"] .app-header {\r\n  background: var(--header-bg-dark);\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.app-header h1 {\r\n  font-size: 1.2rem;\r\n  margin: 0;\r\n  font-weight: 700;\r\n  background: linear-gradient(90deg, #3498db, #8e44ad);\r\n  -webkit-background-clip: text;\r\n  background-clip: text;\r\n  -webkit-text-fill-color: transparent;\r\n}\r\n\r\n.header-right {\r\n  display: flex;\r\n  gap: 1rem;\r\n  align-items: center;\r\n}\r\n\r\n.header-buttons {\r\n  display: flex;\r\n  gap: 0.5rem;\r\n  background: rgba(0, 0, 0, 0.05);\r\n  padding: 4px;\r\n  border-radius: 12px;\r\n}\r\n\r\n[data-theme=\"dark\"] .header-buttons {\r\n  background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.icon-btn {\r\n  background: transparent;\r\n  border: none;\r\n  padding: 6px 10px;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  color: inherit;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: all 0.2s ease;\r\n  font-weight: 500;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.icon-btn:hover {\r\n  background: rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n[data-theme=\"dark\"] .icon-btn:hover {\r\n  background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.icon-btn.active {\r\n  background: var(--primary-color);\r\n  color: white;\r\n  box-shadow: 0 2px 5px rgba(0,0,0,0.2);\r\n}\r\n\r\n/* Fix generic inputs/selects for Dark Mode */\r\ninput, select, textarea {\r\n  background-color: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  padding: 8px;\r\n  border-radius: 6px;\r\n  font-family: inherit;\r\n  user-select: text !important;\r\n}\r\n\r\ninput, select, textarea, button {\r\n  pointer-events: auto !important;\r\n}\r\n\r\n[data-theme=\"dark\"] input, \r\n[data-theme=\"dark\"] select, \r\n[data-theme=\"dark\"] textarea {\r\n  background-color: #2c3e50;\r\n  color: var(--color-text-dark);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\ninput:focus, select:focus, textarea:focus {\r\n  outline: none;\r\n  border-color: var(--primary-color);\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);\r\n}\r\n\r\n[data-theme=\"dark\"] input:focus, \r\n[data-theme=\"dark\"] select:focus, \r\n[data-theme=\"dark\"] textarea:focus {\r\n  background-color: rgba(255,255,255,0.08) !important;\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);\r\n}\r\n\r\n.content-area {\r\n  flex: 1;\r\n  padding: 2rem;\r\n  overflow-y: auto;\r\n  background: inherit;\r\n  color: inherit;\r\n}\r\n\r\n/* Global Modal Styles */\r\n.modal-overlay {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background: rgba(0, 0, 0, 0.5);\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  z-index: 9999;\r\n  backdrop-filter: blur(4px);\r\n  pointer-events: auto;\r\n}\r\n\r\n.modal-content {\r\n  background: var(--bg-primary, #fff);\r\n  padding: 2.5rem;\r\n  border-radius: 20px;\r\n  width: 90%;\r\n  max-width: 550px;\r\n  max-height: 90vh;\r\n  overflow-y: auto;\r\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);\r\n  animation: modalIn 0.3s ease-out;\r\n  position: relative;\r\n}\r\n\r\n[data-theme=\"dark\"] .modal-content {\r\n  background: #1e272e;\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n@keyframes modalIn {\r\n  from { opacity: 0; transform: scale(0.95) translateY(20px); }\r\n  to { opacity: 1; transform: scale(1) translateY(0); }\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from { opacity: 0; transform: translateY(10px); }\r\n  to { opacity: 1; transform: translateY(0); }\r\n}\r\n\r\n.toast-container {\r\n  position: fixed;\r\n  top: 1rem;\r\n  right: 1rem;\r\n  z-index: 10000;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.5rem;\r\n  pointer-events: none;\r\n}\r\n\r\n.toast {\r\n  pointer-events: auto;\r\n  padding: 0.75rem 1.25rem;\r\n  border-radius: 10px;\r\n  color: #fff;\r\n  font-weight: 500;\r\n  font-size: 0.9rem;\r\n  cursor: pointer;\r\n  animation: slideIn 0.3s ease-out;\r\n  box-shadow: 0 4px 12px rgba(0,0,0,0.15);\r\n  max-width: 400px;\r\n}\r\n\r\n.toast-success { background: #27ae60; }\r\n.toast-error { background: #e74c3c; }\r\n.toast-info { background: #3498db; }\r\n.toast-warning { background: #f39c12; }\r\n\r\n@keyframes slideIn {\r\n  from { transform: translateX(100%); opacity: 0; }\r\n  to { transform: translateX(0); opacity: 1; }\r\n}\r\n\r\n.kpi-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));\r\n  gap: 1rem;\r\n  margin-top: 1.5rem;\r\n}\r\n\r\n.kpi-card {\r\n  background: var(--bg-secondary);\r\n  padding: 1.25rem;\r\n  border-radius: 12px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n  animation: fadeIn 0.3s ease-out;\r\n}\r\n\r\n.kpi-icon { flex-shrink: 0; }\r\n\r\n.kpi-card div {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.kpi-value {\r\n  font-size: 1.5rem;\r\n  font-weight: 700;\r\n  color: var(--text-primary);\r\n}\r\n\r\n.kpi-label {\r\n  font-size: 0.8rem;\r\n  color: var(--text-secondary);\r\n}\r\n\r\n.sales-history .sales-split {\r\n  display: flex;\r\n  gap: 1rem;\r\n  margin-top: 1rem;\r\n}\r\n\r\n.sales-list-panel { flex: 1; min-width: 0; }\r\n.sale-detail-panel {\r\n  width: 400px;\r\n  flex-shrink: 0;\r\n  background: var(--bg-secondary);\r\n  padding: 1.25rem;\r\n  border-radius: 12px;\r\n  animation: fadeIn 0.3s ease-out;\r\n}\r\n\r\n.sale-detail-panel .detail-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.sale-detail-panel h3 { margin: 0; }\r\n.selected-row { background: rgba(52, 152, 219, 0.1); }\r\n\r\n.search-bar label input[type=\"date\"] {\r\n  padding: 0.4rem 0.6rem;\r\n  border-radius: 6px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  background: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  font-size: 0.85rem;\r\n}\r\n\r\n[data-theme=\"dark\"] .search-bar label input[type=\"date\"] {\r\n  border-color: rgba(255,255,255,0.1);\r\n  background: #2c3e50;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1758,6 +1812,27 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.login-wrapper {
   transform: translateY(0);
 }
 
+.exit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.7rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.exit-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
 .error-message {
   color: #ff6b6b;
   font-size: 0.85rem;
@@ -1776,7 +1851,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.login-wrapper {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-`, "",{"version":3,"sources":["webpack://./src/components/Login.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,6DAA6D;EAC7D,WAAW;AACb;;AAEA;EACE,0EAA0E;AAC5E;;AAEA;EACE,oCAAoC;EACpC,2BAA2B;EAC3B,eAAe;EACf,mBAAmB;EACnB,WAAW;EACX,gBAAgB;EAChB,0CAA0C;EAC1C,0CAA0C;EAC1C,+BAA+B;AACjC;;AAEA;EACE,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,SAAS;EACT,iBAAiB;EACjB,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,WAAW;AACb;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,qCAAqC;EACrC,oBAAoB;EACpB,mBAAmB;EACnB,0CAA0C;EAC1C,oBAAoB;AACtB;;AAEA;EACE,oCAAoC;EACpC,sCAAsC;AACxC;;AAEA;EACE,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,WAAW;EACX,mBAAmB;EACnB,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,mBAAmB;EACnB,YAAY;EACZ,YAAY;EACZ,aAAa;EACb,mBAAmB;EACnB,eAAe;EACf,gBAAgB;EAChB,eAAe;EACf,2CAA2C;EAC3C,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;EACnB,2BAA2B;AAC7B;;AAEA;EACE,wBAAwB;AAC1B;;AAEA;EACE,cAAc;EACd,kBAAkB;EAClB,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,OAAO,UAAU,EAAE,2BAA2B,EAAE;EAChD,KAAK,UAAU,EAAE,wBAAwB,EAAE;AAC7C","sourcesContent":[".login-wrapper {\r\n  height: 100vh;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);\r\n  color: #fff;\r\n}\r\n\r\n[data-theme=\"dark\"] .login-wrapper {\r\n  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);\r\n}\r\n\r\n.login-card {\r\n  background: rgba(255, 255, 255, 0.1);\r\n  backdrop-filter: blur(10px);\r\n  padding: 2.5rem;\r\n  border-radius: 20px;\r\n  width: 100%;\r\n  max-width: 400px;\r\n  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n  animation: fadeIn 0.8s ease-out;\r\n}\r\n\r\n.login-header {\r\n  text-align: center;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.login-logo {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.login-header h2 {\r\n  margin: 0;\r\n  font-size: 1.8rem;\r\n  font-weight: 700;\r\n}\r\n\r\n.login-header p {\r\n  opacity: 0.7;\r\n  font-size: 0.9rem;\r\n  margin-top: 0.5rem;\r\n}\r\n\r\n.login-form {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1.2rem;\r\n}\r\n\r\n.input-field {\r\n  display: flex;\r\n  align-items: center;\r\n  background: rgba(255, 255, 255, 0.05);\r\n  padding: 0.8rem 1rem;\r\n  border-radius: 12px;\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n  transition: all 0.3s;\r\n}\r\n\r\n.input-field:focus-within {\r\n  background: rgba(255, 255, 255, 0.1);\r\n  border-color: rgba(255, 255, 255, 0.3);\r\n}\r\n\r\n.input-field input {\r\n  background: transparent;\r\n  border: none;\r\n  outline: none;\r\n  color: #fff;\r\n  margin-left: 0.8rem;\r\n  width: 100%;\r\n  font-size: 1rem;\r\n}\r\n\r\n.login-button {\r\n  background: #3498db;\r\n  color: white;\r\n  border: none;\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n  font-size: 1rem;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  transition: transform 0.2s, background 0.2s;\r\n  margin-top: 0.5rem;\r\n}\r\n\r\n.login-button:hover {\r\n  background: #2980b9;\r\n  transform: translateY(-2px);\r\n}\r\n\r\n.login-button:active {\r\n  transform: translateY(0);\r\n}\r\n\r\n.error-message {\r\n  color: #ff6b6b;\r\n  font-size: 0.85rem;\r\n  text-align: center;\r\n  margin-top: -0.5rem;\r\n}\r\n\r\n.login-footer {\r\n  text-align: center;\r\n  margin-top: 2rem;\r\n  opacity: 0.5;\r\n  font-size: 0.75rem;\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from { opacity: 0; transform: translateY(20px); }\r\n  to { opacity: 1; transform: translateY(0); }\r\n}\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/components/Login.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,6DAA6D;EAC7D,WAAW;AACb;;AAEA;EACE,0EAA0E;AAC5E;;AAEA;EACE,oCAAoC;EACpC,2BAA2B;EAC3B,eAAe;EACf,mBAAmB;EACnB,WAAW;EACX,gBAAgB;EAChB,0CAA0C;EAC1C,0CAA0C;EAC1C,+BAA+B;AACjC;;AAEA;EACE,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,SAAS;EACT,iBAAiB;EACjB,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,WAAW;AACb;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,qCAAqC;EACrC,oBAAoB;EACpB,mBAAmB;EACnB,0CAA0C;EAC1C,oBAAoB;AACtB;;AAEA;EACE,oCAAoC;EACpC,sCAAsC;AACxC;;AAEA;EACE,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,WAAW;EACX,mBAAmB;EACnB,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,mBAAmB;EACnB,YAAY;EACZ,YAAY;EACZ,aAAa;EACb,mBAAmB;EACnB,eAAe;EACf,gBAAgB;EAChB,eAAe;EACf,2CAA2C;EAC3C,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;EACnB,2BAA2B;AAC7B;;AAEA;EACE,wBAAwB;AAC1B;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,QAAQ;EACR,uBAAuB;EACvB,+BAA+B;EAC/B,0CAA0C;EAC1C,eAAe;EACf,mBAAmB;EACnB,iBAAiB;EACjB,eAAe;EACf,oBAAoB;AACtB;;AAEA;EACE,oCAAoC;EACpC,WAAW;EACX,sCAAsC;AACxC;;AAEA;EACE,cAAc;EACd,kBAAkB;EAClB,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,OAAO,UAAU,EAAE,2BAA2B,EAAE;EAChD,KAAK,UAAU,EAAE,wBAAwB,EAAE;AAC7C","sourcesContent":[".login-wrapper {\r\n  height: 100vh;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);\r\n  color: #fff;\r\n}\r\n\r\n[data-theme=\"dark\"] .login-wrapper {\r\n  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);\r\n}\r\n\r\n.login-card {\r\n  background: rgba(255, 255, 255, 0.1);\r\n  backdrop-filter: blur(10px);\r\n  padding: 2.5rem;\r\n  border-radius: 20px;\r\n  width: 100%;\r\n  max-width: 400px;\r\n  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n  animation: fadeIn 0.8s ease-out;\r\n}\r\n\r\n.login-header {\r\n  text-align: center;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.login-logo {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.login-header h2 {\r\n  margin: 0;\r\n  font-size: 1.8rem;\r\n  font-weight: 700;\r\n}\r\n\r\n.login-header p {\r\n  opacity: 0.7;\r\n  font-size: 0.9rem;\r\n  margin-top: 0.5rem;\r\n}\r\n\r\n.login-form {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1.2rem;\r\n}\r\n\r\n.input-field {\r\n  display: flex;\r\n  align-items: center;\r\n  background: rgba(255, 255, 255, 0.05);\r\n  padding: 0.8rem 1rem;\r\n  border-radius: 12px;\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n  transition: all 0.3s;\r\n}\r\n\r\n.input-field:focus-within {\r\n  background: rgba(255, 255, 255, 0.1);\r\n  border-color: rgba(255, 255, 255, 0.3);\r\n}\r\n\r\n.input-field input {\r\n  background: transparent;\r\n  border: none;\r\n  outline: none;\r\n  color: #fff;\r\n  margin-left: 0.8rem;\r\n  width: 100%;\r\n  font-size: 1rem;\r\n}\r\n\r\n.login-button {\r\n  background: #3498db;\r\n  color: white;\r\n  border: none;\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n  font-size: 1rem;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  transition: transform 0.2s, background 0.2s;\r\n  margin-top: 0.5rem;\r\n}\r\n\r\n.login-button:hover {\r\n  background: #2980b9;\r\n  transform: translateY(-2px);\r\n}\r\n\r\n.login-button:active {\r\n  transform: translateY(0);\r\n}\r\n\r\n.exit-button {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  gap: 6px;\r\n  background: transparent;\r\n  color: rgba(255, 255, 255, 0.6);\r\n  border: 1px solid rgba(255, 255, 255, 0.2);\r\n  padding: 0.7rem;\r\n  border-radius: 12px;\r\n  font-size: 0.9rem;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n}\r\n\r\n.exit-button:hover {\r\n  background: rgba(255, 255, 255, 0.1);\r\n  color: #fff;\r\n  border-color: rgba(255, 255, 255, 0.4);\r\n}\r\n\r\n.error-message {\r\n  color: #ff6b6b;\r\n  font-size: 0.85rem;\r\n  text-align: center;\r\n  margin-top: -0.5rem;\r\n}\r\n\r\n.login-footer {\r\n  text-align: center;\r\n  margin-top: 2rem;\r\n  opacity: 0.5;\r\n  font-size: 0.75rem;\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from { opacity: 0; transform: translateY(20px); }\r\n  to { opacity: 1; transform: translateY(0); }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -57834,17 +57909,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./App.css */ "./src/App.css");
 /* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Login */ "./src/components/Login.jsx");
 /* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Sidebar */ "./src/components/Sidebar.jsx");
-/* harmony import */ var _components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/ProtectedRoute */ "./src/components/ProtectedRoute.jsx");
-/* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Dashboard */ "./src/components/Dashboard.jsx");
-/* harmony import */ var _Settings__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Settings */ "./src/Settings.jsx");
-/* harmony import */ var _components_ProductManagement__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/ProductManagement */ "./src/components/ProductManagement.jsx");
-/* harmony import */ var _components_Categories__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Categories */ "./src/components/Categories.jsx");
-/* harmony import */ var _components_Clients__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Clients */ "./src/components/Clients.jsx");
-/* harmony import */ var _components_SalesScreen__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/SalesScreen */ "./src/components/SalesScreen.jsx");
-/* harmony import */ var _components_SalesHistory__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/SalesHistory */ "./src/components/SalesHistory.jsx");
-/* harmony import */ var _components_Reports__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Reports */ "./src/components/Reports.jsx");
-/* harmony import */ var _components_UserProfile__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/UserProfile */ "./src/components/UserProfile.jsx");
-/* harmony import */ var _components_Coupons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/Coupons */ "./src/components/Coupons.jsx");
+/* harmony import */ var _components_TitleBar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/TitleBar */ "./src/components/TitleBar.jsx");
+/* harmony import */ var _components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/ProtectedRoute */ "./src/components/ProtectedRoute.jsx");
+/* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Dashboard */ "./src/components/Dashboard.jsx");
+/* harmony import */ var _Settings__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Settings */ "./src/Settings.jsx");
+/* harmony import */ var _components_ProductManagement__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/ProductManagement */ "./src/components/ProductManagement.jsx");
+/* harmony import */ var _components_Categories__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Categories */ "./src/components/Categories.jsx");
+/* harmony import */ var _components_Clients__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Clients */ "./src/components/Clients.jsx");
+/* harmony import */ var _components_SalesScreen__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/SalesScreen */ "./src/components/SalesScreen.jsx");
+/* harmony import */ var _components_SalesHistory__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/SalesHistory */ "./src/components/SalesHistory.jsx");
+/* harmony import */ var _components_Reports__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Reports */ "./src/components/Reports.jsx");
+/* harmony import */ var _components_UserProfile__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/UserProfile */ "./src/components/UserProfile.jsx");
+/* harmony import */ var _components_Coupons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/Coupons */ "./src/components/Coupons.jsx");
+
 
 
 
@@ -57929,6 +58006,11 @@ function AppContent() {
     });
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "app-root"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_TitleBar__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    config: businessConfig,
+    theme: theme
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "app-layout"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Sidebar__WEBPACK_IMPORTED_MODULE_10__["default"], {
     user: user,
@@ -57981,50 +58063,50 @@ function AppContent() {
     className: "content-area"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Dashboard__WEBPACK_IMPORTED_MODULE_12__["default"], null)
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Dashboard__WEBPACK_IMPORTED_MODULE_13__["default"], null)
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/sales",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
       allowedRoles: ['Administrator', 'Supervisor', 'Cashier']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SalesScreen__WEBPACK_IMPORTED_MODULE_17__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SalesScreen__WEBPACK_IMPORTED_MODULE_18__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/sales-history",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SalesHistory__WEBPACK_IMPORTED_MODULE_18__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SalesHistory__WEBPACK_IMPORTED_MODULE_19__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/products",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProductManagement__WEBPACK_IMPORTED_MODULE_14__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProductManagement__WEBPACK_IMPORTED_MODULE_15__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/categories",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Categories__WEBPACK_IMPORTED_MODULE_15__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Categories__WEBPACK_IMPORTED_MODULE_16__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/clients",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
       allowedRoles: ['Administrator', 'Supervisor', 'Cashier']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Clients__WEBPACK_IMPORTED_MODULE_16__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Clients__WEBPACK_IMPORTED_MODULE_17__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/coupons",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Coupons__WEBPACK_IMPORTED_MODULE_21__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Coupons__WEBPACK_IMPORTED_MODULE_22__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/reports",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Reports__WEBPACK_IMPORTED_MODULE_19__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Reports__WEBPACK_IMPORTED_MODULE_20__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/settings",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
       allowedRoles: ['Administrator']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Settings__WEBPACK_IMPORTED_MODULE_13__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Settings__WEBPACK_IMPORTED_MODULE_14__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/profile",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_UserProfile__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_UserProfile__WEBPACK_IMPORTED_MODULE_21__["default"], {
       user: user,
       onUpdateUser: handleLogin
     })
@@ -58033,7 +58115,7 @@ function AppContent() {
     element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Navigate, {
       to: "/"
     })
-  }))))));
+  })))))));
 }
 function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_7__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ToastContext__WEBPACK_IMPORTED_MODULE_6__.ToastProvider, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(AppContent, null)));
@@ -59712,9 +59794,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/lock.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/log-in.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/user.js");
-/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _Login_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Login.css */ "./src/components/Login.css");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/log-out.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/user.js");
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
+/* harmony import */ var _Login_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Login.css */ "./src/components/Login.css");
 
 
 
@@ -59724,10 +59807,13 @@ function Login({
 }) {
   const {
     t
-  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_4__.useTranslation)();
+  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_5__.useTranslation)();
   const [username, setUsername] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [password, setPassword] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const handleExit = () => {
+    window.api.quitApp();
+  };
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
@@ -59771,7 +59857,7 @@ function Login({
     className: "login-form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "input-field"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
     size: 18
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
@@ -59794,7 +59880,13 @@ function Login({
   }, error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "submit",
     className: "login-button"
-  }, t('login.button'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, t('login.button')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    type: "button",
+    className: "exit-button",
+    onClick: handleExit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    size: 16
+  }), " ", t('login.exit'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "login-footer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, t('login.footer')))));
 }
@@ -61492,6 +61584,49 @@ function Sidebar({
 
 /***/ },
 
+/***/ "./src/components/TitleBar.jsx"
+/*!*************************************!*\
+  !*** ./src/components/TitleBar.jsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TitleBar)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
+
+
+function TitleBar({
+  config,
+  theme
+}) {
+  const appliedTheme = theme === 'system' ? window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' : theme;
+  const logoPath = config?.hasThemeLogos ? appliedTheme === 'dark' ? config.logoDarkPath : config.logoLightPath : config?.logoLightPath;
+  const faviconSrc = config?.faviconPath ? (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getMediaUrl)(config.faviconPath) : null;
+  const logoSrc = logoPath ? (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getMediaUrl)(logoPath) : null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "titlebar"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "titlebar-drag"
+  }, faviconSrc && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: faviconSrc,
+    alt: "",
+    className: "titlebar-favicon"
+  }), logoSrc && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: logoSrc,
+    alt: "",
+    className: "titlebar-logo"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "titlebar-business-name"
+  }, config?.businessName || 'Tu Negocio')));
+}
+
+/***/ },
+
 /***/ "./src/components/UserProfile.css"
 /*!****************************************!*\
   !*** ./src/components/UserProfile.css ***!
@@ -61802,7 +61937,7 @@ i18next__WEBPACK_IMPORTED_MODULE_0__["default"].use(react_i18next__WEBPACK_IMPOR
 (module) {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","welcome":"Welcome to the point of sale"},"common":{"info":"Information","save":"Save","cancel":"Cancel","edit":"Edit","delete":"Delete","actions":"Actions","search":"Search...","loading":"Loading...","no_results":"No results found.","confirm_delete":"Are you sure you want to delete this item?","save_success":"Changes saved successfully","save_error":"Error saving changes","menu":"Menu","hide":"Hide","show":"Show","import_error":"Import error","select_file":"Select file","confirm":"Confirm","saved":"Saved"},"login":{"title":"Tu Negocio Desktop","subtitle":"Powering your point of sale","username":"Username","password":"Password","button":"Login","error":"Incorrect credentials","footer":"© 2025 Tu Negocio Desktop. All rights reserved."},"menu":{"dashboard":"Dashboard","sales":"Sales","products":"Products","categories":"Categories","clients":"Clients","coupons":"Coupons","reports":"Reports","settings":"Settings","permissions":"Permissions","logout":"Logout"},"permissions":{"title":"Section Management","subtitle":"Control which sections are visible for each role","section_header":"Section","save_success":"Permissions updated","save_changes":"Save Changes"},"products":{"title":"Products","subtitle":"Manage your inventory and catalog","new":"New Product","import":"Import CSV","code":"Code","name":"Name","category":"Category","price":"Price","stock":"Stock","image":"Image","no_category":"No category","select_category":"Select category","duplicate_code_error":"Error: Product code already exists.","cost":"Cost","detected":"products detected","import_instructions":"Select a CSV file with columns: code, name, price, cost, stock, category_id"},"clients":{"title":"Client Management","subtitle":"Manage your client database","new":"New Client","name":"Name","email":"Email","phone":"Phone","address":"Address","photo":"Photo"},"coupons":{"title":"Coupon Management","subtitle":"Create and manage discount codes","new":"New Coupon","code":"Code","discount":"Discount","type":"Type","expiry":"Expiry","status":"Status","active":"Active","expired":"Expired","percentage":"Percentage (%)","fixed":"Fixed ($)","never":"Never","edit_title":"Edit Coupon","new_title":"New Coupon","not_found":"Coupon not found","expired_alert":"This coupon has expired","apply_success":"Coupon applied successfully"},"sales":{"search_placeholder":"Search product...","unit_price":"Unit Price","quantity":"Quantity","subtotal":"Subtotal","total":"Total","discount":"Discount","finish":"Finish Sale","client":"Client","change_client":"Change","coupon_placeholder":"Coupon code...","apply":"Apply","cart_empty":"Cart is empty","select_client":"Select Client","search_client":"Search client...","final_consumer":"Final Consumer","success_alert":"Sale completed successfully","error_alert":"Error processing sale"},"reports":{"title":"Reports & Statistics","subtitle":"General summary of your business performance","total_sales":"Total Sales","sales_count":"Number of Sales","product_count":"Products in Catalog","low_stock":"Low Stock (< 10)","chart_placeholder":"Sales Chart (A library like Recharts will be integrated here in the future)"},"settings":{"business_title":"Business Settings","business_name":"Business Name","logo":"Logo","logo_light":"Light Logo","logo_dark":"Dark Logo","has_theme_logos":"Logo has Light/Dark versions","favicon":"Favicon","favicon_default":"If not specified, the default icon will be used","typography":"Typography"},"categories":{"title":"Categories","subtitle":"Manage your product categories","new":"New Category","name":"Name","image":"Image","select_category":"Select category"},"users":{"title":"User Management","subtitle":"Manage users and their roles","new":"New User","username":"Username","password":"Password","role":"Role","image":"Profile Picture","edit_profile":"Edit Profile","current_password":"Current Password","new_password":"New Password","confirm_password":"Confirm New Password","password_updated":"Password updated successfully","password_error":"Incorrect current password","password_mismatch":"Passwords do not match","edit_password":"Edit Password","update_password":"Update Password"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","welcome":"Welcome to the point of sale"},"common":{"info":"Information","save":"Save","cancel":"Cancel","edit":"Edit","delete":"Delete","actions":"Actions","search":"Search...","loading":"Loading...","no_results":"No results found.","confirm_delete":"Are you sure you want to delete this item?","save_success":"Changes saved successfully","save_error":"Error saving changes","menu":"Menu","hide":"Hide","show":"Show","import_error":"Import error","select_file":"Select file","confirm":"Confirm","saved":"Saved"},"login":{"title":"Tu Negocio Desktop","subtitle":"Powering your point of sale","username":"Username","password":"Password","button":"Login","error":"Incorrect credentials","footer":"© 2025 Tu Negocio Desktop. All rights reserved.","exit":"Exit"},"menu":{"dashboard":"Dashboard","sales":"Sales","products":"Products","categories":"Categories","clients":"Clients","coupons":"Coupons","reports":"Reports","settings":"Settings","permissions":"Permissions","logout":"Logout"},"permissions":{"title":"Section Management","subtitle":"Control which sections are visible for each role","section_header":"Section","save_success":"Permissions updated","save_changes":"Save Changes"},"products":{"title":"Products","subtitle":"Manage your inventory and catalog","new":"New Product","import":"Import CSV","code":"Code","name":"Name","category":"Category","price":"Price","stock":"Stock","image":"Image","no_category":"No category","select_category":"Select category","duplicate_code_error":"Error: Product code already exists.","cost":"Cost","detected":"products detected","import_instructions":"Select a CSV file with columns: code, name, price, cost, stock, category_id"},"clients":{"title":"Client Management","subtitle":"Manage your client database","new":"New Client","name":"Name","email":"Email","phone":"Phone","address":"Address","photo":"Photo"},"coupons":{"title":"Coupon Management","subtitle":"Create and manage discount codes","new":"New Coupon","code":"Code","discount":"Discount","type":"Type","expiry":"Expiry","status":"Status","active":"Active","expired":"Expired","percentage":"Percentage (%)","fixed":"Fixed ($)","never":"Never","edit_title":"Edit Coupon","new_title":"New Coupon","not_found":"Coupon not found","expired_alert":"This coupon has expired","apply_success":"Coupon applied successfully"},"sales":{"search_placeholder":"Search product...","unit_price":"Unit Price","quantity":"Quantity","subtotal":"Subtotal","total":"Total","discount":"Discount","finish":"Finish Sale","client":"Client","change_client":"Change","coupon_placeholder":"Coupon code...","apply":"Apply","cart_empty":"Cart is empty","select_client":"Select Client","search_client":"Search client...","final_consumer":"Final Consumer","success_alert":"Sale completed successfully","error_alert":"Error processing sale"},"reports":{"title":"Reports & Statistics","subtitle":"General summary of your business performance","total_sales":"Total Sales","sales_count":"Number of Sales","product_count":"Products in Catalog","low_stock":"Low Stock (< 10)","chart_placeholder":"Sales Chart (A library like Recharts will be integrated here in the future)"},"settings":{"business_title":"Business Settings","business_name":"Business Name","logo":"Logo","logo_light":"Light Logo","logo_dark":"Dark Logo","has_theme_logos":"Logo has Light/Dark versions","favicon":"Favicon","favicon_default":"If not specified, the default icon will be used","typography":"Typography"},"categories":{"title":"Categories","subtitle":"Manage your product categories","new":"New Category","name":"Name","image":"Image","select_category":"Select category"},"users":{"title":"User Management","subtitle":"Manage users and their roles","new":"New User","username":"Username","password":"Password","role":"Role","image":"Profile Picture","edit_profile":"Edit Profile","current_password":"Current Password","new_password":"New Password","confirm_password":"Confirm New Password","password_updated":"Password updated successfully","password_error":"Incorrect current password","password_mismatch":"Passwords do not match","edit_password":"Edit Password","update_password":"Update Password"}}');
 
 /***/ },
 
@@ -61813,7 +61948,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","
 (module) {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","welcome":"Bienvenido al punto de venta"},"common":{"info":"Información","save":"Guardar","cancel":"Cancelar","edit":"Editar","delete":"Eliminar","actions":"Acciones","search":"Buscar...","loading":"Cargando...","no_results":"No se encontraron resultados.","confirm_delete":"¿Estás seguro de eliminar este elemento?","save_success":"Cambios guardados con éxito","save_error":"Error al guardar los cambios","menu":"Menú","hide":"Ocultar","show":"Mostrar","import_error":"Error al importar","select_file":"Seleccionar archivo","confirm":"Confirmar","saved":"Guardado"},"login":{"title":"Tu Negocio Desktop","subtitle":"Potenciando tu punto de venta","username":"Usuario","password":"Contraseña","button":"Iniciar Sesión","error":"Credenciales incorrectas","footer":"© 2025 Tu Negocio Desktop. Todos los derechos reservados."},"menu":{"dashboard":"Dashboard","sales":"Ventas","products":"Productos","categories":"Categorías","clients":"Clientes","coupons":"Cupones","reports":"Reportes","settings":"Configuración","permissions":"Permisos","logout":"Cerrar Sesión"},"permissions":{"title":"Gestión de Secciones","subtitle":"Controla qué secciones son visibles para cada rol","section_header":"Sección","save_success":"Permisos actualizados","save_changes":"Guardar Cambios"},"products":{"title":"Productos","subtitle":"Gestiona tu inventario y catálogo","new":"Nuevo Producto","import":"Importar CSV","code":"Código","name":"Nombre","category":"Categoría","price":"Precio","stock":"Stock","no_category":"Sin categoría","image":"Imagen","select_category":"Seleccionar categoría","duplicate_code_error":"Error: El código de producto ya existe.","detected":"productos detectados","import_instructions":"Selecciona un archivo CSV con las columnas: code, name, price, cost, stock, category_id","cost":"Costo"},"clients":{"title":"Gestión de Clientes","subtitle":"Administra tu base de datos de clientes","new":"Nuevo Cliente","name":"Nombre","email":"Email","phone":"Teléfono","address":"Dirección","photo":"Foto"},"coupons":{"title":"Gestión de Cupones","subtitle":"Crea y administra códigos de descuento","new":"Nuevo Cupón","code":"Código","discount":"Descuento","type":"Tipo","expiry":"Expiración","status":"Estado","active":"Activo","expired":"Expirado","percentage":"Porcentaje (%)","fixed":"Fijo ($)","never":"Nunca","edit_title":"Editar Cupón","new_title":"Nuevo Cupón","not_found":"Cupón no encontrado","expired_alert":"Este cupón ha expirado","apply_success":"Cupón aplicado con éxito"},"sales":{"search_placeholder":"Buscar producto...","unit_price":"P. Unitario","quantity":"Cantidad","subtotal":"Subtotal","total":"Total","discount":"Descuento","finish":"Finalizar Venta","client":"Cliente","change_client":"Cambiar","coupon_placeholder":"Código de cupón...","apply":"Aplicar","cart_empty":"El carrito está vacío","select_client":"Seleccionar Cliente","search_client":"Buscar cliente...","final_consumer":"Consumidor Final","success_alert":"Venta realizada con éxito","error_alert":"Error al procesar la venta"},"reports":{"title":"Reportes y Estadísticas","subtitle":"Resumen general del rendimiento de tu negocio","total_sales":"Ventas Totales","sales_count":"Número de Ventas","product_count":"Productos en Catálogo","low_stock":"Stock Bajo (< 10)","chart_placeholder":"Gráfica de ventas (Aquí se integrará una librería como Recharts en el futuro)"},"settings":{"business_title":"Configuración del Negocio","business_name":"Nombre del negocio","logo":"Logo","logo_light":"Logo claro (Light)","logo_dark":"Logo oscuro (Dark)","has_theme_logos":"El logo tiene versión Light/Dark","favicon":"Favicon","favicon_default":"Si no se especifica, se usará el icono por defecto","typography":"Tipografía"},"categories":{"title":"Categorías","subtitle":"Administra las categorías de tus productos","new":"Nueva Categoría","name":"Nombre","image":"Imagen","select_category":"Seleccionar categoría"},"users":{"title":"Gestión de Usuarios","subtitle":"Administra los usuarios y sus roles","new":"Nuevo Usuario","username":"Nombre de usuario","password":"Contraseña","role":"Rol","image":"Foto de perfil","edit_profile":"Editar Perfil","current_password":"Contraseña Actual","new_password":"Nueva Contraseña","confirm_password":"Confirmar Nueva Contraseña","password_updated":"Contraseña actualizada con éxito","password_error":"Contraseña actual incorrecta","password_mismatch":"Las contraseñas no coinciden","edit_password":"Modificar Contraseña","update_password":"Actualizar Contraseña"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","welcome":"Bienvenido al punto de venta"},"common":{"info":"Información","save":"Guardar","cancel":"Cancelar","edit":"Editar","delete":"Eliminar","actions":"Acciones","search":"Buscar...","loading":"Cargando...","no_results":"No se encontraron resultados.","confirm_delete":"¿Estás seguro de eliminar este elemento?","save_success":"Cambios guardados con éxito","save_error":"Error al guardar los cambios","menu":"Menú","hide":"Ocultar","show":"Mostrar","import_error":"Error al importar","select_file":"Seleccionar archivo","confirm":"Confirmar","saved":"Guardado"},"login":{"title":"Tu Negocio Desktop","subtitle":"Potenciando tu punto de venta","username":"Usuario","password":"Contraseña","button":"Iniciar Sesión","error":"Credenciales incorrectas","footer":"© 2025 Tu Negocio Desktop. Todos los derechos reservados.","exit":"Salir"},"menu":{"dashboard":"Dashboard","sales":"Ventas","products":"Productos","categories":"Categorías","clients":"Clientes","coupons":"Cupones","reports":"Reportes","settings":"Configuración","permissions":"Permisos","logout":"Cerrar Sesión"},"permissions":{"title":"Gestión de Secciones","subtitle":"Controla qué secciones son visibles para cada rol","section_header":"Sección","save_success":"Permisos actualizados","save_changes":"Guardar Cambios"},"products":{"title":"Productos","subtitle":"Gestiona tu inventario y catálogo","new":"Nuevo Producto","import":"Importar CSV","code":"Código","name":"Nombre","category":"Categoría","price":"Precio","stock":"Stock","no_category":"Sin categoría","image":"Imagen","select_category":"Seleccionar categoría","duplicate_code_error":"Error: El código de producto ya existe.","detected":"productos detectados","import_instructions":"Selecciona un archivo CSV con las columnas: code, name, price, cost, stock, category_id","cost":"Costo"},"clients":{"title":"Gestión de Clientes","subtitle":"Administra tu base de datos de clientes","new":"Nuevo Cliente","name":"Nombre","email":"Email","phone":"Teléfono","address":"Dirección","photo":"Foto"},"coupons":{"title":"Gestión de Cupones","subtitle":"Crea y administra códigos de descuento","new":"Nuevo Cupón","code":"Código","discount":"Descuento","type":"Tipo","expiry":"Expiración","status":"Estado","active":"Activo","expired":"Expirado","percentage":"Porcentaje (%)","fixed":"Fijo ($)","never":"Nunca","edit_title":"Editar Cupón","new_title":"Nuevo Cupón","not_found":"Cupón no encontrado","expired_alert":"Este cupón ha expirado","apply_success":"Cupón aplicado con éxito"},"sales":{"search_placeholder":"Buscar producto...","unit_price":"P. Unitario","quantity":"Cantidad","subtotal":"Subtotal","total":"Total","discount":"Descuento","finish":"Finalizar Venta","client":"Cliente","change_client":"Cambiar","coupon_placeholder":"Código de cupón...","apply":"Aplicar","cart_empty":"El carrito está vacío","select_client":"Seleccionar Cliente","search_client":"Buscar cliente...","final_consumer":"Consumidor Final","success_alert":"Venta realizada con éxito","error_alert":"Error al procesar la venta"},"reports":{"title":"Reportes y Estadísticas","subtitle":"Resumen general del rendimiento de tu negocio","total_sales":"Ventas Totales","sales_count":"Número de Ventas","product_count":"Productos en Catálogo","low_stock":"Stock Bajo (< 10)","chart_placeholder":"Gráfica de ventas (Aquí se integrará una librería como Recharts en el futuro)"},"settings":{"business_title":"Configuración del Negocio","business_name":"Nombre del negocio","logo":"Logo","logo_light":"Logo claro (Light)","logo_dark":"Logo oscuro (Dark)","has_theme_logos":"El logo tiene versión Light/Dark","favicon":"Favicon","favicon_default":"Si no se especifica, se usará el icono por defecto","typography":"Tipografía"},"categories":{"title":"Categorías","subtitle":"Administra las categorías de tus productos","new":"Nueva Categoría","name":"Nombre","image":"Imagen","select_category":"Seleccionar categoría"},"users":{"title":"Gestión de Usuarios","subtitle":"Administra los usuarios y sus roles","new":"Nuevo Usuario","username":"Nombre de usuario","password":"Contraseña","role":"Rol","image":"Foto de perfil","edit_profile":"Editar Perfil","current_password":"Contraseña Actual","new_password":"Nueva Contraseña","confirm_password":"Confirmar Nueva Contraseña","password_updated":"Contraseña actualizada con éxito","password_error":"Contraseña actual incorrecta","password_mismatch":"Las contraseñas no coinciden","edit_password":"Modificar Contraseña","update_password":"Actualizar Contraseña"}}');
 
 /***/ },
 

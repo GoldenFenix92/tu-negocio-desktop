@@ -8,6 +8,7 @@ import './App.css';
 
 import Login from './components/Login';
 import Sidebar from './components/Sidebar';
+import TitleBar from './components/TitleBar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './components/Dashboard';
 import Settings from './Settings';
@@ -90,8 +91,10 @@ function AppContent() {
 
   return (
     <Router>
-      <div className="app-layout">
-        <Sidebar user={user} onLogout={handleLogout} />
+      <div className="app-root">
+        <TitleBar config={businessConfig} theme={theme} />
+        <div className="app-layout">
+          <Sidebar user={user} onLogout={handleLogout} />
         <div className="main-content">
           <header className="app-header">
             <div className="header-left">
@@ -137,6 +140,7 @@ function AppContent() {
             </Routes>
           </main>
         </div>
+      </div>
       </div>
     </Router>
   );

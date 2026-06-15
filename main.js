@@ -43,6 +43,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -153,6 +154,10 @@ ipcMain.handle('write-config', async (event, { filename, data }) => {
 ipcMain.handle('restart-app', async () => {
   app.relaunch();
   app.exit(0);
+});
+
+ipcMain.handle('quit-app', async () => {
+  app.quit();
 });
 
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/bmp'];

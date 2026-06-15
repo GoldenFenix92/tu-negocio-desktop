@@ -31,7 +31,8 @@
     "password": "Password",
     "button": "Login",
     "error": "Incorrect credentials",
-    "footer": "© 2025 Tu Negocio Desktop. All rights reserved."
+    "footer": "© 2025 Tu Negocio Desktop. All rights reserved.",
+    "exit": "Exit"
   },
   "menu": {
     "dashboard": "Dashboard",

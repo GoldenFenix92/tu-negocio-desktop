@@ -31,7 +31,8 @@
     "password": "Contraseña",
     "button": "Iniciar Sesión",
     "error": "Credenciales incorrectas",
-    "footer": "© 2025 Tu Negocio Desktop. Todos los derechos reservados."
+    "footer": "© 2025 Tu Negocio Desktop. Todos los derechos reservados.",
+    "exit": "Salir"
   },
   "menu": {
     "dashboard": "Dashboard",
