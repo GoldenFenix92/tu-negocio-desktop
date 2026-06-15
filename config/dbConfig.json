@@ -1,7 +1,4 @@
 {
-  "host": "localhost",
-  "user": "root",
-  "password": "",
-  "database": "tu_negocio",
-  "port": 3306
+  "filename": "data/tu_negocio.db",
+  "database": "tu_negocio"
 }

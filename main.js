@@ -4,7 +4,7 @@ const fs = require('fs');
 const { net } = require('electron');
 const { pathToFileURL } = require('url');
 const bcrypt = require('bcryptjs');
-const db = require('./db/mysql');
+const db = require('./db/sqlite');
 
 // Register custom protocol for local images
 app.whenReady().then(() => {
@@ -21,15 +21,21 @@ app.whenReady().then(() => {
   });
 });
 
+function resolveIcon(config) {
+  if (config.faviconPath && fs.existsSync(config.faviconPath)) return config.faviconPath;
+  if (config.logoLightPath && fs.existsSync(config.logoLightPath)) return config.logoLightPath;
+  if (config.logoPath && fs.existsSync(config.logoPath)) return config.logoPath;
+  return null;
+}
+
 function createWindow() {
   let iconPath = path.join(__dirname, 'assets', 'app_icon.png');
   const configPath = path.join(__dirname, 'config', 'businessConfig.json');
   if (fs.existsSync(configPath)) {
     try {
       const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-      if (config.logoPath && fs.existsSync(config.logoPath)) {
-        iconPath = config.logoPath;
-      }
+      const resolved = resolveIcon(config);
+      if (resolved) iconPath = resolved;
     } catch (e) {}
   }
 
@@ -70,6 +76,8 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  const initDatabase = require('./db/init-db');
+  initDatabase();
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -114,9 +122,10 @@ ipcMain.handle('write-config', async (event, { filename, data }) => {
     fs.writeFileSync(filePath, data, 'utf-8');
     if (filename === 'businessConfig.json') {
       const config = JSON.parse(data);
-      if (config.logoPath && fs.existsSync(config.logoPath)) {
+      const resolved = resolveIcon(config);
+      if (resolved) {
         const win = BrowserWindow.getAllWindows()[0];
-        if (win) win.setIcon(config.logoPath);
+        if (win) win.setIcon(resolved);
       }
     }
     return true;
@@ -124,6 +133,11 @@ ipcMain.handle('write-config', async (event, { filename, data }) => {
     console.error('Failed to write config', e);
     return false;
   }
+});
+
+ipcMain.handle('restart-app', async () => {
+  app.relaunch();
+  app.exit(0);
 });
 
 ipcMain.handle('save-image', async (event, { sourcePath, entityType }) => {

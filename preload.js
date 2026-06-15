@@ -9,4 +9,5 @@ contextBridge.exposeInMainWorld('api', {
   saveImage: (sourcePath, entityType) => ipcRenderer.invoke('save-image', { sourcePath, entityType }),
   hashPassword: (password) => ipcRenderer.invoke('hash-password', password),
   comparePassword: (password, hash) => ipcRenderer.invoke('compare-password', { password, hash }),
+  restartApp: () => ipcRenderer.invoke('restart-app'),
 });

@@ -125,7 +125,13 @@
     "business_title": "Business Settings",
     "business_name": "Business Name",
     "logo": "Logo",
-    "typography": "Typography"
+    "logo_light": "Light Logo",
+    "logo_dark": "Dark Logo",
+    "has_theme_logos": "Logo has Light/Dark versions",
+    "favicon": "Favicon",
+    "favicon_default": "If not specified, the default icon will be used",
+    "typography": "Typography",
+    "restart_confirm": "Changes will apply after restart. Restart now?"
   },
   "categories": {
     "title": "Categories",

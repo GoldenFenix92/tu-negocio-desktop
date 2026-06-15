@@ -3,10 +3,12 @@ import { useTranslation } from 'react-i18next';
 import Permissions from './components/Permissions';
 import './Settings.css';
 
-// Load existing config from a local JSON file (simplified)
 const initialConfig = {
   businessName: '',
-  logoPath: '',
+  logoLightPath: '',
+  logoDarkPath: '',
+  hasThemeLogos: false,
+  faviconPath: '',
   address: '',
   phone: '',
   typography: 'Roboto',
@@ -22,7 +24,11 @@ export default function Settings() {
       try {
         const data = await window.api.readConfig();
         if (data) {
-          setConfig(JSON.parse(data));
+          const parsed = JSON.parse(data);
+          if (parsed.logoPath && !parsed.logoLightPath) {
+            parsed.logoLightPath = parsed.logoPath;
+          }
+          setConfig((prev) => ({ ...prev, ...parsed }));
         }
       } catch (e) {
         console.error('Failed to load settings', e);
@@ -32,16 +38,16 @@ export default function Settings() {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setConfig((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setConfig((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
-  const handleLogoUpload = async (e) => {
+  const handleLogoUpload = (fieldName) => async (e) => {
     const file = e.target.files[0];
     if (file && file.path) {
       const savedPath = await window.api.saveImage(file.path, 'business');
       if (savedPath) {
-        setConfig((prev) => ({ ...prev, logoPath: savedPath }));
+        setConfig((prev) => ({ ...prev, [fieldName]: savedPath }));
       }
     }
   };
@@ -50,23 +56,30 @@ export default function Settings() {
     e.preventDefault();
     const success = await window.api.writeConfig(JSON.stringify(config));
     if (success) {
-      alert(t('common.save_success') || 'Configuración guardada');
+      if (confirm(t('settings.restart_confirm'))) {
+        await window.api.restartApp();
+      }
     } else {
       alert(t('common.save_error') || 'Error al guardar la configuración');
     }
   };
 
+  const mediaSrc = (path) => {
+    if (!path) return null;
+    return path.startsWith('media://') ? path : `media://${path}`;
+  };
+
   return (
     <div className="settings-page">
       <div className="settings-tabs">
-        <button 
-          className={activeTab === 'general' ? 'active' : ''} 
+        <button
+          className={activeTab === 'general' ? 'active' : ''}
           onClick={() => setActiveTab('general')}
         >
           {t('menu.settings')}
         </button>
-        <button 
-          className={activeTab === 'permissions' ? 'active' : ''} 
+        <button
+          className={activeTab === 'permissions' ? 'active' : ''}
           onClick={() => setActiveTab('permissions')}
         >
           {t('menu.permissions') || 'Permisos'}
@@ -81,29 +94,60 @@ export default function Settings() {
               <label>{t('settings.business_name') || 'Nombre del negocio'}:</label>
               <input type="text" name="businessName" value={config.businessName} onChange={handleChange} />
             </div>
-            
+
+            <div className="form-group checkbox-group">
+              <label>
+                <input type="checkbox" name="hasThemeLogos" checked={config.hasThemeLogos} onChange={handleChange} />
+                <span>{t('settings.has_theme_logos') || 'El logo tiene versión Light/Dark'}</span>
+              </label>
+            </div>
+
+            {config.hasThemeLogos ? (
+              <>
+                <div className="form-group">
+                  <label>{t('settings.logo_light') || 'Logo claro (Light)'}:</label>
+                  <input type="file" accept="image/*" onChange={handleLogoUpload('logoLightPath')} />
+                  {config.logoLightPath && (
+                    <img src={mediaSrc(config.logoLightPath)} alt="Logo Light" className="logo-preview" />
+                  )}
+                </div>
+                <div className="form-group">
+                  <label>{t('settings.logo_dark') || 'Logo oscuro (Dark)'}:</label>
+                  <input type="file" accept="image/*" onChange={handleLogoUpload('logoDarkPath')} />
+                  {config.logoDarkPath && (
+                    <img src={mediaSrc(config.logoDarkPath)} alt="Logo Dark" className="logo-preview" />
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="form-group">
+                <label>{t('settings.logo') || 'Logo'}:</label>
+                <input type="file" accept="image/*" onChange={handleLogoUpload('logoLightPath')} />
+                {config.logoLightPath && (
+                  <img src={mediaSrc(config.logoLightPath)} alt="Logo" className="logo-preview" />
+                )}
+              </div>
+            )}
+
             <div className="form-group">
-              <label>{t('settings.logo') || 'Logo'}:</label>
-              <input type="file" accept="image/*" onChange={handleLogoUpload} />
-              {config.logoPath && (
-                <img 
-                  src={config.logoPath.startsWith('media://') ? config.logoPath : `media://${config.logoPath}`} 
-                  alt="Logo" 
-                  className="logo-preview" 
-                />
+              <label>{t('settings.favicon') || 'Favicon'}:</label>
+              <input type="file" accept="image/*" onChange={handleLogoUpload('faviconPath')} />
+              <span className="field-hint">{t('settings.favicon_default') || 'Si no se especifica, se usará el icono por defecto'}</span>
+              {config.faviconPath && (
+                <img src={mediaSrc(config.faviconPath)} alt="Favicon" className="favicon-preview" />
               )}
             </div>
-            
+
             <div className="form-group">
               <label>{t('clients.address')}:</label>
               <input type="text" name="address" value={config.address} onChange={handleChange} />
             </div>
-            
+
             <div className="form-group">
               <label>{t('clients.phone')}:</label>
               <input type="text" name="phone" value={config.phone} onChange={handleChange} />
             </div>
-            
+
             <div className="form-group">
               <label>{t('settings.typography') || 'Tipografía'}:</label>
               <select name="typography" value={config.typography} onChange={handleChange}>
@@ -121,4 +165,3 @@ export default function Settings() {
     </div>
   );
 }
-

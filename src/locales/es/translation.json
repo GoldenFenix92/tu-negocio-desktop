@@ -123,7 +123,13 @@
     "business_title": "Configuración del Negocio",
     "business_name": "Nombre del negocio",
     "logo": "Logo",
-    "typography": "Tipografía"
+    "logo_light": "Logo claro (Light)",
+    "logo_dark": "Logo oscuro (Dark)",
+    "has_theme_logos": "El logo tiene versión Light/Dark",
+    "favicon": "Favicon",
+    "favicon_default": "Si no se especifica, se usará el icono por defecto",
+    "typography": "Tipografía",
+    "restart_confirm": "Los cambios se aplicarán después de reiniciar. ¿Reiniciar ahora?"
   },
   "categories": {
     "title": "Categorías",

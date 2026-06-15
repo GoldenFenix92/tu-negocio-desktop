@@ -1,41 +1,43 @@
-const mysql = require('mysql2/promise');
+const Database = require('better-sqlite3');
 const fs = require('fs');
 const path = require('path');
 
-async function checkConnection() {
+function checkConnection() {
   const configPath = path.join(__dirname, 'config', 'dbConfig.json');
-  console.log('Reading config from:', configPath);
-  
-  if (!fs.existsSync(configPath)) {
-    console.error('ERROR: dbConfig.json not found!');
+  const defaultDbPath = path.join(__dirname, 'data', 'tu_negocio.db');
+
+  let dbPath = defaultDbPath;
+  if (fs.existsSync(configPath)) {
+    try {
+      const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      if (config.filename) {
+        dbPath = path.resolve(__dirname, config.filename);
+      }
+    } catch (e) {
+      console.error('Error reading config, using default path.');
+    }
+  }
+
+  console.log('Database path:', dbPath);
+
+  if (!fs.existsSync(dbPath)) {
+    console.error('Database file not found. Run: node db/init-db.js');
     return;
   }
 
-  const dbConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-  console.log('Checking connection to:', { ...dbConfig, password: '****' });
-
   try {
-    const connection = await mysql.createConnection(dbConfig);
-    console.log('✅ SUCCESS: Connected to MySQL!');
-    
-    const [rows] = await connection.execute(`SHOW DATABASES LIKE '${dbConfig.database}'`);
-    if (rows.length > 0) {
-      console.log(`✅ DATABASE FOUND: "${dbConfig.database}" exists.`);
-      
-      const [tables] = await connection.execute('SHOW TABLES');
-      console.log('Tables found:', tables.map(t => Object.values(t)[0]));
-    } else {
-      console.log(`❌ DATABASE NOT FOUND: "${dbConfig.database}" does not exist. Please create it in phpMyAdmin.`);
-    }
-    
-    await connection.end();
+    const db = new Database(dbPath);
+    console.log('Connected to SQLite database.');
+
+    const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").all();
+    console.log('Tables:', tables.map(t => t.name));
+
+    const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get();
+    console.log('Users found:', userCount.count);
+
+    db.close();
   } catch (err) {
-    console.error('❌ CONNECTION FAILED:', err.message);
-    if (err.code === 'ECONNREFUSED') {
-      console.error('Make sure XAMPP (MySQL) is running.');
-    } else if (err.code === 'ER_ACCESS_DENIED_ERROR') {
-      console.error('Check your username and password in dbConfig.json.');
-    }
+    console.error('Connection failed:', err.message);
   }
 }
 
