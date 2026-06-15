@@ -140,6 +140,12 @@
     "favicon_default": "Si no se especifica, se usará el icono por defecto",
     "typography": "Tipografía"
   },
+  "setup": {
+    "title": "Configura tu negocio",
+    "subtitle": "Completa los datos básicos para empezar a usar el sistema",
+    "start": "Comenzar",
+    "name_placeholder": "Ej: Mi Tienda"
+  },
   "categories": {
     "title": "Categorías",
     "subtitle": "Administra las categorías de tus productos",

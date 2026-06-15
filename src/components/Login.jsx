@@ -3,7 +3,7 @@ import { LogIn, User, Lock, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import './Login.css';
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, businessName }) {
   const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -51,7 +51,7 @@ export default function Login({ onLogin }) {
           <div className="login-logo">
             <LogIn size={40} color="var(--primary-color)" />
           </div>
-          <h2>{t('login.title')}</h2>
+          <h2>{businessName || t('app.title')}</h2>
           <p>{t('login.subtitle')}</p>
         </div>
         
@@ -88,7 +88,7 @@ export default function Login({ onLogin }) {
         </form>
         
         <div className="login-footer">
-          <p>{t('login.footer')}</p>
+          <p>{businessName ? `© ${new Date().getFullYear()} ${businessName}.` : t('login.footer')}</p>
         </div>
       </div>
     </div>

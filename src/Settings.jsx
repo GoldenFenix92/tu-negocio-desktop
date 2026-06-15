@@ -91,49 +91,22 @@ export default function Settings() {
         <div className="settings-content">
           <h2>{t('settings.business_title') || 'Configuración del Negocio'}</h2>
           <form onSubmit={handleSubmit} className="settings-form">
-            <div className="form-group">
+            <div className="form-group full">
               <label>{t('settings.business_name') || 'Nombre del negocio'}:</label>
               <input type="text" name="businessName" value={config.businessName} onChange={handleChange} />
             </div>
 
-            <div className="form-group checkbox-group">
-              <label>
-                <input type="checkbox" name="hasThemeLogos" checked={config.hasThemeLogos} onChange={handleChange} />
-                <span>{t('settings.has_theme_logos') || 'El logo tiene versión Light/Dark'}</span>
-              </label>
+            <div className="form-group">
+              <label>{t('settings.logo') || 'Logo'}:</label>
+              <input type="file" accept="image/*" onChange={handleLogoUpload('logoLightPath')} />
+              {config.logoLightPath && (
+                <img src={mediaSrc(config.logoLightPath)} alt="Logo" className="logo-preview" />
+              )}
             </div>
-
-            {config.hasThemeLogos ? (
-              <>
-                <div className="form-group">
-                  <label>{t('settings.logo_light') || 'Logo claro (Light)'}:</label>
-                  <input type="file" accept="image/*" onChange={handleLogoUpload('logoLightPath')} />
-                  {config.logoLightPath && (
-                    <img src={mediaSrc(config.logoLightPath)} alt="Logo Light" className="logo-preview" />
-                  )}
-                </div>
-                <div className="form-group">
-                  <label>{t('settings.logo_dark') || 'Logo oscuro (Dark)'}:</label>
-                  <input type="file" accept="image/*" onChange={handleLogoUpload('logoDarkPath')} />
-                  {config.logoDarkPath && (
-                    <img src={mediaSrc(config.logoDarkPath)} alt="Logo Dark" className="logo-preview" />
-                  )}
-                </div>
-              </>
-            ) : (
-              <div className="form-group">
-                <label>{t('settings.logo') || 'Logo'}:</label>
-                <input type="file" accept="image/*" onChange={handleLogoUpload('logoLightPath')} />
-                {config.logoLightPath && (
-                  <img src={mediaSrc(config.logoLightPath)} alt="Logo" className="logo-preview" />
-                )}
-              </div>
-            )}
 
             <div className="form-group">
               <label>{t('settings.favicon') || 'Favicon'}:</label>
               <input type="file" accept="image/*" onChange={handleLogoUpload('faviconPath')} />
-              <span className="field-hint">{t('settings.favicon_default') || 'Si no se especifica, se usará el icono por defecto'}</span>
               {config.faviconPath && (
                 <img src={mediaSrc(config.faviconPath)} alt="Favicon" className="favicon-preview" />
               )}
@@ -149,7 +122,24 @@ export default function Settings() {
               <input type="text" name="phone" value={config.phone} onChange={handleChange} />
             </div>
 
-            <div className="form-group">
+            <div className="form-group checkbox-group">
+              <label>
+                <input type="checkbox" name="hasThemeLogos" checked={config.hasThemeLogos} onChange={handleChange} />
+                <span>{t('settings.has_theme_logos') || 'El logo tiene versión Light/Dark'}</span>
+              </label>
+            </div>
+
+            {config.hasThemeLogos && (
+              <div className="form-group full">
+                <label>{t('settings.logo_dark') || 'Logo oscuro (Dark)'}:</label>
+                <input type="file" accept="image/*" onChange={handleLogoUpload('logoDarkPath')} />
+                {config.logoDarkPath && (
+                  <img src={mediaSrc(config.logoDarkPath)} alt="Logo Dark" className="logo-preview" />
+                )}
+              </div>
+            )}
+
+            <div className="form-group full">
               <label>{t('settings.typography') || 'Tipografía'}:</label>
               <select name="typography" value={config.typography} onChange={handleChange}>
                 <option value="Montserrat">Montserrat</option>

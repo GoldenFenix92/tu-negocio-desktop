@@ -601,6 +601,11 @@ input, select, textarea, button {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+[data-theme="dark"] select option {
+  background-color: #2c3e50;
+  color: #e0e0e0;
+}
+
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--primary-color);
@@ -666,6 +671,29 @@ input:focus, select:focus, textarea:focus {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] .card-hover:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
 .toast-container {
   position: fixed;
   top: 1rem;
@@ -714,8 +742,26 @@ input:focus, select:focus, textarea:focus {
   display: flex;
   align-items: center;
   gap: 1rem;
-  animation: fadeIn 0.3s ease-out;
+  animation: cardIn 0.4s ease-out both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
 }
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .kpi-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.kpi-card:nth-child(2) { animation-delay: 0.1s; }
+.kpi-card:nth-child(3) { animation-delay: 0.15s; }
+.kpi-card:nth-child(4) { animation-delay: 0.2s; }
+.kpi-card:nth-child(5) { animation-delay: 0.25s; }
+.kpi-card:nth-child(6) { animation-delay: 0.3s; }
 
 .kpi-icon { flex-shrink: 0; }
 
@@ -774,7 +820,7 @@ input:focus, select:focus, textarea:focus {
   border-color: rgba(255,255,255,0.1);
   background: #2c3e50;
 }
-`, "",{"version":3,"sources":["webpack://./src/App.css"],"names":[],"mappings":"AAAA,qBAAqB;AACrB;EACE,sBAAsB;AACxB;AACA;EACE,uCAAuC;EACvC,yBAAyB;EACzB,wBAAwB;EACxB,2BAA2B;EAC3B,0BAA0B;EAC1B,wBAAwB;EACxB,2CAA2C;EAC3C,uCAAuC;EACvC,qBAAqB;EACrB,uBAAuB;EACvB,uBAAuB;EACvB,yBAAyB;AAC3B;;AAEA;EACE,uCAAuC;EACvC,8BAA8B;AAChC;;AAEA;EACE,sCAAsC;EACtC,6BAA6B;EAC7B,qBAAqB;EACrB,uBAAuB;EACvB,uBAAuB;EACvB,yBAAyB;AAC3B;;AAEA;EACE,SAAS;EACT,+BAA+B;EAC/B,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,mBAAmB;EACnB,eAAe;EACf,kCAAkC;EAClC,4CAA4C;EAC5C,cAAc;EACd,iBAAiB;AACnB;;AAEA;EACE,iCAAiC;EACjC,kDAAkD;AACpD;;AAEA;EACE,wBAAwB;EACxB,aAAa;EACb,mBAAmB;EACnB,SAAS;EACT,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,0BAA0B;EAC1B,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,aAAa;EACb,YAAY;AACd;;AAEA;EACE,aAAa;EACb,OAAO;EACP,aAAa;AACf;;AAEA;EACE,OAAO;EACP,aAAa;EACb,sBAAsB;EACtB,gBAAgB;AAClB;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,mBAAmB;EACnB,oBAAoB;EACpB,kCAAkC;EAClC,4CAA4C;EAC5C,WAAW;AACb;;AAEA;EACE,iCAAiC;EACjC,kDAAkD;AACpD;;AAEA;EACE,iBAAiB;EACjB,SAAS;EACT,gBAAgB;EAChB,oDAAoD;EACpD,6BAA6B;EAC7B,qBAAqB;EACrB,oCAAoC;AACtC;;AAEA;EACE,aAAa;EACb,SAAS;EACT,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,WAAW;EACX,+BAA+B;EAC/B,YAAY;EACZ,mBAAmB;AACrB;;AAEA;EACE,oCAAoC;AACtC;;AAEA;EACE,uBAAuB;EACvB,YAAY;EACZ,iBAAiB;EACjB,kBAAkB;EAClB,eAAe;EACf,cAAc;EACd,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,yBAAyB;EACzB,gBAAgB;EAChB,iBAAiB;AACnB;;AAEA;EACE,8BAA8B;AAChC;;AAEA;EACE,oCAAoC;AACtC;;AAEA;EACE,gCAAgC;EAChC,YAAY;EACZ,qCAAqC;AACvC;;AAEA,6CAA6C;AAC7C;EACE,mCAAmC;EACnC,0BAA0B;EAC1B,iCAAiC;EACjC,YAAY;EACZ,kBAAkB;EAClB,oBAAoB;EACpB,4BAA4B;AAC9B;;AAEA;EACE,+BAA+B;AACjC;;AAEA;;;EAGE,yBAAyB;EACzB,6BAA6B;EAC7B,0CAA0C;AAC5C;;AAEA;EACE,aAAa;EACb,kCAAkC;EAClC,6CAA6C;AAC/C;;AAEA;;;EAGE,mDAAmD;EACnD,6CAA6C;AAC/C;;AAEA;EACE,OAAO;EACP,aAAa;EACb,gBAAgB;EAChB,mBAAmB;EACnB,cAAc;AAChB;;AAEA,wBAAwB;AACxB;EACE,eAAe;EACf,MAAM;EACN,OAAO;EACP,QAAQ;EACR,SAAS;EACT,8BAA8B;EAC9B,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,aAAa;EACb,0BAA0B;EAC1B,oBAAoB;AACtB;;AAEA;EACE,mCAAmC;EACnC,eAAe;EACf,mBAAmB;EACnB,UAAU;EACV,gBAAgB;EAChB,gBAAgB;EAChB,gBAAgB;EAChB,0CAA0C;EAC1C,gCAAgC;EAChC,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;EACnB,0CAA0C;AAC5C;;AAEA;EACE,OAAO,UAAU,EAAE,uCAAuC,EAAE;EAC5D,KAAK,UAAU,EAAE,iCAAiC,EAAE;AACtD;;AAEA;EACE,OAAO,UAAU,EAAE,2BAA2B,EAAE;EAChD,KAAK,UAAU,EAAE,wBAAwB,EAAE;AAC7C;;AAEA;EACE,eAAe;EACf,SAAS;EACT,WAAW;EACX,cAAc;EACd,aAAa;EACb,sBAAsB;EACtB,WAAW;EACX,oBAAoB;AACtB;;AAEA;EACE,oBAAoB;EACpB,wBAAwB;EACxB,mBAAmB;EACnB,WAAW;EACX,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,gCAAgC;EAChC,uCAAuC;EACvC,gBAAgB;AAClB;;AAEA,iBAAiB,mBAAmB,EAAE;AACtC,eAAe,mBAAmB,EAAE;AACpC,cAAc,mBAAmB,EAAE;AACnC,iBAAiB,mBAAmB,EAAE;;AAEtC;EACE,OAAO,2BAA2B,EAAE,UAAU,EAAE;EAChD,KAAK,wBAAwB,EAAE,UAAU,EAAE;AAC7C;;AAEA;EACE,aAAa;EACb,4DAA4D;EAC5D,SAAS;EACT,kBAAkB;AACpB;;AAEA;EACE,+BAA+B;EAC/B,gBAAgB;EAChB,mBAAmB;EACnB,aAAa;EACb,mBAAmB;EACnB,SAAS;EACT,+BAA+B;AACjC;;AAEA,YAAY,cAAc,EAAE;;AAE5B;EACE,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,iBAAiB;EACjB,gBAAgB;EAChB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,4BAA4B;AAC9B;;AAEA;EACE,aAAa;EACb,SAAS;EACT,gBAAgB;AAClB;;AAEA,oBAAoB,OAAO,EAAE,YAAY,EAAE;AAC3C;EACE,YAAY;EACZ,cAAc;EACd,+BAA+B;EAC/B,gBAAgB;EAChB,mBAAmB;EACnB,+BAA+B;AACjC;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,mBAAmB;EACnB,mBAAmB;AACrB;;AAEA,wBAAwB,SAAS,EAAE;AACnC,gBAAgB,mCAAmC,EAAE;;AAErD;EACE,sBAAsB;EACtB,kBAAkB;EAClB,iCAAiC;EACjC,6BAA6B;EAC7B,0BAA0B;EAC1B,kBAAkB;AACpB;;AAEA;EACE,mCAAmC;EACnC,mBAAmB;AACrB","sourcesContent":["/* Global variables */\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n:root {\r\n  --font-family: 'Montserrat', sans-serif;\r\n  --color-bg-light: #fdfdfd;\r\n  --color-bg-dark: #121212;\r\n  --color-text-light: #2c3e50;\r\n  --color-text-dark: #e0e0e0;\r\n  --primary-color: #3498db;\r\n  --header-bg-light: rgba(255, 255, 255, 0.8);\r\n  --header-bg-dark: rgba(30, 30, 30, 0.8);\r\n  --bg-primary: #ffffff;\r\n  --bg-secondary: #f8f9fa;\r\n  --text-primary: #2c3e50;\r\n  --text-secondary: #666666;\r\n}\r\n\r\n[data-theme=\"light\"] {\r\n  background-color: var(--color-bg-light);\r\n  color: var(--color-text-light);\r\n}\r\n\r\n[data-theme=\"dark\"] {\r\n  background-color: var(--color-bg-dark);\r\n  color: var(--color-text-dark);\r\n  --bg-primary: #1a1c1e;\r\n  --bg-secondary: #2a2c2e;\r\n  --text-primary: #e0e0e0;\r\n  --text-secondary: #aaaaaa;\r\n}\r\n\r\nbody {\r\n  margin: 0;\r\n  font-family: var(--font-family);\r\n  overflow: hidden;\r\n}\r\n\r\n.titlebar {\r\n  height: 44px;\r\n  display: flex;\r\n  align-items: center;\r\n  padding: 0 16px;\r\n  background: var(--header-bg-light);\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  flex-shrink: 0;\r\n  user-select: none;\r\n}\r\n\r\n[data-theme=\"dark\"] .titlebar {\r\n  background: var(--header-bg-dark);\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.titlebar-drag {\r\n  -webkit-app-region: drag;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n.titlebar-favicon {\r\n  width: 20px;\r\n  height: 20px;\r\n  border-radius: 4px;\r\n  object-fit: contain;\r\n}\r\n\r\n.titlebar-logo {\r\n  height: 28px;\r\n  width: auto;\r\n  object-fit: contain;\r\n}\r\n\r\n.titlebar-business-name {\r\n  font-size: 1rem;\r\n  font-weight: 600;\r\n  color: var(--text-primary);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.app-root {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 100vh;\r\n  width: 100vw;\r\n}\r\n\r\n.app-layout {\r\n  display: flex;\r\n  flex: 1;\r\n  min-height: 0;\r\n}\r\n\r\n.main-content {\r\n  flex: 1;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n}\r\n\r\n.app-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 0.8rem 2rem;\r\n  background: var(--header-bg-light);\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  z-index: 10;\r\n}\r\n\r\n[data-theme=\"dark\"] .app-header {\r\n  background: var(--header-bg-dark);\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.app-header h1 {\r\n  font-size: 1.2rem;\r\n  margin: 0;\r\n  font-weight: 700;\r\n  background: linear-gradient(90deg, #3498db, #8e44ad);\r\n  -webkit-background-clip: text;\r\n  background-clip: text;\r\n  -webkit-text-fill-color: transparent;\r\n}\r\n\r\n.header-right {\r\n  display: flex;\r\n  gap: 1rem;\r\n  align-items: center;\r\n}\r\n\r\n.header-buttons {\r\n  display: flex;\r\n  gap: 0.5rem;\r\n  background: rgba(0, 0, 0, 0.05);\r\n  padding: 4px;\r\n  border-radius: 12px;\r\n}\r\n\r\n[data-theme=\"dark\"] .header-buttons {\r\n  background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.icon-btn {\r\n  background: transparent;\r\n  border: none;\r\n  padding: 6px 10px;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  color: inherit;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: all 0.2s ease;\r\n  font-weight: 500;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.icon-btn:hover {\r\n  background: rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n[data-theme=\"dark\"] .icon-btn:hover {\r\n  background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.icon-btn.active {\r\n  background: var(--primary-color);\r\n  color: white;\r\n  box-shadow: 0 2px 5px rgba(0,0,0,0.2);\r\n}\r\n\r\n/* Fix generic inputs/selects for Dark Mode */\r\ninput, select, textarea {\r\n  background-color: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  padding: 8px;\r\n  border-radius: 6px;\r\n  font-family: inherit;\r\n  user-select: text !important;\r\n}\r\n\r\ninput, select, textarea, button {\r\n  pointer-events: auto !important;\r\n}\r\n\r\n[data-theme=\"dark\"] input, \r\n[data-theme=\"dark\"] select, \r\n[data-theme=\"dark\"] textarea {\r\n  background-color: #2c3e50;\r\n  color: var(--color-text-dark);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\ninput:focus, select:focus, textarea:focus {\r\n  outline: none;\r\n  border-color: var(--primary-color);\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);\r\n}\r\n\r\n[data-theme=\"dark\"] input:focus, \r\n[data-theme=\"dark\"] select:focus, \r\n[data-theme=\"dark\"] textarea:focus {\r\n  background-color: rgba(255,255,255,0.08) !important;\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);\r\n}\r\n\r\n.content-area {\r\n  flex: 1;\r\n  padding: 2rem;\r\n  overflow-y: auto;\r\n  background: inherit;\r\n  color: inherit;\r\n}\r\n\r\n/* Global Modal Styles */\r\n.modal-overlay {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background: rgba(0, 0, 0, 0.5);\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  z-index: 9999;\r\n  backdrop-filter: blur(4px);\r\n  pointer-events: auto;\r\n}\r\n\r\n.modal-content {\r\n  background: var(--bg-primary, #fff);\r\n  padding: 2.5rem;\r\n  border-radius: 20px;\r\n  width: 90%;\r\n  max-width: 550px;\r\n  max-height: 90vh;\r\n  overflow-y: auto;\r\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);\r\n  animation: modalIn 0.3s ease-out;\r\n  position: relative;\r\n}\r\n\r\n[data-theme=\"dark\"] .modal-content {\r\n  background: #1e272e;\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n@keyframes modalIn {\r\n  from { opacity: 0; transform: scale(0.95) translateY(20px); }\r\n  to { opacity: 1; transform: scale(1) translateY(0); }\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from { opacity: 0; transform: translateY(10px); }\r\n  to { opacity: 1; transform: translateY(0); }\r\n}\r\n\r\n.toast-container {\r\n  position: fixed;\r\n  top: 1rem;\r\n  right: 1rem;\r\n  z-index: 10000;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.5rem;\r\n  pointer-events: none;\r\n}\r\n\r\n.toast {\r\n  pointer-events: auto;\r\n  padding: 0.75rem 1.25rem;\r\n  border-radius: 10px;\r\n  color: #fff;\r\n  font-weight: 500;\r\n  font-size: 0.9rem;\r\n  cursor: pointer;\r\n  animation: slideIn 0.3s ease-out;\r\n  box-shadow: 0 4px 12px rgba(0,0,0,0.15);\r\n  max-width: 400px;\r\n}\r\n\r\n.toast-success { background: #27ae60; }\r\n.toast-error { background: #e74c3c; }\r\n.toast-info { background: #3498db; }\r\n.toast-warning { background: #f39c12; }\r\n\r\n@keyframes slideIn {\r\n  from { transform: translateX(100%); opacity: 0; }\r\n  to { transform: translateX(0); opacity: 1; }\r\n}\r\n\r\n.kpi-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));\r\n  gap: 1rem;\r\n  margin-top: 1.5rem;\r\n}\r\n\r\n.kpi-card {\r\n  background: var(--bg-secondary);\r\n  padding: 1.25rem;\r\n  border-radius: 12px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n  animation: fadeIn 0.3s ease-out;\r\n}\r\n\r\n.kpi-icon { flex-shrink: 0; }\r\n\r\n.kpi-card div {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.kpi-value {\r\n  font-size: 1.5rem;\r\n  font-weight: 700;\r\n  color: var(--text-primary);\r\n}\r\n\r\n.kpi-label {\r\n  font-size: 0.8rem;\r\n  color: var(--text-secondary);\r\n}\r\n\r\n.sales-history .sales-split {\r\n  display: flex;\r\n  gap: 1rem;\r\n  margin-top: 1rem;\r\n}\r\n\r\n.sales-list-panel { flex: 1; min-width: 0; }\r\n.sale-detail-panel {\r\n  width: 400px;\r\n  flex-shrink: 0;\r\n  background: var(--bg-secondary);\r\n  padding: 1.25rem;\r\n  border-radius: 12px;\r\n  animation: fadeIn 0.3s ease-out;\r\n}\r\n\r\n.sale-detail-panel .detail-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.sale-detail-panel h3 { margin: 0; }\r\n.selected-row { background: rgba(52, 152, 219, 0.1); }\r\n\r\n.search-bar label input[type=\"date\"] {\r\n  padding: 0.4rem 0.6rem;\r\n  border-radius: 6px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  background: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  font-size: 0.85rem;\r\n}\r\n\r\n[data-theme=\"dark\"] .search-bar label input[type=\"date\"] {\r\n  border-color: rgba(255,255,255,0.1);\r\n  background: #2c3e50;\r\n}\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/App.css"],"names":[],"mappings":"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","sourcesContent":["/* Global variables */\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n:root {\r\n  --font-family: 'Montserrat', sans-serif;\r\n  --color-bg-light: #fdfdfd;\r\n  --color-bg-dark: #121212;\r\n  --color-text-light: #2c3e50;\r\n  --color-text-dark: #e0e0e0;\r\n  --primary-color: #3498db;\r\n  --header-bg-light: rgba(255, 255, 255, 0.8);\r\n  --header-bg-dark: rgba(30, 30, 30, 0.8);\r\n  --bg-primary: #ffffff;\r\n  --bg-secondary: #f8f9fa;\r\n  --text-primary: #2c3e50;\r\n  --text-secondary: #666666;\r\n}\r\n\r\n[data-theme=\"light\"] {\r\n  background-color: var(--color-bg-light);\r\n  color: var(--color-text-light);\r\n}\r\n\r\n[data-theme=\"dark\"] {\r\n  background-color: var(--color-bg-dark);\r\n  color: var(--color-text-dark);\r\n  --bg-primary: #1a1c1e;\r\n  --bg-secondary: #2a2c2e;\r\n  --text-primary: #e0e0e0;\r\n  --text-secondary: #aaaaaa;\r\n}\r\n\r\nbody {\r\n  margin: 0;\r\n  font-family: var(--font-family);\r\n  overflow: hidden;\r\n}\r\n\r\n.titlebar {\r\n  height: 44px;\r\n  display: flex;\r\n  align-items: center;\r\n  padding: 0 16px;\r\n  background: var(--header-bg-light);\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  flex-shrink: 0;\r\n  user-select: none;\r\n}\r\n\r\n[data-theme=\"dark\"] .titlebar {\r\n  background: var(--header-bg-dark);\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.titlebar-drag {\r\n  -webkit-app-region: drag;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n.titlebar-favicon {\r\n  width: 20px;\r\n  height: 20px;\r\n  border-radius: 4px;\r\n  object-fit: contain;\r\n}\r\n\r\n.titlebar-logo {\r\n  height: 28px;\r\n  width: auto;\r\n  object-fit: contain;\r\n}\r\n\r\n.titlebar-business-name {\r\n  font-size: 1rem;\r\n  font-weight: 600;\r\n  color: var(--text-primary);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.app-root {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 100vh;\r\n  width: 100vw;\r\n}\r\n\r\n.app-layout {\r\n  display: flex;\r\n  flex: 1;\r\n  min-height: 0;\r\n}\r\n\r\n.main-content {\r\n  flex: 1;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n}\r\n\r\n.app-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 0.8rem 2rem;\r\n  background: var(--header-bg-light);\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  z-index: 10;\r\n}\r\n\r\n[data-theme=\"dark\"] .app-header {\r\n  background: var(--header-bg-dark);\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.app-header h1 {\r\n  font-size: 1.2rem;\r\n  margin: 0;\r\n  font-weight: 700;\r\n  background: linear-gradient(90deg, #3498db, #8e44ad);\r\n  -webkit-background-clip: text;\r\n  background-clip: text;\r\n  -webkit-text-fill-color: transparent;\r\n}\r\n\r\n.header-right {\r\n  display: flex;\r\n  gap: 1rem;\r\n  align-items: center;\r\n}\r\n\r\n.header-buttons {\r\n  display: flex;\r\n  gap: 0.5rem;\r\n  background: rgba(0, 0, 0, 0.05);\r\n  padding: 4px;\r\n  border-radius: 12px;\r\n}\r\n\r\n[data-theme=\"dark\"] .header-buttons {\r\n  background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.icon-btn {\r\n  background: transparent;\r\n  border: none;\r\n  padding: 6px 10px;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  color: inherit;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: all 0.2s ease;\r\n  font-weight: 500;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.icon-btn:hover {\r\n  background: rgba(0, 0, 0, 0.1);\r\n}\r\n\r\n[data-theme=\"dark\"] .icon-btn:hover {\r\n  background: rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.icon-btn.active {\r\n  background: var(--primary-color);\r\n  color: white;\r\n  box-shadow: 0 2px 5px rgba(0,0,0,0.2);\r\n}\r\n\r\n/* Fix generic inputs/selects for Dark Mode */\r\ninput, select, textarea {\r\n  background-color: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  padding: 8px;\r\n  border-radius: 6px;\r\n  font-family: inherit;\r\n  user-select: text !important;\r\n}\r\n\r\ninput, select, textarea, button {\r\n  pointer-events: auto !important;\r\n}\r\n\r\n[data-theme=\"dark\"] input, \r\n[data-theme=\"dark\"] select, \r\n[data-theme=\"dark\"] textarea {\r\n  background-color: #2c3e50;\r\n  color: var(--color-text-dark);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n[data-theme=\"dark\"] select option {\r\n  background-color: #2c3e50;\r\n  color: #e0e0e0;\r\n}\r\n\r\ninput:focus, select:focus, textarea:focus {\r\n  outline: none;\r\n  border-color: var(--primary-color);\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);\r\n}\r\n\r\n[data-theme=\"dark\"] input:focus, \r\n[data-theme=\"dark\"] select:focus, \r\n[data-theme=\"dark\"] textarea:focus {\r\n  background-color: rgba(255,255,255,0.08) !important;\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);\r\n}\r\n\r\n.content-area {\r\n  flex: 1;\r\n  padding: 2rem;\r\n  overflow-y: auto;\r\n  background: inherit;\r\n  color: inherit;\r\n}\r\n\r\n/* Global Modal Styles */\r\n.modal-overlay {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background: rgba(0, 0, 0, 0.5);\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  z-index: 9999;\r\n  backdrop-filter: blur(4px);\r\n  pointer-events: auto;\r\n}\r\n\r\n.modal-content {\r\n  background: var(--bg-primary, #fff);\r\n  padding: 2.5rem;\r\n  border-radius: 20px;\r\n  width: 90%;\r\n  max-width: 550px;\r\n  max-height: 90vh;\r\n  overflow-y: auto;\r\n  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);\r\n  animation: modalIn 0.3s ease-out;\r\n  position: relative;\r\n}\r\n\r\n[data-theme=\"dark\"] .modal-content {\r\n  background: #1e272e;\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n@keyframes modalIn {\r\n  from { opacity: 0; transform: scale(0.95) translateY(20px); }\r\n  to { opacity: 1; transform: scale(1) translateY(0); }\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from { opacity: 0; transform: translateY(10px); }\r\n  to { opacity: 1; transform: translateY(0); }\r\n}\r\n\r\n@keyframes cardIn {\r\n  from { opacity: 0; transform: translateY(20px) scale(0.97); }\r\n  to { opacity: 1; transform: translateY(0) scale(1); }\r\n}\r\n\r\n@keyframes scaleIn {\r\n  from { opacity: 0; transform: scale(0.95); }\r\n  to { opacity: 1; transform: scale(1); }\r\n}\r\n\r\n.card-hover {\r\n  transition: transform 0.2s ease, box-shadow 0.2s ease;\r\n}\r\n\r\n.card-hover:hover {\r\n  transform: translateY(-2px);\r\n  box-shadow: 0 6px 20px rgba(0,0,0,0.08);\r\n}\r\n\r\n[data-theme=\"dark\"] .card-hover:hover {\r\n  box-shadow: 0 6px 20px rgba(0,0,0,0.3);\r\n}\r\n\r\n.toast-container {\r\n  position: fixed;\r\n  top: 1rem;\r\n  right: 1rem;\r\n  z-index: 10000;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.5rem;\r\n  pointer-events: none;\r\n}\r\n\r\n.toast {\r\n  pointer-events: auto;\r\n  padding: 0.75rem 1.25rem;\r\n  border-radius: 10px;\r\n  color: #fff;\r\n  font-weight: 500;\r\n  font-size: 0.9rem;\r\n  cursor: pointer;\r\n  animation: slideIn 0.3s ease-out;\r\n  box-shadow: 0 4px 12px rgba(0,0,0,0.15);\r\n  max-width: 400px;\r\n}\r\n\r\n.toast-success { background: #27ae60; }\r\n.toast-error { background: #e74c3c; }\r\n.toast-info { background: #3498db; }\r\n.toast-warning { background: #f39c12; }\r\n\r\n@keyframes slideIn {\r\n  from { transform: translateX(100%); opacity: 0; }\r\n  to { transform: translateX(0); opacity: 1; }\r\n}\r\n\r\n.kpi-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));\r\n  gap: 1rem;\r\n  margin-top: 1.5rem;\r\n}\r\n\r\n.kpi-card {\r\n  background: var(--bg-secondary);\r\n  padding: 1.25rem;\r\n  border-radius: 12px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n  animation: cardIn 0.4s ease-out both;\r\n  transition: transform 0.2s ease, box-shadow 0.2s ease;\r\n  cursor: default;\r\n}\r\n\r\n.kpi-card:hover {\r\n  transform: translateY(-3px);\r\n  box-shadow: 0 8px 24px rgba(0,0,0,0.1);\r\n}\r\n\r\n[data-theme=\"dark\"] .kpi-card:hover {\r\n  box-shadow: 0 8px 24px rgba(0,0,0,0.3);\r\n}\r\n\r\n.kpi-card:nth-child(1) { animation-delay: 0.05s; }\r\n.kpi-card:nth-child(2) { animation-delay: 0.1s; }\r\n.kpi-card:nth-child(3) { animation-delay: 0.15s; }\r\n.kpi-card:nth-child(4) { animation-delay: 0.2s; }\r\n.kpi-card:nth-child(5) { animation-delay: 0.25s; }\r\n.kpi-card:nth-child(6) { animation-delay: 0.3s; }\r\n\r\n.kpi-icon { flex-shrink: 0; }\r\n\r\n.kpi-card div {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.kpi-value {\r\n  font-size: 1.5rem;\r\n  font-weight: 700;\r\n  color: var(--text-primary);\r\n}\r\n\r\n.kpi-label {\r\n  font-size: 0.8rem;\r\n  color: var(--text-secondary);\r\n}\r\n\r\n.sales-history .sales-split {\r\n  display: flex;\r\n  gap: 1rem;\r\n  margin-top: 1rem;\r\n}\r\n\r\n.sales-list-panel { flex: 1; min-width: 0; }\r\n.sale-detail-panel {\r\n  width: 400px;\r\n  flex-shrink: 0;\r\n  background: var(--bg-secondary);\r\n  padding: 1.25rem;\r\n  border-radius: 12px;\r\n  animation: fadeIn 0.3s ease-out;\r\n}\r\n\r\n.sale-detail-panel .detail-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.sale-detail-panel h3 { margin: 0; }\r\n.selected-row { background: rgba(52, 152, 219, 0.1); }\r\n\r\n.search-bar label input[type=\"date\"] {\r\n  padding: 0.4rem 0.6rem;\r\n  border-radius: 6px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  background: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  font-size: 0.85rem;\r\n}\r\n\r\n[data-theme=\"dark\"] .search-bar label input[type=\"date\"] {\r\n  border-color: rgba(255,255,255,0.1);\r\n  background: #2c3e50;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -803,10 +849,10 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.settings-tabs {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding-bottom: 1rem;
+  padding-bottom: 0.6rem;
 }
 
 [data-theme="dark"] .settings-tabs {
@@ -816,13 +862,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.settings-tabs {
 .settings-tabs button {
   background: transparent;
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 10px;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   color: inherit;
   opacity: 0.6;
   transition: all 0.2s;
+  font-size: 0.85rem;
 }
 
 .settings-tabs button.active {
@@ -839,34 +886,39 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.settings-tabs {
 }
 
 .settings-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
   background: var(--bg-secondary);
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 12px;
+}
+
+.settings-form .form-group.full {
+  grid-column: 1 / -1;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .form-group label {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
-.form-group input, .form-group select {
-  padding: 0.8rem;
+.form-group input,
+.form-group select {
+  padding: 0.55rem 0.7rem;
   border-radius: 8px;
   border: 1px solid rgba(0,0,0,0.1);
   background: var(--bg-primary);
   color: var(--text-primary);
   outline: none;
-  font-size: 1rem;
+  font-size: 0.85rem;
   width: 100%;
   box-sizing: border-box;
 }
@@ -878,10 +930,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.settings-tabs {
 }
 
 .logo-preview {
-  margin-top: 1rem;
-  max-width: 200px;
-  border-radius: 8px;
+  max-width: 100px;
+  max-height: 30px;
+  border-radius: 6px;
   border: 1px solid rgba(0,0,0,0.1);
+  margin-top: 0.3rem;
+}
+
+.checkbox-group {
+  grid-column: 1 / -1;
 }
 
 .checkbox-group label {
@@ -889,47 +946,50 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.settings-tabs {
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
+  font-size: 0.85rem;
 }
 
 .checkbox-group input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
   accent-color: var(--primary-color);
 }
 
 .field-hint {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
   opacity: 0.7;
 }
 
 .favicon-preview {
-  margin-top: 0.5rem;
-  max-width: 32px;
-  max-height: 32px;
+  max-width: 24px;
+  max-height: 24px;
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,0.1);
+  margin-top: 0.3rem;
 }
 
 .btn-primary {
   background-color: var(--primary-color);
   color: white;
   border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 12px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.2s;
-  align-self: flex-start;
+  grid-column: 1 / -1;
+  justify-self: start;
+  font-size: 0.85rem;
 }
 
 .btn-primary:hover {
   background-color: #2980b9;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
-`, "",{"version":3,"sources":["webpack://./src/Settings.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,SAAS;EACT,mBAAmB;EACnB,4CAA4C;EAC5C,oBAAoB;AACtB;;AAEA;EACE,8CAA8C;AAChD;;AAEA;EACE,uBAAuB;EACvB,YAAY;EACZ,sBAAsB;EACtB,mBAAmB;EACnB,eAAe;EACf,gBAAgB;EAChB,cAAc;EACd,YAAY;EACZ,oBAAoB;AACtB;;AAEA;EACE,gCAAgC;EAChC,YAAY;EACZ,UAAU;AACZ;;AAEA;EACE,+BAA+B;EAC/B,gBAAgB;EAChB,cAAc;EACd,WAAW;AACb;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,WAAW;EACX,+BAA+B;EAC/B,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,WAAW;AACb;;AAEA;EACE,gBAAgB;EAChB,iBAAiB;EACjB,4BAA4B;AAC9B;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,iCAAiC;EACjC,6BAA6B;EAC7B,0BAA0B;EAC1B,aAAa;EACb,eAAe;EACf,WAAW;EACX,sBAAsB;AACxB;;AAEA;;EAEE,mCAAmC;EACnC,mBAAmB;AACrB;;AAEA;EACE,gBAAgB;EAChB,gBAAgB;EAChB,kBAAkB;EAClB,iCAAiC;AACnC;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;EACnB,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,eAAe;EACf,kCAAkC;AACpC;;AAEA;EACE,iBAAiB;EACjB,4BAA4B;EAC5B,YAAY;AACd;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,gBAAgB;EAChB,kBAAkB;EAClB,iCAAiC;AACnC;;AAEA;EACE,sCAAsC;EACtC,YAAY;EACZ,YAAY;EACZ,sBAAsB;EACtB,mBAAmB;EACnB,eAAe;EACf,gBAAgB;EAChB,oBAAoB;EACpB,sBAAsB;AACxB;;AAEA;EACE,yBAAyB;EACzB,2BAA2B;AAC7B","sourcesContent":[".settings-tabs {\r\n  display: flex;\r\n  gap: 1rem;\r\n  margin-bottom: 2rem;\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  padding-bottom: 1rem;\r\n}\r\n\r\n[data-theme=\"dark\"] .settings-tabs {\r\n  border-bottom-color: rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.settings-tabs button {\r\n  background: transparent;\r\n  border: none;\r\n  padding: 0.6rem 1.2rem;\r\n  border-radius: 10px;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  color: inherit;\r\n  opacity: 0.6;\r\n  transition: all 0.2s;\r\n}\r\n\r\n.settings-tabs button.active {\r\n  background: var(--primary-color);\r\n  color: white;\r\n  opacity: 1;\r\n}\r\n\r\n.settings-content {\r\n  animation: fadeIn 0.4s ease-out;\r\n  max-width: 600px;\r\n  margin: 0 auto;\r\n  width: 100%;\r\n}\r\n\r\n.settings-form {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1.5rem;\r\n  background: var(--bg-secondary);\r\n  padding: 1.5rem;\r\n  border-radius: 12px;\r\n}\r\n\r\n.form-group {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.5rem;\r\n}\r\n\r\n.form-group label {\r\n  font-weight: 600;\r\n  font-size: 0.9rem;\r\n  color: var(--text-secondary);\r\n}\r\n\r\n.form-group input, .form-group select {\r\n  padding: 0.8rem;\r\n  border-radius: 8px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  background: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  outline: none;\r\n  font-size: 1rem;\r\n  width: 100%;\r\n  box-sizing: border-box;\r\n}\r\n\r\n[data-theme=\"dark\"] .form-group input, \r\n[data-theme=\"dark\"] .form-group select {\r\n  border-color: rgba(255,255,255,0.1);\r\n  background: #2c3e50;\r\n}\r\n\r\n.logo-preview {\r\n  margin-top: 1rem;\r\n  max-width: 200px;\r\n  border-radius: 8px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n}\r\n\r\n.checkbox-group label {\r\n  flex-direction: row;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.checkbox-group input[type=\"checkbox\"] {\r\n  width: 18px;\r\n  height: 18px;\r\n  cursor: pointer;\r\n  accent-color: var(--primary-color);\r\n}\r\n\r\n.field-hint {\r\n  font-size: 0.8rem;\r\n  color: var(--text-secondary);\r\n  opacity: 0.7;\r\n}\r\n\r\n.favicon-preview {\r\n  margin-top: 0.5rem;\r\n  max-width: 32px;\r\n  max-height: 32px;\r\n  border-radius: 4px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n}\r\n\r\n.btn-primary {\r\n  background-color: var(--primary-color);\r\n  color: white;\r\n  border: none;\r\n  padding: 0.8rem 1.5rem;\r\n  border-radius: 12px;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\r\n  align-self: flex-start;\r\n}\r\n\r\n.btn-primary:hover {\r\n  background-color: #2980b9;\r\n  transform: translateY(-2px);\r\n}\r\n\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/Settings.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,WAAW;EACX,mBAAmB;EACnB,4CAA4C;EAC5C,sBAAsB;AACxB;;AAEA;EACE,8CAA8C;AAChD;;AAEA;EACE,uBAAuB;EACvB,YAAY;EACZ,oBAAoB;EACpB,kBAAkB;EAClB,eAAe;EACf,gBAAgB;EAChB,cAAc;EACd,YAAY;EACZ,oBAAoB;EACpB,kBAAkB;AACpB;;AAEA;EACE,gCAAgC;EAChC,YAAY;EACZ,UAAU;AACZ;;AAEA;EACE,+BAA+B;EAC/B,gBAAgB;EAChB,cAAc;EACd,WAAW;AACb;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,WAAW;EACX,+BAA+B;EAC/B,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;AACd;;AAEA;EACE,gBAAgB;EAChB,iBAAiB;EACjB,4BAA4B;AAC9B;;AAEA;;EAEE,uBAAuB;EACvB,kBAAkB;EAClB,iCAAiC;EACjC,6BAA6B;EAC7B,0BAA0B;EAC1B,aAAa;EACb,kBAAkB;EAClB,WAAW;EACX,sBAAsB;AACxB;;AAEA;;EAEE,mCAAmC;EACnC,mBAAmB;AACrB;;AAEA;EACE,gBAAgB;EAChB,gBAAgB;EAChB,kBAAkB;EAClB,iCAAiC;EACjC,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;EACnB,mBAAmB;EACnB,WAAW;EACX,eAAe;EACf,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,eAAe;EACf,kCAAkC;AACpC;;AAEA;EACE,kBAAkB;EAClB,4BAA4B;EAC5B,YAAY;AACd;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,kBAAkB;EAClB,iCAAiC;EACjC,kBAAkB;AACpB;;AAEA;EACE,sCAAsC;EACtC,YAAY;EACZ,YAAY;EACZ,sBAAsB;EACtB,mBAAmB;EACnB,eAAe;EACf,gBAAgB;EAChB,oBAAoB;EACpB,mBAAmB;EACnB,mBAAmB;EACnB,kBAAkB;AACpB;;AAEA;EACE,yBAAyB;EACzB,2BAA2B;AAC7B","sourcesContent":[".settings-tabs {\r\n  display: flex;\r\n  gap: 0.5rem;\r\n  margin-bottom: 1rem;\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n  padding-bottom: 0.6rem;\r\n}\r\n\r\n[data-theme=\"dark\"] .settings-tabs {\r\n  border-bottom-color: rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.settings-tabs button {\r\n  background: transparent;\r\n  border: none;\r\n  padding: 0.4rem 1rem;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  color: inherit;\r\n  opacity: 0.6;\r\n  transition: all 0.2s;\r\n  font-size: 0.85rem;\r\n}\r\n\r\n.settings-tabs button.active {\r\n  background: var(--primary-color);\r\n  color: white;\r\n  opacity: 1;\r\n}\r\n\r\n.settings-content {\r\n  animation: fadeIn 0.4s ease-out;\r\n  max-width: 600px;\r\n  margin: 0 auto;\r\n  width: 100%;\r\n}\r\n\r\n.settings-form {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 0.8rem;\r\n  background: var(--bg-secondary);\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n}\r\n\r\n.settings-form .form-group.full {\r\n  grid-column: 1 / -1;\r\n}\r\n\r\n.form-group {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.25rem;\r\n}\r\n\r\n.form-group label {\r\n  font-weight: 600;\r\n  font-size: 0.8rem;\r\n  color: var(--text-secondary);\r\n}\r\n\r\n.form-group input,\r\n.form-group select {\r\n  padding: 0.55rem 0.7rem;\r\n  border-radius: 8px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  background: var(--bg-primary);\r\n  color: var(--text-primary);\r\n  outline: none;\r\n  font-size: 0.85rem;\r\n  width: 100%;\r\n  box-sizing: border-box;\r\n}\r\n\r\n[data-theme=\"dark\"] .form-group input, \r\n[data-theme=\"dark\"] .form-group select {\r\n  border-color: rgba(255,255,255,0.1);\r\n  background: #2c3e50;\r\n}\r\n\r\n.logo-preview {\r\n  max-width: 100px;\r\n  max-height: 30px;\r\n  border-radius: 6px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  margin-top: 0.3rem;\r\n}\r\n\r\n.checkbox-group {\r\n  grid-column: 1 / -1;\r\n}\r\n\r\n.checkbox-group label {\r\n  flex-direction: row;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  cursor: pointer;\r\n  font-size: 0.85rem;\r\n}\r\n\r\n.checkbox-group input[type=\"checkbox\"] {\r\n  width: 16px;\r\n  height: 16px;\r\n  cursor: pointer;\r\n  accent-color: var(--primary-color);\r\n}\r\n\r\n.field-hint {\r\n  font-size: 0.75rem;\r\n  color: var(--text-secondary);\r\n  opacity: 0.7;\r\n}\r\n\r\n.favicon-preview {\r\n  max-width: 24px;\r\n  max-height: 24px;\r\n  border-radius: 4px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  margin-top: 0.3rem;\r\n}\r\n\r\n.btn-primary {\r\n  background-color: var(--primary-color);\r\n  color: white;\r\n  border: none;\r\n  padding: 0.6rem 1.2rem;\r\n  border-radius: 10px;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\r\n  grid-column: 1 / -1;\r\n  justify-self: start;\r\n  font-size: 0.85rem;\r\n}\r\n\r\n.btn-primary:hover {\r\n  background-color: #2980b9;\r\n  transform: translateY(-1px);\r\n}\r\n\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2995,6 +3055,183 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.sales-container {
 
 /***/ },
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/components/SetupWizard.css"
+/*!******************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/components/SetupWizard.css ***!
+  \******************************************************************************/
+(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.setup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: setupFadeIn 0.5s ease-out;
+}
+
+[data-theme="dark"] .setup-overlay {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+}
+
+.setup-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.setup-card h2 {
+  color: #fff;
+  font-size: 1.6rem;
+  margin: 0 0 0.3rem;
+}
+
+.setup-subtitle {
+  color: rgba(255,255,255,0.6);
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+}
+
+.setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.setup-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.setup-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.setup-field label {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.setup-field input,
+.setup-field select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.setup-field input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+
+.setup-field input:focus,
+.setup-field select:focus {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.1);
+}
+
+.setup-field select option {
+  background: #1e3c72;
+  color: #fff;
+}
+
+.setup-logo-preview {
+  margin-top: 0.4rem;
+  max-width: 120px;
+  max-height: 40px;
+  border-radius: 6px;
+}
+
+.setup-favicon-preview {
+  margin-top: 0.4rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.setup-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.setup-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: #3498db;
+}
+
+.setup-submit {
+  background: #3498db;
+  color: #fff;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+
+.setup-submit:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+}
+
+.setup-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes setupFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+`, "",{"version":3,"sources":["webpack://./src/components/SetupWizard.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,QAAQ;EACR,cAAc;EACd,6DAA6D;EAC7D,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,oCAAoC;AACtC;;AAEA;EACE,0EAA0E;AAC5E;;AAEA;EACE,iCAAiC;EACjC,2BAA2B;EAC3B,oBAAoB;EACpB,mBAAmB;EACnB,WAAW;EACX,gBAAgB;EAChB,gBAAgB;EAChB,gBAAgB;EAChB,uCAAuC;EACvC,uCAAuC;AACzC;;AAEA;EACE,WAAW;EACX,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,4BAA4B;EAC5B,kBAAkB;EAClB,iBAAiB;AACnB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;AACX;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,SAAS;AACX;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,WAAW;AACb;;AAEA;EACE,4BAA4B;EAC5B,iBAAiB;EACjB,gBAAgB;EAChB,yBAAyB;EACzB,qBAAqB;AACvB;;AAEA;;EAEE,kCAAkC;EAClC,wCAAwC;EACxC,WAAW;EACX,uBAAuB;EACvB,mBAAmB;EACnB,iBAAiB;EACjB,aAAa;EACb,6BAA6B;AAC/B;;AAEA;EACE,6BAA6B;AAC/B;;AAEA;;EAEE,mCAAmC;EACnC,iCAAiC;AACnC;;AAEA;EACE,mBAAmB;EACnB,WAAW;AACb;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,WAAW;EACX,4BAA4B;EAC5B,kBAAkB;EAClB,eAAe;AACjB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,qBAAqB;AACvB;;AAEA;EACE,mBAAmB;EACnB,WAAW;EACX,YAAY;EACZ,gBAAgB;EAChB,mBAAmB;EACnB,eAAe;EACf,gBAAgB;EAChB,eAAe;EACf,oBAAoB;EACpB,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;EACnB,2BAA2B;AAC7B;;AAEA;EACE,YAAY;EACZ,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,OAAO,UAAU,EAAE,uCAAuC,EAAE;EAC5D,KAAK,UAAU,EAAE,iCAAiC,EAAE;AACtD","sourcesContent":[".setup-overlay {\n  position: fixed;\n  inset: 0;\n  z-index: 10001;\n  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  animation: setupFadeIn 0.5s ease-out;\n}\n\n[data-theme=\"dark\"] .setup-overlay {\n  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);\n}\n\n.setup-card {\n  background: rgba(255,255,255,0.1);\n  backdrop-filter: blur(12px);\n  padding: 2rem 2.5rem;\n  border-radius: 20px;\n  width: 100%;\n  max-width: 600px;\n  max-height: 90vh;\n  overflow-y: auto;\n  border: 1px solid rgba(255,255,255,0.1);\n  box-shadow: 0 20px 60px rgba(0,0,0,0.3);\n}\n\n.setup-card h2 {\n  color: #fff;\n  font-size: 1.6rem;\n  margin: 0 0 0.3rem;\n}\n\n.setup-subtitle {\n  color: rgba(255,255,255,0.6);\n  margin: 0 0 1.5rem;\n  font-size: 0.9rem;\n}\n\n.setup-form {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n\n.setup-row {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n}\n\n.setup-field {\n  display: flex;\n  flex-direction: column;\n  gap: 0.3rem;\n}\n\n.setup-field label {\n  color: rgba(255,255,255,0.7);\n  font-size: 0.8rem;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n\n.setup-field input,\n.setup-field select {\n  background: rgba(255,255,255,0.05);\n  border: 1px solid rgba(255,255,255,0.15);\n  color: #fff;\n  padding: 0.65rem 0.8rem;\n  border-radius: 10px;\n  font-size: 0.9rem;\n  outline: none;\n  transition: border-color 0.2s;\n}\n\n.setup-field input::placeholder {\n  color: rgba(255,255,255,0.35);\n}\n\n.setup-field input:focus,\n.setup-field select:focus {\n  border-color: rgba(255,255,255,0.4);\n  background: rgba(255,255,255,0.1);\n}\n\n.setup-field select option {\n  background: #1e3c72;\n  color: #fff;\n}\n\n.setup-logo-preview {\n  margin-top: 0.4rem;\n  max-width: 120px;\n  max-height: 40px;\n  border-radius: 6px;\n}\n\n.setup-favicon-preview {\n  margin-top: 0.4rem;\n  width: 24px;\n  height: 24px;\n  border-radius: 4px;\n}\n\n.setup-checkbox {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  color: rgba(255,255,255,0.8);\n  font-size: 0.85rem;\n  cursor: pointer;\n}\n\n.setup-checkbox input {\n  width: 16px;\n  height: 16px;\n  accent-color: #3498db;\n}\n\n.setup-submit {\n  background: #3498db;\n  color: #fff;\n  border: none;\n  padding: 0.85rem;\n  border-radius: 12px;\n  font-size: 1rem;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.2s;\n  margin-top: 0.5rem;\n}\n\n.setup-submit:hover {\n  background: #2980b9;\n  transform: translateY(-1px);\n}\n\n.setup-submit:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  transform: none;\n}\n\n@keyframes setupFadeIn {\n  from { opacity: 0; transform: scale(0.95) translateY(20px); }\n  to { opacity: 1; transform: scale(1) translateY(0); }\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ },
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/components/Sidebar.css"
 /*!**************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/components/Sidebar.css ***!
@@ -3017,7 +3254,8 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.sidebar {
   width: 260px;
-  height: 100vh;
+  height: 100%;
+  min-height: 0;
   background: var(--sidebar-bg, #f8f9fa);
   border-right: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
@@ -3189,7 +3427,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.sidebar {
 .logout-button:hover {
   background: rgba(255, 107, 107, 0.1);
 }
-`, "",{"version":3,"sources":["webpack://./src/components/Sidebar.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,aAAa;EACb,sCAAsC;EACtC,2CAA2C;EAC3C,aAAa;EACb,sBAAsB;EACtB,iDAAiD;AACnD;;AAEA;EACE,mBAAmB;EACnB,iDAAiD;EACjD,qBAAqB;AACvB;;AAEA;EACE,eAAe;EACf,4CAA4C;AAC9C;;AAEA;EACE,kDAAkD;AACpD;;AAEA;EACE,SAAS;EACT,iBAAiB;EACjB,yBAAyB;EACzB,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,OAAO;EACP,aAAa;EACb,aAAa;EACb,sBAAsB;EACtB,WAAW;AACb;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,oBAAoB;EACpB,mBAAmB;EACnB,cAAc;EACd,qBAAqB;EACrB,oBAAoB;EACpB,kBAAkB;AACpB;;AAEA;EACE,+BAA+B;AACjC;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,qCAAqC;EACrC,WAAW;AACb;;AAEA;EACE,mBAAmB;EACnB,YAAY;EACZ,8CAA8C;AAChD;;AAEA;EACE,oBAAoB;EACpB,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,OAAO;EACP,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,UAAU;AACZ;;AAEA;EACE,qBAAqB;EACrB,cAAc;EACd,cAAc;EACd,OAAO;EACP,mBAAmB;EACnB,2BAA2B;AAC7B;;AAEA;EACE,+BAA+B;AACjC;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,aAAa;EACb,yCAAyC;EACzC,aAAa;EACb,mBAAmB;EACnB,WAAW;EACX,8BAA8B;AAChC;;AAEA;EACE,+CAA+C;AACjD;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,SAAS;AACX;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,gBAAgB;EAChB,sCAAsC;EACtC,iBAAiB;AACnB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;AACnB;;AAEA;EACE,OAAO;AACT;;AAEA;EACE,gBAAgB;EAChB,SAAS;EACT,iBAAiB;AACnB;;AAEA;EACE,SAAS;EACT,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE,uBAAuB;EACvB,YAAY;EACZ,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,cAAc;EACd,oBAAoB;EACpB,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,oCAAoC;AACtC","sourcesContent":[".sidebar {\r\n  width: 260px;\r\n  height: 100vh;\r\n  background: var(--sidebar-bg, #f8f9fa);\r\n  border-right: 1px solid rgba(0, 0, 0, 0.05);\r\n  display: flex;\r\n  flex-direction: column;\r\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n}\r\n\r\n[data-theme=\"dark\"] .sidebar {\r\n  background: #1a1c1e;\r\n  border-right: 1px solid rgba(255, 255, 255, 0.05);\r\n  --sidebar-bg: #1a1c1e;\r\n}\r\n\r\n.sidebar-header {\r\n  padding: 1.5rem;\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n}\r\n\r\n[data-theme=\"dark\"] .sidebar-header {\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.sidebar-header h3 {\r\n  margin: 0;\r\n  font-size: 0.9rem;\r\n  text-transform: uppercase;\r\n  letter-spacing: 1px;\r\n  opacity: 0.6;\r\n}\r\n\r\n.sidebar-nav {\r\n  flex: 1;\r\n  padding: 1rem;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.5rem;\r\n}\r\n\r\n.nav-item {\r\n  display: flex;\r\n  align-items: center;\r\n  padding: 0.8rem 1rem;\r\n  border-radius: 12px;\r\n  color: inherit;\r\n  text-decoration: none;\r\n  transition: all 0.2s;\r\n  position: relative;\r\n}\r\n\r\n.nav-item:hover {\r\n  background: rgba(0, 0, 0, 0.03);\r\n}\r\n\r\n[data-theme=\"dark\"] .nav-item {\r\n  color: #ecf0f1;\r\n}\r\n\r\n[data-theme=\"dark\"] .nav-item:hover {\r\n  background: rgba(255, 255, 255, 0.05);\r\n  color: #fff;\r\n}\r\n\r\n.nav-item.active {\r\n  background: #3498db;\r\n  color: white;\r\n  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);\r\n}\r\n\r\n.nav-icon {\r\n  margin-right: 0.8rem;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.nav-text {\r\n  flex: 1;\r\n  font-weight: 500;\r\n}\r\n\r\n.chevron {\r\n  opacity: 0.3;\r\n  transition: transform 0.2s;\r\n}\r\n\r\n.nav-item:hover .chevron {\r\n  transform: translateX(3px);\r\n  opacity: 1;\r\n}\r\n\r\n.user-info-link {\r\n  text-decoration: none;\r\n  color: inherit;\r\n  display: block;\r\n  flex: 1;\r\n  border-radius: 12px;\r\n  transition: background 0.2s;\r\n}\r\n\r\n.user-info-link:hover {\r\n  background: rgba(0, 0, 0, 0.05);\r\n}\r\n\r\n[data-theme=\"dark\"] .user-info-link:hover {\r\n  background: rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.sidebar-footer {\r\n  padding: 1rem;\r\n  border-top: 1px solid rgba(0, 0, 0, 0.05);\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  justify-content: space-between;\r\n}\r\n\r\n[data-theme=\"dark\"] .sidebar-footer {\r\n  border-top: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.user-info {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n}\r\n\r\n.user-avatar-img {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\r\n  border: 2px solid var(--primary-color);\r\n  background: white;\r\n}\r\n\r\n.user-avatar-img img {\r\n  width: 100%;\r\n  height: 100%;\r\n  object-fit: cover;\r\n}\r\n\r\n.user-details {\r\n  flex: 1;\r\n}\r\n\r\n.user-details .username {\r\n  font-weight: 600;\r\n  margin: 0;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.user-details .role {\r\n  margin: 0;\r\n  font-size: 0.75rem;\r\n  opacity: 0.6;\r\n}\r\n\r\n.logout-button {\r\n  background: transparent;\r\n  border: none;\r\n  cursor: pointer;\r\n  padding: 0.5rem;\r\n  border-radius: 10px;\r\n  color: #ff6b6b;\r\n  transition: all 0.2s;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.logout-button:hover {\r\n  background: rgba(255, 107, 107, 0.1);\r\n}\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/components/Sidebar.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,YAAY;EACZ,aAAa;EACb,sCAAsC;EACtC,2CAA2C;EAC3C,aAAa;EACb,sBAAsB;EACtB,iDAAiD;AACnD;;AAEA;EACE,mBAAmB;EACnB,iDAAiD;EACjD,qBAAqB;AACvB;;AAEA;EACE,eAAe;EACf,4CAA4C;AAC9C;;AAEA;EACE,kDAAkD;AACpD;;AAEA;EACE,SAAS;EACT,iBAAiB;EACjB,yBAAyB;EACzB,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,OAAO;EACP,aAAa;EACb,aAAa;EACb,sBAAsB;EACtB,WAAW;AACb;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,oBAAoB;EACpB,mBAAmB;EACnB,cAAc;EACd,qBAAqB;EACrB,oBAAoB;EACpB,kBAAkB;AACpB;;AAEA;EACE,+BAA+B;AACjC;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,qCAAqC;EACrC,WAAW;AACb;;AAEA;EACE,mBAAmB;EACnB,YAAY;EACZ,8CAA8C;AAChD;;AAEA;EACE,oBAAoB;EACpB,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,OAAO;EACP,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,UAAU;AACZ;;AAEA;EACE,qBAAqB;EACrB,cAAc;EACd,cAAc;EACd,OAAO;EACP,mBAAmB;EACnB,2BAA2B;AAC7B;;AAEA;EACE,+BAA+B;AACjC;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,aAAa;EACb,yCAAyC;EACzC,aAAa;EACb,mBAAmB;EACnB,WAAW;EACX,8BAA8B;AAChC;;AAEA;EACE,+CAA+C;AACjD;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,SAAS;AACX;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,gBAAgB;EAChB,sCAAsC;EACtC,iBAAiB;AACnB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;AACnB;;AAEA;EACE,OAAO;AACT;;AAEA;EACE,gBAAgB;EAChB,SAAS;EACT,iBAAiB;AACnB;;AAEA;EACE,SAAS;EACT,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE,uBAAuB;EACvB,YAAY;EACZ,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,cAAc;EACd,oBAAoB;EACpB,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,oCAAoC;AACtC","sourcesContent":[".sidebar {\r\n  width: 260px;\r\n  height: 100%;\r\n  min-height: 0;\r\n  background: var(--sidebar-bg, #f8f9fa);\r\n  border-right: 1px solid rgba(0, 0, 0, 0.05);\r\n  display: flex;\r\n  flex-direction: column;\r\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n}\r\n\r\n[data-theme=\"dark\"] .sidebar {\r\n  background: #1a1c1e;\r\n  border-right: 1px solid rgba(255, 255, 255, 0.05);\r\n  --sidebar-bg: #1a1c1e;\r\n}\r\n\r\n.sidebar-header {\r\n  padding: 1.5rem;\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\r\n}\r\n\r\n[data-theme=\"dark\"] .sidebar-header {\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.sidebar-header h3 {\r\n  margin: 0;\r\n  font-size: 0.9rem;\r\n  text-transform: uppercase;\r\n  letter-spacing: 1px;\r\n  opacity: 0.6;\r\n}\r\n\r\n.sidebar-nav {\r\n  flex: 1;\r\n  padding: 1rem;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.5rem;\r\n}\r\n\r\n.nav-item {\r\n  display: flex;\r\n  align-items: center;\r\n  padding: 0.8rem 1rem;\r\n  border-radius: 12px;\r\n  color: inherit;\r\n  text-decoration: none;\r\n  transition: all 0.2s;\r\n  position: relative;\r\n}\r\n\r\n.nav-item:hover {\r\n  background: rgba(0, 0, 0, 0.03);\r\n}\r\n\r\n[data-theme=\"dark\"] .nav-item {\r\n  color: #ecf0f1;\r\n}\r\n\r\n[data-theme=\"dark\"] .nav-item:hover {\r\n  background: rgba(255, 255, 255, 0.05);\r\n  color: #fff;\r\n}\r\n\r\n.nav-item.active {\r\n  background: #3498db;\r\n  color: white;\r\n  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);\r\n}\r\n\r\n.nav-icon {\r\n  margin-right: 0.8rem;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.nav-text {\r\n  flex: 1;\r\n  font-weight: 500;\r\n}\r\n\r\n.chevron {\r\n  opacity: 0.3;\r\n  transition: transform 0.2s;\r\n}\r\n\r\n.nav-item:hover .chevron {\r\n  transform: translateX(3px);\r\n  opacity: 1;\r\n}\r\n\r\n.user-info-link {\r\n  text-decoration: none;\r\n  color: inherit;\r\n  display: block;\r\n  flex: 1;\r\n  border-radius: 12px;\r\n  transition: background 0.2s;\r\n}\r\n\r\n.user-info-link:hover {\r\n  background: rgba(0, 0, 0, 0.05);\r\n}\r\n\r\n[data-theme=\"dark\"] .user-info-link:hover {\r\n  background: rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.sidebar-footer {\r\n  padding: 1rem;\r\n  border-top: 1px solid rgba(0, 0, 0, 0.05);\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  justify-content: space-between;\r\n}\r\n\r\n[data-theme=\"dark\"] .sidebar-footer {\r\n  border-top: 1px solid rgba(255, 255, 255, 0.05);\r\n}\r\n\r\n.user-info {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n}\r\n\r\n.user-avatar-img {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\r\n  border: 2px solid var(--primary-color);\r\n  background: white;\r\n}\r\n\r\n.user-avatar-img img {\r\n  width: 100%;\r\n  height: 100%;\r\n  object-fit: cover;\r\n}\r\n\r\n.user-details {\r\n  flex: 1;\r\n}\r\n\r\n.user-details .username {\r\n  font-weight: 600;\r\n  margin: 0;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.user-details .role {\r\n  margin: 0;\r\n  font-size: 0.75rem;\r\n  opacity: 0.6;\r\n}\r\n\r\n.logout-button {\r\n  background: transparent;\r\n  border: none;\r\n  cursor: pointer;\r\n  padding: 0.5rem;\r\n  border-radius: 10px;\r\n  color: #ff6b6b;\r\n  transition: all 0.2s;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.logout-button:hover {\r\n  background: rgba(255, 107, 107, 0.1);\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -57906,21 +58144,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/sun.js");
 /* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ToastContext */ "./src/ToastContext.jsx");
 /* harmony import */ var _components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ErrorBoundary */ "./src/components/ErrorBoundary.jsx");
-/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./App.css */ "./src/App.css");
-/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Login */ "./src/components/Login.jsx");
-/* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Sidebar */ "./src/components/Sidebar.jsx");
-/* harmony import */ var _components_TitleBar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/TitleBar */ "./src/components/TitleBar.jsx");
-/* harmony import */ var _components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/ProtectedRoute */ "./src/components/ProtectedRoute.jsx");
-/* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Dashboard */ "./src/components/Dashboard.jsx");
-/* harmony import */ var _Settings__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Settings */ "./src/Settings.jsx");
-/* harmony import */ var _components_ProductManagement__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/ProductManagement */ "./src/components/ProductManagement.jsx");
-/* harmony import */ var _components_Categories__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Categories */ "./src/components/Categories.jsx");
-/* harmony import */ var _components_Clients__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Clients */ "./src/components/Clients.jsx");
-/* harmony import */ var _components_SalesScreen__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/SalesScreen */ "./src/components/SalesScreen.jsx");
-/* harmony import */ var _components_SalesHistory__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/SalesHistory */ "./src/components/SalesHistory.jsx");
-/* harmony import */ var _components_Reports__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Reports */ "./src/components/Reports.jsx");
-/* harmony import */ var _components_UserProfile__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/UserProfile */ "./src/components/UserProfile.jsx");
-/* harmony import */ var _components_Coupons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/Coupons */ "./src/components/Coupons.jsx");
+/* harmony import */ var _components_SetupWizard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/SetupWizard */ "./src/components/SetupWizard.jsx");
+/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./App.css */ "./src/App.css");
+/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Login */ "./src/components/Login.jsx");
+/* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Sidebar */ "./src/components/Sidebar.jsx");
+/* harmony import */ var _components_TitleBar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/TitleBar */ "./src/components/TitleBar.jsx");
+/* harmony import */ var _components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/ProtectedRoute */ "./src/components/ProtectedRoute.jsx");
+/* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Dashboard */ "./src/components/Dashboard.jsx");
+/* harmony import */ var _Settings__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Settings */ "./src/Settings.jsx");
+/* harmony import */ var _components_ProductManagement__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/ProductManagement */ "./src/components/ProductManagement.jsx");
+/* harmony import */ var _components_Categories__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Categories */ "./src/components/Categories.jsx");
+/* harmony import */ var _components_Clients__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/Clients */ "./src/components/Clients.jsx");
+/* harmony import */ var _components_SalesScreen__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/SalesScreen */ "./src/components/SalesScreen.jsx");
+/* harmony import */ var _components_SalesHistory__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/SalesHistory */ "./src/components/SalesHistory.jsx");
+/* harmony import */ var _components_Reports__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/Reports */ "./src/components/Reports.jsx");
+/* harmony import */ var _components_UserProfile__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/UserProfile */ "./src/components/UserProfile.jsx");
+/* harmony import */ var _components_Coupons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/Coupons */ "./src/components/Coupons.jsx");
 
 
 
@@ -57942,6 +58181,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+function loadFont(family) {
+  const id = 'dynamic-google-font';
+  const existing = document.getElementById(id);
+  if (existing) existing.remove();
+  const link = document.createElement('link');
+  link.id = id;
+  link.rel = 'stylesheet';
+  link.href = `https://fonts.googleapis.com/css2?family=${family.replace(' ', '+')}:wght@300;400;500;600;700&display=swap`;
+  document.head.appendChild(link);
+}
 function AppContent() {
   const {
     t,
@@ -57950,6 +58200,12 @@ function AppContent() {
   const [theme, setTheme] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(localStorage.getItem('theme') || 'system');
   const [user, setUser] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(JSON.parse(localStorage.getItem('user')));
   const [businessConfig, setBusinessConfig] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [configLoaded, setConfigLoaded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const applyTypography = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(family => {
+    if (!family) return;
+    loadFont(family);
+    document.documentElement.style.setProperty('--font-family', `'${family}', sans-serif`);
+  }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const savedLang = localStorage.getItem('language');
     if (savedLang && i18n.language !== savedLang) {
@@ -57972,14 +58228,12 @@ function AppContent() {
       if (data) {
         const parsed = JSON.parse(data);
         setBusinessConfig(parsed);
-        // Apply typography
-        if (parsed.typography) {
-          document.documentElement.style.setProperty('--font-family', parsed.typography);
-        }
+        applyTypography(parsed.typography);
       }
     } catch (e) {
       console.error('Failed to load business config', e);
     }
+    setConfigLoaded(true);
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     loadBusinessConfig();
@@ -57987,11 +58241,9 @@ function AppContent() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     window.api.onConfigChanged(config => {
       setBusinessConfig(config);
-      if (config.typography) {
-        document.documentElement.style.setProperty('--font-family', config.typography);
-      }
+      applyTypography(config.typography);
     });
-  }, []);
+  }, [applyTypography]);
   const handleLogin = userData => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
@@ -58000,19 +58252,29 @@ function AppContent() {
     setUser(null);
     localStorage.removeItem('user');
   };
+  const handleSetupComplete = config => {
+    setBusinessConfig(config);
+    applyTypography(config.typography);
+  };
+  const businessName = businessConfig?.businessName || t('app.title');
+  const needsSetup = configLoaded && user && !businessConfig?.businessName;
   if (!user) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Login__WEBPACK_IMPORTED_MODULE_9__["default"], {
-      onLogin: handleLogin
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Login__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      onLogin: handleLogin,
+      businessName: businessName
     });
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "app-root"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_TitleBar__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, needsSetup && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SetupWizard__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    config: businessConfig,
+    onComplete: handleSetupComplete
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_TitleBar__WEBPACK_IMPORTED_MODULE_12__["default"], {
     config: businessConfig,
     theme: theme
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "app-layout"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Sidebar__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Sidebar__WEBPACK_IMPORTED_MODULE_11__["default"], {
     user: user,
     onLogout: handleLogout
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -58021,7 +58283,7 @@ function AppContent() {
     className: "app-header"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "header-left"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, businessConfig?.businessName || t('app.title'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, businessName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "header-right"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "header-buttons"
@@ -58063,50 +58325,50 @@ function AppContent() {
     className: "content-area"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Dashboard__WEBPACK_IMPORTED_MODULE_13__["default"], null)
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Dashboard__WEBPACK_IMPORTED_MODULE_14__["default"], null)
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/sales",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__["default"], {
       allowedRoles: ['Administrator', 'Supervisor', 'Cashier']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SalesScreen__WEBPACK_IMPORTED_MODULE_18__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SalesScreen__WEBPACK_IMPORTED_MODULE_19__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/sales-history",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SalesHistory__WEBPACK_IMPORTED_MODULE_19__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SalesHistory__WEBPACK_IMPORTED_MODULE_20__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/products",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProductManagement__WEBPACK_IMPORTED_MODULE_15__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProductManagement__WEBPACK_IMPORTED_MODULE_16__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/categories",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Categories__WEBPACK_IMPORTED_MODULE_16__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Categories__WEBPACK_IMPORTED_MODULE_17__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/clients",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__["default"], {
       allowedRoles: ['Administrator', 'Supervisor', 'Cashier']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Clients__WEBPACK_IMPORTED_MODULE_17__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Clients__WEBPACK_IMPORTED_MODULE_18__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/coupons",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Coupons__WEBPACK_IMPORTED_MODULE_22__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Coupons__WEBPACK_IMPORTED_MODULE_23__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/reports",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__["default"], {
       allowedRoles: ['Administrator', 'Supervisor']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Reports__WEBPACK_IMPORTED_MODULE_20__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Reports__WEBPACK_IMPORTED_MODULE_21__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/settings",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ProtectedRoute__WEBPACK_IMPORTED_MODULE_13__["default"], {
       allowedRoles: ['Administrator']
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Settings__WEBPACK_IMPORTED_MODULE_14__["default"], null))
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Settings__WEBPACK_IMPORTED_MODULE_15__["default"], null))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/profile",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_UserProfile__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_UserProfile__WEBPACK_IMPORTED_MODULE_22__["default"], {
       user: user,
       onUpdateUser: handleLogin
     })
@@ -58293,40 +58555,13 @@ function Settings() {
     onSubmit: handleSubmit,
     className: "settings-form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "form-group"
+    className: "form-group full"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.business_name') || 'Nombre del negocio', ":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     name: "businessName",
     value: config.businessName,
     onChange: handleChange
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "form-group checkbox-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "checkbox",
-    name: "hasThemeLogos",
-    checked: config.hasThemeLogos,
-    onChange: handleChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, t('settings.has_theme_logos') || 'El logo tiene versión Light/Dark'))), config.hasThemeLogos ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.logo_light') || 'Logo claro (Light)', ":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "file",
-    accept: "image/*",
-    onChange: handleLogoUpload('logoLightPath')
-  }), config.logoLightPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
-    src: mediaSrc(config.logoLightPath),
-    alt: "Logo Light",
-    className: "logo-preview"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.logo_dark') || 'Logo oscuro (Dark)', ":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "file",
-    accept: "image/*",
-    onChange: handleLogoUpload('logoDarkPath')
-  }), config.logoDarkPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
-    src: mediaSrc(config.logoDarkPath),
-    alt: "Logo Dark",
-    className: "logo-preview"
-  }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.logo') || 'Logo', ":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "file",
@@ -58342,9 +58577,7 @@ function Settings() {
     type: "file",
     accept: "image/*",
     onChange: handleLogoUpload('faviconPath')
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    className: "field-hint"
-  }, t('settings.favicon_default') || 'Si no se especifica, se usará el icono por defecto'), config.faviconPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+  }), config.faviconPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: mediaSrc(config.faviconPath),
     alt: "Favicon",
     className: "favicon-preview"
@@ -58363,7 +58596,24 @@ function Settings() {
     value: config.phone,
     onChange: handleChange
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "form-group"
+    className: "form-group checkbox-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "checkbox",
+    name: "hasThemeLogos",
+    checked: config.hasThemeLogos,
+    onChange: handleChange
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, t('settings.has_theme_logos') || 'El logo tiene versión Light/Dark'))), config.hasThemeLogos && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "form-group full"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.logo_dark') || 'Logo oscuro (Dark)', ":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "file",
+    accept: "image/*",
+    onChange: handleLogoUpload('logoDarkPath')
+  }), config.logoDarkPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: mediaSrc(config.logoDarkPath),
+    alt: "Logo Dark",
+    className: "logo-preview"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "form-group full"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.typography') || 'Tipografía', ":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
     name: "typography",
     value: config.typography,
@@ -59803,7 +60053,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Login({
-  onLogin
+  onLogin,
+  businessName
 }) {
   const {
     t
@@ -59852,7 +60103,7 @@ function Login({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
     size: 40,
     color: "var(--primary-color)"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, t('login.title')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, t('login.subtitle'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, businessName || t('app.title')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, t('login.subtitle'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleSubmit,
     className: "login-form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -59888,7 +60139,7 @@ function Login({
     size: 16
   }), " ", t('login.exit'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "login-footer"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, t('login.footer')))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, businessName ? `© ${new Date().getFullYear()} ${businessName}.` : t('login.footer')))));
 }
 
 /***/ },
@@ -61373,6 +61624,238 @@ function SalesScreen() {
 
 /***/ },
 
+/***/ "./src/components/SetupWizard.css"
+/*!****************************************!*\
+  !*** ./src/components/SetupWizard.css ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_SetupWizard_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js!./SetupWizard.css */ "./node_modules/css-loader/dist/cjs.js!./src/components/SetupWizard.css");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_SetupWizard_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_SetupWizard_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_SetupWizard_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_SetupWizard_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ },
+
+/***/ "./src/components/SetupWizard.jsx"
+/*!****************************************!*\
+  !*** ./src/components/SetupWizard.jsx ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SetupWizard)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ToastContext */ "./src/ToastContext.jsx");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
+/* harmony import */ var _SetupWizard_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SetupWizard.css */ "./src/components/SetupWizard.css");
+
+
+
+
+
+function SetupWizard({
+  config,
+  onComplete
+}) {
+  const {
+    t
+  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_1__.useTranslation)();
+  const showToast = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_2__.useToast)();
+  const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    businessName: config?.businessName || '',
+    logoLightPath: config?.logoLightPath || '',
+    logoDarkPath: config?.logoDarkPath || '',
+    hasThemeLogos: config?.hasThemeLogos || false,
+    faviconPath: config?.faviconPath || '',
+    address: config?.address || '',
+    phone: config?.phone || '',
+    typography: config?.typography || 'Roboto'
+  });
+  const [saving, setSaving] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const handleChange = e => {
+    const {
+      name,
+      value,
+      type,
+      checked
+    } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+  const handleLogoUpload = fieldName => async e => {
+    const file = e.target.files[0];
+    if (file && file.path) {
+      const savedPath = await window.api.saveImage(file.path, 'business');
+      if (savedPath) {
+        setForm(prev => ({
+          ...prev,
+          [fieldName]: savedPath
+        }));
+      }
+    }
+  };
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if (!form.businessName.trim()) return;
+    setSaving(true);
+    const success = await window.api.writeConfig(JSON.stringify(form));
+    if (success) {
+      showToast(t('common.saved'), 'success');
+      onComplete(form);
+    } else {
+      showToast(t('common.save_error'), 'error');
+    }
+    setSaving(false);
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-overlay"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, t('setup.title')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    className: "setup-subtitle"
+  }, t('setup.subtitle')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+    onSubmit: handleSubmit,
+    className: "setup-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-field"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.business_name')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    name: "businessName",
+    value: form.businessName,
+    onChange: handleChange,
+    required: true,
+    autoFocus: true,
+    placeholder: t('setup.name_placeholder')
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-field"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.typography')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    name: "typography",
+    value: form.typography,
+    onChange: handleChange
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "Montserrat"
+  }, "Montserrat"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "Roboto"
+  }, "Roboto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "Outfit"
+  }, "Outfit")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-field"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.logo')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "file",
+    accept: "image/*",
+    onChange: handleLogoUpload('logoLightPath')
+  }), form.logoLightPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getMediaUrl)(form.logoLightPath),
+    alt: "",
+    className: "setup-logo-preview"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-field"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.favicon')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "file",
+    accept: "image/*",
+    onChange: handleLogoUpload('faviconPath')
+  }), form.faviconPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getMediaUrl)(form.faviconPath),
+    alt: "",
+    className: "setup-favicon-preview"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-field"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('clients.address')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    name: "address",
+    value: form.address,
+    onChange: handleChange
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-field"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('clients.phone')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    name: "phone",
+    value: form.phone,
+    onChange: handleChange
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    className: "setup-checkbox"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "checkbox",
+    name: "hasThemeLogos",
+    checked: form.hasThemeLogos,
+    onChange: handleChange
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, t('settings.has_theme_logos'))), form.hasThemeLogos && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "setup-field"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('settings.logo_dark')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "file",
+    accept: "image/*",
+    onChange: handleLogoUpload('logoDarkPath')
+  }), form.logoDarkPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getMediaUrl)(form.logoDarkPath),
+    alt: "",
+    className: "setup-logo-preview"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    type: "submit",
+    className: "setup-submit",
+    disabled: saving || !form.businessName.trim()
+  }, saving ? t('common.loading') : t('setup.start')))));
+}
+
+/***/ },
+
 /***/ "./src/components/Sidebar.css"
 /*!************************************!*\
   !*** ./src/components/Sidebar.css ***!
@@ -61622,7 +62105,7 @@ function TitleBar({
     className: "titlebar-logo"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "titlebar-business-name"
-  }, config?.businessName || 'Tu Negocio')));
+  }, config?.businessName || '')));
 }
 
 /***/ },
@@ -61937,7 +62420,7 @@ i18next__WEBPACK_IMPORTED_MODULE_0__["default"].use(react_i18next__WEBPACK_IMPOR
 (module) {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","welcome":"Welcome to the point of sale"},"common":{"info":"Information","save":"Save","cancel":"Cancel","edit":"Edit","delete":"Delete","actions":"Actions","search":"Search...","loading":"Loading...","no_results":"No results found.","confirm_delete":"Are you sure you want to delete this item?","save_success":"Changes saved successfully","save_error":"Error saving changes","menu":"Menu","hide":"Hide","show":"Show","import_error":"Import error","select_file":"Select file","confirm":"Confirm","saved":"Saved"},"login":{"title":"Tu Negocio Desktop","subtitle":"Powering your point of sale","username":"Username","password":"Password","button":"Login","error":"Incorrect credentials","footer":"© 2025 Tu Negocio Desktop. All rights reserved.","exit":"Exit"},"menu":{"dashboard":"Dashboard","sales":"Sales","products":"Products","categories":"Categories","clients":"Clients","coupons":"Coupons","reports":"Reports","settings":"Settings","permissions":"Permissions","logout":"Logout"},"permissions":{"title":"Section Management","subtitle":"Control which sections are visible for each role","section_header":"Section","save_success":"Permissions updated","save_changes":"Save Changes"},"products":{"title":"Products","subtitle":"Manage your inventory and catalog","new":"New Product","import":"Import CSV","code":"Code","name":"Name","category":"Category","price":"Price","stock":"Stock","image":"Image","no_category":"No category","select_category":"Select category","duplicate_code_error":"Error: Product code already exists.","cost":"Cost","detected":"products detected","import_instructions":"Select a CSV file with columns: code, name, price, cost, stock, category_id"},"clients":{"title":"Client Management","subtitle":"Manage your client database","new":"New Client","name":"Name","email":"Email","phone":"Phone","address":"Address","photo":"Photo"},"coupons":{"title":"Coupon Management","subtitle":"Create and manage discount codes","new":"New Coupon","code":"Code","discount":"Discount","type":"Type","expiry":"Expiry","status":"Status","active":"Active","expired":"Expired","percentage":"Percentage (%)","fixed":"Fixed ($)","never":"Never","edit_title":"Edit Coupon","new_title":"New Coupon","not_found":"Coupon not found","expired_alert":"This coupon has expired","apply_success":"Coupon applied successfully"},"sales":{"search_placeholder":"Search product...","unit_price":"Unit Price","quantity":"Quantity","subtotal":"Subtotal","total":"Total","discount":"Discount","finish":"Finish Sale","client":"Client","change_client":"Change","coupon_placeholder":"Coupon code...","apply":"Apply","cart_empty":"Cart is empty","select_client":"Select Client","search_client":"Search client...","final_consumer":"Final Consumer","success_alert":"Sale completed successfully","error_alert":"Error processing sale"},"reports":{"title":"Reports & Statistics","subtitle":"General summary of your business performance","total_sales":"Total Sales","sales_count":"Number of Sales","product_count":"Products in Catalog","low_stock":"Low Stock (< 10)","chart_placeholder":"Sales Chart (A library like Recharts will be integrated here in the future)"},"settings":{"business_title":"Business Settings","business_name":"Business Name","logo":"Logo","logo_light":"Light Logo","logo_dark":"Dark Logo","has_theme_logos":"Logo has Light/Dark versions","favicon":"Favicon","favicon_default":"If not specified, the default icon will be used","typography":"Typography"},"categories":{"title":"Categories","subtitle":"Manage your product categories","new":"New Category","name":"Name","image":"Image","select_category":"Select category"},"users":{"title":"User Management","subtitle":"Manage users and their roles","new":"New User","username":"Username","password":"Password","role":"Role","image":"Profile Picture","edit_profile":"Edit Profile","current_password":"Current Password","new_password":"New Password","confirm_password":"Confirm New Password","password_updated":"Password updated successfully","password_error":"Incorrect current password","password_mismatch":"Passwords do not match","edit_password":"Edit Password","update_password":"Update Password"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","welcome":"Welcome to the point of sale"},"common":{"info":"Information","save":"Save","cancel":"Cancel","edit":"Edit","delete":"Delete","actions":"Actions","search":"Search...","loading":"Loading...","no_results":"No results found.","confirm_delete":"Are you sure you want to delete this item?","save_success":"Changes saved successfully","save_error":"Error saving changes","menu":"Menu","hide":"Hide","show":"Show","import_error":"Import error","select_file":"Select file","confirm":"Confirm","saved":"Saved"},"login":{"title":"Tu Negocio Desktop","subtitle":"Powering your point of sale","username":"Username","password":"Password","button":"Login","error":"Incorrect credentials","footer":"© 2025 Tu Negocio Desktop. All rights reserved.","exit":"Exit"},"menu":{"dashboard":"Dashboard","sales":"Sales","products":"Products","categories":"Categories","clients":"Clients","coupons":"Coupons","reports":"Reports","settings":"Settings","permissions":"Permissions","logout":"Logout"},"permissions":{"title":"Section Management","subtitle":"Control which sections are visible for each role","section_header":"Section","save_success":"Permissions updated","save_changes":"Save Changes"},"products":{"title":"Products","subtitle":"Manage your inventory and catalog","new":"New Product","import":"Import CSV","code":"Code","name":"Name","category":"Category","price":"Price","stock":"Stock","image":"Image","no_category":"No category","select_category":"Select category","duplicate_code_error":"Error: Product code already exists.","cost":"Cost","detected":"products detected","import_instructions":"Select a CSV file with columns: code, name, price, cost, stock, category_id"},"clients":{"title":"Client Management","subtitle":"Manage your client database","new":"New Client","name":"Name","email":"Email","phone":"Phone","address":"Address","photo":"Photo"},"coupons":{"title":"Coupon Management","subtitle":"Create and manage discount codes","new":"New Coupon","code":"Code","discount":"Discount","type":"Type","expiry":"Expiry","status":"Status","active":"Active","expired":"Expired","percentage":"Percentage (%)","fixed":"Fixed ($)","never":"Never","edit_title":"Edit Coupon","new_title":"New Coupon","not_found":"Coupon not found","expired_alert":"This coupon has expired","apply_success":"Coupon applied successfully"},"sales":{"search_placeholder":"Search product...","unit_price":"Unit Price","quantity":"Quantity","subtotal":"Subtotal","total":"Total","discount":"Discount","finish":"Finish Sale","client":"Client","change_client":"Change","coupon_placeholder":"Coupon code...","apply":"Apply","cart_empty":"Cart is empty","select_client":"Select Client","search_client":"Search client...","final_consumer":"Final Consumer","success_alert":"Sale completed successfully","error_alert":"Error processing sale"},"reports":{"title":"Reports & Statistics","subtitle":"General summary of your business performance","total_sales":"Total Sales","sales_count":"Number of Sales","product_count":"Products in Catalog","low_stock":"Low Stock (< 10)","chart_placeholder":"Sales Chart (A library like Recharts will be integrated here in the future)"},"settings":{"business_title":"Business Settings","business_name":"Business Name","logo":"Logo","logo_light":"Light Logo","logo_dark":"Dark Logo","has_theme_logos":"Logo has Light/Dark versions","favicon":"Favicon","favicon_default":"If not specified, the default icon will be used","typography":"Typography"},"setup":{"title":"Set up your business","subtitle":"Fill in the basic details to start using the system","start":"Get Started","name_placeholder":"E.g.: My Store"},"categories":{"title":"Categories","subtitle":"Manage your product categories","new":"New Category","name":"Name","image":"Image","select_category":"Select category"},"users":{"title":"User Management","subtitle":"Manage users and their roles","new":"New User","username":"Username","password":"Password","role":"Role","image":"Profile Picture","edit_profile":"Edit Profile","current_password":"Current Password","new_password":"New Password","confirm_password":"Confirm New Password","password_updated":"Password updated successfully","password_error":"Incorrect current password","password_mismatch":"Passwords do not match","edit_password":"Edit Password","update_password":"Update Password"}}');
 
 /***/ },
 
@@ -61948,7 +62431,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","
 (module) {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","welcome":"Bienvenido al punto de venta"},"common":{"info":"Información","save":"Guardar","cancel":"Cancelar","edit":"Editar","delete":"Eliminar","actions":"Acciones","search":"Buscar...","loading":"Cargando...","no_results":"No se encontraron resultados.","confirm_delete":"¿Estás seguro de eliminar este elemento?","save_success":"Cambios guardados con éxito","save_error":"Error al guardar los cambios","menu":"Menú","hide":"Ocultar","show":"Mostrar","import_error":"Error al importar","select_file":"Seleccionar archivo","confirm":"Confirmar","saved":"Guardado"},"login":{"title":"Tu Negocio Desktop","subtitle":"Potenciando tu punto de venta","username":"Usuario","password":"Contraseña","button":"Iniciar Sesión","error":"Credenciales incorrectas","footer":"© 2025 Tu Negocio Desktop. Todos los derechos reservados.","exit":"Salir"},"menu":{"dashboard":"Dashboard","sales":"Ventas","products":"Productos","categories":"Categorías","clients":"Clientes","coupons":"Cupones","reports":"Reportes","settings":"Configuración","permissions":"Permisos","logout":"Cerrar Sesión"},"permissions":{"title":"Gestión de Secciones","subtitle":"Controla qué secciones son visibles para cada rol","section_header":"Sección","save_success":"Permisos actualizados","save_changes":"Guardar Cambios"},"products":{"title":"Productos","subtitle":"Gestiona tu inventario y catálogo","new":"Nuevo Producto","import":"Importar CSV","code":"Código","name":"Nombre","category":"Categoría","price":"Precio","stock":"Stock","no_category":"Sin categoría","image":"Imagen","select_category":"Seleccionar categoría","duplicate_code_error":"Error: El código de producto ya existe.","detected":"productos detectados","import_instructions":"Selecciona un archivo CSV con las columnas: code, name, price, cost, stock, category_id","cost":"Costo"},"clients":{"title":"Gestión de Clientes","subtitle":"Administra tu base de datos de clientes","new":"Nuevo Cliente","name":"Nombre","email":"Email","phone":"Teléfono","address":"Dirección","photo":"Foto"},"coupons":{"title":"Gestión de Cupones","subtitle":"Crea y administra códigos de descuento","new":"Nuevo Cupón","code":"Código","discount":"Descuento","type":"Tipo","expiry":"Expiración","status":"Estado","active":"Activo","expired":"Expirado","percentage":"Porcentaje (%)","fixed":"Fijo ($)","never":"Nunca","edit_title":"Editar Cupón","new_title":"Nuevo Cupón","not_found":"Cupón no encontrado","expired_alert":"Este cupón ha expirado","apply_success":"Cupón aplicado con éxito"},"sales":{"search_placeholder":"Buscar producto...","unit_price":"P. Unitario","quantity":"Cantidad","subtotal":"Subtotal","total":"Total","discount":"Descuento","finish":"Finalizar Venta","client":"Cliente","change_client":"Cambiar","coupon_placeholder":"Código de cupón...","apply":"Aplicar","cart_empty":"El carrito está vacío","select_client":"Seleccionar Cliente","search_client":"Buscar cliente...","final_consumer":"Consumidor Final","success_alert":"Venta realizada con éxito","error_alert":"Error al procesar la venta"},"reports":{"title":"Reportes y Estadísticas","subtitle":"Resumen general del rendimiento de tu negocio","total_sales":"Ventas Totales","sales_count":"Número de Ventas","product_count":"Productos en Catálogo","low_stock":"Stock Bajo (< 10)","chart_placeholder":"Gráfica de ventas (Aquí se integrará una librería como Recharts en el futuro)"},"settings":{"business_title":"Configuración del Negocio","business_name":"Nombre del negocio","logo":"Logo","logo_light":"Logo claro (Light)","logo_dark":"Logo oscuro (Dark)","has_theme_logos":"El logo tiene versión Light/Dark","favicon":"Favicon","favicon_default":"Si no se especifica, se usará el icono por defecto","typography":"Tipografía"},"categories":{"title":"Categorías","subtitle":"Administra las categorías de tus productos","new":"Nueva Categoría","name":"Nombre","image":"Imagen","select_category":"Seleccionar categoría"},"users":{"title":"Gestión de Usuarios","subtitle":"Administra los usuarios y sus roles","new":"Nuevo Usuario","username":"Nombre de usuario","password":"Contraseña","role":"Rol","image":"Foto de perfil","edit_profile":"Editar Perfil","current_password":"Contraseña Actual","new_password":"Nueva Contraseña","confirm_password":"Confirmar Nueva Contraseña","password_updated":"Contraseña actualizada con éxito","password_error":"Contraseña actual incorrecta","password_mismatch":"Las contraseñas no coinciden","edit_password":"Modificar Contraseña","update_password":"Actualizar Contraseña"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"app":{"title":"Tu Negocio Desktop","welcome":"Bienvenido al punto de venta"},"common":{"info":"Información","save":"Guardar","cancel":"Cancelar","edit":"Editar","delete":"Eliminar","actions":"Acciones","search":"Buscar...","loading":"Cargando...","no_results":"No se encontraron resultados.","confirm_delete":"¿Estás seguro de eliminar este elemento?","save_success":"Cambios guardados con éxito","save_error":"Error al guardar los cambios","menu":"Menú","hide":"Ocultar","show":"Mostrar","import_error":"Error al importar","select_file":"Seleccionar archivo","confirm":"Confirmar","saved":"Guardado"},"login":{"title":"Tu Negocio Desktop","subtitle":"Potenciando tu punto de venta","username":"Usuario","password":"Contraseña","button":"Iniciar Sesión","error":"Credenciales incorrectas","footer":"© 2025 Tu Negocio Desktop. Todos los derechos reservados.","exit":"Salir"},"menu":{"dashboard":"Dashboard","sales":"Ventas","products":"Productos","categories":"Categorías","clients":"Clientes","coupons":"Cupones","reports":"Reportes","settings":"Configuración","permissions":"Permisos","logout":"Cerrar Sesión"},"permissions":{"title":"Gestión de Secciones","subtitle":"Controla qué secciones son visibles para cada rol","section_header":"Sección","save_success":"Permisos actualizados","save_changes":"Guardar Cambios"},"products":{"title":"Productos","subtitle":"Gestiona tu inventario y catálogo","new":"Nuevo Producto","import":"Importar CSV","code":"Código","name":"Nombre","category":"Categoría","price":"Precio","stock":"Stock","no_category":"Sin categoría","image":"Imagen","select_category":"Seleccionar categoría","duplicate_code_error":"Error: El código de producto ya existe.","detected":"productos detectados","import_instructions":"Selecciona un archivo CSV con las columnas: code, name, price, cost, stock, category_id","cost":"Costo"},"clients":{"title":"Gestión de Clientes","subtitle":"Administra tu base de datos de clientes","new":"Nuevo Cliente","name":"Nombre","email":"Email","phone":"Teléfono","address":"Dirección","photo":"Foto"},"coupons":{"title":"Gestión de Cupones","subtitle":"Crea y administra códigos de descuento","new":"Nuevo Cupón","code":"Código","discount":"Descuento","type":"Tipo","expiry":"Expiración","status":"Estado","active":"Activo","expired":"Expirado","percentage":"Porcentaje (%)","fixed":"Fijo ($)","never":"Nunca","edit_title":"Editar Cupón","new_title":"Nuevo Cupón","not_found":"Cupón no encontrado","expired_alert":"Este cupón ha expirado","apply_success":"Cupón aplicado con éxito"},"sales":{"search_placeholder":"Buscar producto...","unit_price":"P. Unitario","quantity":"Cantidad","subtotal":"Subtotal","total":"Total","discount":"Descuento","finish":"Finalizar Venta","client":"Cliente","change_client":"Cambiar","coupon_placeholder":"Código de cupón...","apply":"Aplicar","cart_empty":"El carrito está vacío","select_client":"Seleccionar Cliente","search_client":"Buscar cliente...","final_consumer":"Consumidor Final","success_alert":"Venta realizada con éxito","error_alert":"Error al procesar la venta"},"reports":{"title":"Reportes y Estadísticas","subtitle":"Resumen general del rendimiento de tu negocio","total_sales":"Ventas Totales","sales_count":"Número de Ventas","product_count":"Productos en Catálogo","low_stock":"Stock Bajo (< 10)","chart_placeholder":"Gráfica de ventas (Aquí se integrará una librería como Recharts en el futuro)"},"settings":{"business_title":"Configuración del Negocio","business_name":"Nombre del negocio","logo":"Logo","logo_light":"Logo claro (Light)","logo_dark":"Logo oscuro (Dark)","has_theme_logos":"El logo tiene versión Light/Dark","favicon":"Favicon","favicon_default":"Si no se especifica, se usará el icono por defecto","typography":"Tipografía"},"setup":{"title":"Configura tu negocio","subtitle":"Completa los datos básicos para empezar a usar el sistema","start":"Comenzar","name_placeholder":"Ej: Mi Tienda"},"categories":{"title":"Categorías","subtitle":"Administra las categorías de tus productos","new":"Nueva Categoría","name":"Nombre","image":"Imagen","select_category":"Seleccionar categoría"},"users":{"title":"Gestión de Usuarios","subtitle":"Administra los usuarios y sus roles","new":"Nuevo Usuario","username":"Nombre de usuario","password":"Contraseña","role":"Rol","image":"Foto de perfil","edit_profile":"Editar Perfil","current_password":"Contraseña Actual","new_password":"Nueva Contraseña","confirm_password":"Confirmar Nueva Contraseña","password_updated":"Contraseña actualizada con éxito","password_error":"Contraseña actual incorrecta","password_mismatch":"Las contraseñas no coinciden","edit_password":"Modificar Contraseña","update_password":"Actualizar Contraseña"}}');
 
 /***/ },
 

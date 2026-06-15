@@ -140,6 +140,12 @@
     "favicon_default": "If not specified, the default icon will be used",
     "typography": "Typography"
   },
+  "setup": {
+    "title": "Set up your business",
+    "subtitle": "Fill in the basic details to start using the system",
+    "start": "Get Started",
+    "name_placeholder": "E.g.: My Store"
+  },
   "categories": {
     "title": "Categories",
     "subtitle": "Manage your product categories",

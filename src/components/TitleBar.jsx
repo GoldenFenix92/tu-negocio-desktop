@@ -16,14 +16,10 @@ export default function TitleBar({ config, theme }) {
   return (
     <div className="titlebar">
       <div className="titlebar-drag">
-        {faviconSrc && (
-          <img src={faviconSrc} alt="" className="titlebar-favicon" />
-        )}
-        {logoSrc && (
-          <img src={logoSrc} alt="" className="titlebar-logo" />
-        )}
+        {faviconSrc && <img src={faviconSrc} alt="" className="titlebar-favicon" />}
+        {logoSrc && <img src={logoSrc} alt="" className="titlebar-logo" />}
         <span className="titlebar-business-name">
-          {config?.businessName || 'Tu Negocio'}
+          {config?.businessName || ''}
         </span>
       </div>
     </div>
