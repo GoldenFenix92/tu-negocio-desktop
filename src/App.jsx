@@ -24,6 +24,7 @@ function AppContent() {
   const { t, i18n } = useTranslation();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'system');
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [businessConfig, setBusinessConfig] = useState(null);
 
   useEffect(() => {
     const savedLang = localStorage.getItem('language');
@@ -43,6 +44,35 @@ function AppContent() {
     root.setAttribute('data-theme', appliedTheme);
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  const loadBusinessConfig = async () => {
+    try {
+      const data = await window.api.readConfig();
+      if (data) {
+        const parsed = JSON.parse(data);
+        setBusinessConfig(parsed);
+        // Apply typography
+        if (parsed.typography) {
+          document.documentElement.style.setProperty('--font-family', parsed.typography);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load business config', e);
+    }
+  };
+
+  useEffect(() => {
+    loadBusinessConfig();
+  }, []);
+
+  useEffect(() => {
+    window.api.onConfigChanged((config) => {
+      setBusinessConfig(config);
+      if (config.typography) {
+        document.documentElement.style.setProperty('--font-family', config.typography);
+      }
+    });
+  }, []);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -65,7 +95,7 @@ function AppContent() {
         <div className="main-content">
           <header className="app-header">
             <div className="header-left">
-              <h1>{t('app.title')}</h1>
+              <h1>{businessConfig?.businessName || t('app.title')}</h1>
             </div>
             <div className="header-right">
               <div className="header-buttons">

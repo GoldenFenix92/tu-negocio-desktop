@@ -130,6 +130,10 @@ function initDatabase() {
   console.log('  admin / admin (Administrator)');
   console.log('  supervisor / supervisor (Supervisor)');
   console.log('  cajero / cajero (Cashier)');
+
+  // Seed test data
+  require('./seed')();
+
   return true;
 }
 

@@ -7,7 +7,7 @@
     "start": "electron .",
     "dev": "webpack --mode development && electron .",
     "build": "webpack --mode production && electron-builder",
-    "postinstall": "npx @electron/rebuild -m . -o better-sqlite3"
+    "postinstall": "npx @electron/rebuild -m . -o better-sqlite3 -o sharp"
   },
   "build": {
     "appId": "com.tunegocio.desktop",
@@ -50,6 +50,7 @@
     "better-sqlite3": "^12.10.1",
     "lucide-react": "^0.562.0",
     "papaparse": "^5.5.3",
-    "react-router-dom": "^7.11.0"
+    "react-router-dom": "^7.11.0",
+    "sharp": "^0.34.5"
   }
 }

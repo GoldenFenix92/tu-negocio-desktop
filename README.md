@@ -19,6 +19,9 @@ Aplicación POS (Point of Sale) de escritorio para la gestión integral de peque
 - **Logo con versión Light/Dark** — El negocio puede tener logos distintos para cada tema.
 - **Favicon personalizado** — Con fallback al icono por defecto.
 - **Notificaciones Toast** — Feedback visual no bloqueante para todas las operaciones.
+- **Configuración en vivo** — Los cambios en Settings se aplican al instante sin reiniciar la app (logo, tipografía, nombre).
+- **Conversión WebP** — Las imágenes subidas se convierten automáticamente a WebP para optimizar almacenamiento.
+- **Datos de prueba** — La primera ejecución siembra la BD con 40 productos, 12 clientes, 25 ventas, cupones y promociones.
 - **Base de datos local** — SQLite, sin necesidad de servidores externos.
 
 ---
@@ -88,7 +91,8 @@ tu-negocio-desktop/
 │   └── dbConfig.json       # Ruta de la base de datos SQLite
 ├── db/
 │   ├── sqlite.js           # Conector a SQLite
-│   ├── init-db.js          # Inicialización de la BD con schema y datos semilla
+│   ├── init-db.js          # Inicialización de la BD con schema
+│   ├── seed.js             # Datos de prueba (40 productos, ventas, etc.)
 │   └── schema.sql          # Esquema de referencia (MySQL original)
 ├── data/
 │   └── tu_negocio.db       # Base de datos SQLite (se crea automáticamente)

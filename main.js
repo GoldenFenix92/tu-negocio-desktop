@@ -4,6 +4,7 @@ const fs = require('fs');
 const { net } = require('electron');
 const { pathToFileURL } = require('url');
 const bcrypt = require('bcryptjs');
+const sharp = require('sharp');
 const db = require('./db/sqlite');
 
 // Register custom protocol for local images
@@ -138,6 +139,9 @@ ipcMain.handle('write-config', async (event, { filename, data }) => {
         const win = BrowserWindow.getAllWindows()[0];
         if (win) win.setIcon(resolved);
       }
+      // Notify renderer of config change
+      const win = BrowserWindow.getAllWindows()[0];
+      if (win) win.webContents.send('config-changed', config);
     }
     return true;
   } catch (e) {
@@ -169,9 +173,14 @@ ipcMain.handle('save-image', async (event, { sourcePath, entityType }) => {
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
-    const fileName = `${Date.now()}${ext}`;
+
+    const fileName = `${Date.now()}.webp`;
     const destPath = path.join(uploadDir, fileName);
-    fs.copyFileSync(sourcePath, destPath);
+
+    await sharp(sourcePath)
+      .webp({ quality: 80 })
+      .toFile(destPath);
+
     return destPath;
   } catch (e) {
     console.error('Failed to save image', e);

@@ -21,7 +21,8 @@
     "show": "Mostrar",
     "import_error": "Error al importar",
     "select_file": "Seleccionar archivo",
-    "confirm": "Confirmar"
+    "confirm": "Confirmar",
+    "saved": "Guardado"
   },
   "login": {
     "title": "Tu Negocio Desktop",
@@ -136,8 +137,7 @@
     "has_theme_logos": "El logo tiene versión Light/Dark",
     "favicon": "Favicon",
     "favicon_default": "Si no se especifica, se usará el icono por defecto",
-    "typography": "Tipografía",
-    "restart_confirm": "Los cambios se aplicarán después de reiniciar. ¿Reiniciar ahora?"
+    "typography": "Tipografía"
   },
   "categories": {
     "title": "Categorías",

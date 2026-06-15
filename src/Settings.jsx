@@ -61,9 +61,7 @@ export default function Settings() {
     setSaving(true);
     const success = await window.api.writeConfig(JSON.stringify(config));
     if (success) {
-      if (confirm(t('settings.restart_confirm'))) {
-        await window.api.restartApp();
-      }
+      showToast(t('common.saved'), 'success');
     } else {
       showToast(t('common.save_error') || 'Error al guardar la configuración', 'error');
     }
