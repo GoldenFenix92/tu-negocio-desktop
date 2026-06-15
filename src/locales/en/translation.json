@@ -1,4 +1,9 @@
 {
+  "dashboard": {
+    "today": "Sales Today",
+    "week": "Last 7 Days",
+    "month": "This Month"
+  },
   "app": {
     "title": "Tu Negocio Desktop",
     "welcome": "Welcome to the point of sale"
@@ -127,7 +132,10 @@
     "sales_count": "Number of Sales",
     "product_count": "Products in Catalog",
     "low_stock": "Low Stock (< 10)",
-    "chart_placeholder": "Sales Chart (A library like Recharts will be integrated here in the future)"
+    "chart_placeholder": "Sales Chart (A library like Recharts will be integrated here in the future)",
+    "daily_sales": "Last 7 Days Sales",
+    "top_products": "Top Selling Products",
+    "units_sold": "Units Sold"
   },
   "settings": {
     "business_title": "Business Settings",

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LogIn, User, Lock, LogOut } from 'lucide-react';
+import { User, Lock, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import './Login.css';
 
@@ -46,49 +46,61 @@ export default function Login({ onLogin, businessName }) {
 
   return (
     <div className="login-wrapper">
-      <div className="login-card">
-        <div className="login-header">
-          <div className="login-logo">
-            <LogIn size={40} color="var(--primary-color)" />
+      <div className="login-bg" />
+      <div className="login-container">
+        <div className="login-card">
+          <div className="login-card-inner">
+            <div className="login-header">
+              <div className="login-logo-ring">
+                <div className="login-logo-icon">
+                  <svg className="login-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13 12H3" />
+                  </svg>
+                </div>
+              </div>
+              <h2 className="login-title">{businessName || t('app.title')}</h2>
+              <p className="login-subtitle">{t('login.subtitle')}</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="login-form">
+              <div className="input-field">
+                <User size={18} className="input-icon" />
+                <input 
+                  type="text" 
+                  placeholder={t('login.username')}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-field">
+                <Lock size={18} className="input-icon" />
+                <input 
+                  type="password" 
+                  placeholder={t('login.password')}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              {error && <p className="error-message">{error}</p>}
+
+              <button type="submit" className="login-button">
+                {t('login.button')}
+              </button>
+            </form>
+
+            <div className="login-divider" />
+
+            <button type="button" className="exit-button" onClick={handleExit}>
+              <LogOut size={16} /> {t('login.exit')}
+            </button>
+
+            <div className="login-footer">
+              <p>{businessName ? `© ${new Date().getFullYear()} ${businessName}.` : t('login.footer')}</p>
+            </div>
           </div>
-          <h2>{businessName || t('app.title')}</h2>
-          <p>{t('login.subtitle')}</p>
-        </div>
-        
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="input-field">
-            <User size={18} />
-            <input 
-              type="text" 
-              placeholder={t('login.username')}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <Lock size={18} />
-            <input 
-              type="password" 
-              placeholder={t('login.password')}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          
-          {error && <p className="error-message">{error}</p>}
-          
-          <button type="submit" className="login-button">
-            {t('login.button')}
-          </button>
-          <button type="button" className="exit-button" onClick={handleExit}>
-            <LogOut size={16} /> {t('login.exit')}
-          </button>
-        </form>
-        
-        <div className="login-footer">
-          <p>{businessName ? `© ${new Date().getFullYear()} ${businessName}.` : t('login.footer')}</p>
         </div>
       </div>
     </div>

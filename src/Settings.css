@@ -41,8 +41,13 @@
   grid-template-columns: 1fr 1fr;
   gap: 0.8rem;
   background: var(--bg-secondary);
-  padding: 1rem;
-  border-radius: 12px;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+[data-theme="dark"] .settings-form {
+  border-color: rgba(255,255,255,0.06);
 }
 
 .settings-form .form-group.full {

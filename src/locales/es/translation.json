@@ -1,4 +1,9 @@
 {
+  "dashboard": {
+    "today": "Ventas hoy",
+    "week": "Últimos 7 días",
+    "month": "Este mes"
+  },
   "app": {
     "title": "Tu Negocio Desktop",
     "welcome": "Bienvenido al punto de venta"
@@ -127,7 +132,10 @@
     "sales_count": "Número de Ventas",
     "product_count": "Productos en Catálogo",
     "low_stock": "Stock Bajo (< 10)",
-    "chart_placeholder": "Gráfica de ventas (Aquí se integrará una librería como Recharts en el futuro)"
+    "chart_placeholder": "Gráfica de ventas (Aquí se integrará una librería como Recharts en el futuro)",
+    "daily_sales": "Ventas de los Últimos 7 Días",
+    "top_products": "Productos Más Vendidos",
+    "units_sold": "Unidades Vendidas"
   },
   "settings": {
     "business_title": "Configuración del Negocio",

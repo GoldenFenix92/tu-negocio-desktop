@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Moon, Sun, Laptop } from 'lucide-react';
+import { ConfigProvider, theme } from 'antd';
 import { ToastProvider } from './ToastContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import SetupWizard from './components/SetupWizard';
@@ -9,7 +10,6 @@ import './App.css';
 
 import Login from './components/Login';
 import Sidebar from './components/Sidebar';
-import TitleBar from './components/TitleBar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './components/Dashboard';
 import Settings from './Settings';
@@ -35,7 +35,7 @@ function loadFont(family) {
 
 function AppContent() {
   const { t, i18n } = useTranslation();
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'system');
+  const [themeMode, setThemeMode] = useState(localStorage.getItem('theme') || 'system');
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [businessConfig, setBusinessConfig] = useState(null);
   const [configLoaded, setConfigLoaded] = useState(false);
@@ -60,10 +60,11 @@ function AppContent() {
   useEffect(() => {
     const root = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const appliedTheme = theme === 'system' ? (prefersDark ? 'dark' : 'light') : theme;
+    const appliedTheme = themeMode === 'system' ? (prefersDark ? 'dark' : 'light') : themeMode;
     root.setAttribute('data-theme', appliedTheme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    root.classList.toggle('dark', appliedTheme === 'dark');
+    localStorage.setItem('theme', themeMode);
+  }, [themeMode]);
 
   const loadBusinessConfig = async () => {
     try {
@@ -108,65 +109,87 @@ function AppContent() {
   const businessName = businessConfig?.businessName || t('app.title');
   const needsSetup = configLoaded && user && !businessConfig?.businessName;
 
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const resolvedTheme = themeMode === 'system' ? (prefersDark ? 'dark' : 'light') : themeMode;
+  const antdTheme = useMemo(() => ({
+    algorithm: resolvedTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    token: {
+      colorPrimary: '#4f46e5',
+      borderRadius: 10,
+      fontSize: 14,
+    },
+    components: {
+      Button: { controlHeight: 38 },
+      Table: { headerBg: resolvedTheme === 'dark' ? '#1f1f1f' : '#fafafa' },
+    },
+  }), [resolvedTheme]);
+
   if (!user) {
     return <Login onLogin={handleLogin} businessName={businessName} />;
   }
 
-  return (
-    <Router>
-      <div className="app-root">
-        {needsSetup && <SetupWizard config={businessConfig} onComplete={handleSetupComplete} />}
-        <TitleBar config={businessConfig} theme={theme} />
-        <div className="app-layout">
-          <Sidebar user={user} onLogout={handleLogout} />
-          <div className="main-content">
-            <header className="app-header">
-              <div className="header-left">
-                <h1>{businessName}</h1>
-              </div>
-              <div className="header-right">
-                <div className="header-buttons">
-                  <button
-                    className={`icon-btn ${i18n.language?.startsWith('es') ? 'active' : ''}`}
-                    onClick={() => { i18n.changeLanguage('es'); localStorage.setItem('language', 'es'); }}
-                    title="Español"
-                  >ES</button>
-                  <button
-                    className={`icon-btn ${i18n.language?.startsWith('en') ? 'active' : ''}`}
-                    onClick={() => { i18n.changeLanguage('en'); localStorage.setItem('language', 'en'); }}
-                    title="English"
-                  >EN</button>
-                </div>
-                <div className="header-buttons">
-                  <button className={`icon-btn ${theme === 'light' ? 'active' : ''}`}
-                    onClick={() => setTheme('light')} title="Light Mode"><Sun size={18} /></button>
-                  <button className={`icon-btn ${theme === 'dark' ? 'active' : ''}`}
-                    onClick={() => setTheme('dark')} title="Dark Mode"><Moon size={18} /></button>
-                  <button className={`icon-btn ${theme === 'system' ? 'active' : ''}`}
-                    onClick={() => setTheme('system')} title="System Theme"><Laptop size={18} /></button>
-                </div>
-              </div>
-            </header>
+  const themeBtnClass = (mode) =>
+    `p-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+      themeMode === mode
+        ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300'
+        : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700/50'
+    }`;
 
-            <main className="content-area">
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/sales" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><SalesScreen /></ProtectedRoute>} />
-                <Route path="/sales-history" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><SalesHistory /></ProtectedRoute>} />
-                <Route path="/products" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Products /></ProtectedRoute>} />
-                <Route path="/categories" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Categories /></ProtectedRoute>} />
-                <Route path="/clients" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><Clients /></ProtectedRoute>} />
-                <Route path="/coupons" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Coupons /></ProtectedRoute>} />
-                <Route path="/reports" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Reports /></ProtectedRoute>} />
-                <Route path="/settings" element={<ProtectedRoute allowedRoles={['Administrator']}><Settings /></ProtectedRoute>} />
-                <Route path="/profile" element={<UserProfile user={user} onUpdateUser={handleLogin} />} />
-                <Route path="*" element={<Navigate to="/" />} />
-              </Routes>
-            </main>
+  const langBtnClass = (lang) =>
+    `p-2 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 ${
+      i18n.language?.startsWith(lang)
+        ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300'
+        : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700/50'
+    }`;
+
+  return (
+    <ConfigProvider theme={antdTheme}>
+      <Router>
+        <div className="app-root">
+          {needsSetup && <SetupWizard config={businessConfig} onComplete={handleSetupComplete} />}
+          <div className="app-layout">
+            <Sidebar user={user} onLogout={handleLogout} />
+            <div className="flex flex-col flex-1 min-w-0">
+              <header className="h-14 flex items-center justify-between px-6 border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-slate-200 dark:border-slate-700/50">
+                <h1 className="text-sm font-semibold text-slate-700 dark:text-slate-300 truncate">
+                  {businessName}
+                </h1>
+                <div className="flex items-center gap-1.5">
+                  <button className={langBtnClass('es')}
+                    onClick={() => { i18n.changeLanguage('es'); localStorage.setItem('language', 'es'); }}
+                    title="Español">ES</button>
+                  <button className={langBtnClass('en')}
+                    onClick={() => { i18n.changeLanguage('en'); localStorage.setItem('language', 'en'); }}
+                    title="English">EN</button>
+                  <div className="w-px h-5 bg-slate-200 dark:bg-slate-700 mx-1" />
+                  <button className={themeBtnClass('light')}
+                    onClick={() => setThemeMode('light')} title="Light Mode"><Sun size={16} /></button>
+                  <button className={themeBtnClass('dark')}
+                    onClick={() => setThemeMode('dark')} title="Dark Mode"><Moon size={16} /></button>
+                  <button className={themeBtnClass('system')}
+                    onClick={() => setThemeMode('system')} title="System Theme"><Laptop size={16} /></button>
+                </div>
+              </header>
+              <main className="flex-1 overflow-auto bg-slate-50 dark:bg-slate-900">
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/sales" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><SalesScreen /></ProtectedRoute>} />
+                  <Route path="/sales-history" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><SalesHistory /></ProtectedRoute>} />
+                  <Route path="/products" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Products /></ProtectedRoute>} />
+                  <Route path="/categories" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Categories /></ProtectedRoute>} />
+                  <Route path="/clients" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><Clients /></ProtectedRoute>} />
+                  <Route path="/coupons" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Coupons /></ProtectedRoute>} />
+                  <Route path="/reports" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Reports /></ProtectedRoute>} />
+                  <Route path="/settings" element={<ProtectedRoute allowedRoles={['Administrator']}><Settings /></ProtectedRoute>} />
+                  <Route path="/profile" element={<UserProfile user={user} onUpdateUser={handleLogin} />} />
+                  <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+              </main>
+            </div>
           </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </ConfigProvider>
   );
 }
 

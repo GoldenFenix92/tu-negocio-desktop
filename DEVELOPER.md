@@ -10,14 +10,45 @@ Guía técnica para desarrolladores que trabajan en este proyecto.
 |---|---|
 | Desktop shell | Electron 39 |
 | Frontend | React 18 + react-router-dom 7 |
-| Bundler | Webpack 5 + Babel |
+| Bundler | Webpack 5 + Babel (presets env + react) |
+| CSS | Tailwind CSS v3 + PostCSS + autoprefixer |
+| Componentes UI | Preline UI + Ant Design v5 (ConfigProvider) |
+| Gráficos | Recharts (BarChart, ResponsiveContainer) |
 | Base de datos | SQLite (better-sqlite3) |
-| Estilos | CSS (style-loader + css-loader) |
+| Imágenes | sharp (conversión a WebP) |
 | i18n | i18next + react-i18next |
 | Iconos | lucide-react |
 | Notificaciones | ToastContext (React Context) |
 | Empaquetado | electron-builder (NSIS Windows) |
 | Lenguaje | JavaScript (JSX), sin TypeScript |
+
+---
+
+## Dependencias principales
+
+```json
+// devDependencies
+@babel/core, @babel/preset-env, @babel/preset-react
+babel-loader, css-loader, style-loader
+html-webpack-plugin, webpack, webpack-cli
+electron, electron-builder
+i18next, react, react-dom, react-i18next
+node-abi, tar-fs                // postinstall rebuild script
+
+// dependencies
+antd                            // UI components (Table, Form, Modal, ConfigProvider)
+autoprefixer                    // PostCSS vendor prefixes
+bcryptjs                        // Password hashing (main process)
+better-sqlite3                  // SQLite native module
+lucide-react                    // Icon library
+papaparse                       // CSV import
+postcss, postcss-loader         // PostCSS pipeline for Tailwind
+preline                         // UI component library (JS import only)
+react-router-dom                // Client-side routing
+recharts                        // Charts (daily sales, top products)
+sharp                           // Image processing (WebP conversion)
+tailwindcss                     // Utility-first CSS framework
+```
 
 ---
 
@@ -34,6 +65,7 @@ Guía técnica para desarrolladores que trabajan en este proyecto.
 │  ├── db/sqlite.js (queries)         │
 │  ├── db/init-db (schema + seed)     │
 │  ├── bcryptjs (hash/compare)        │
+│  ├── sharp (WebP conversion)        │
 │  ├── Protocolo media://             │
 │  └── fs (config file I/O)          │
 └────────────┬────────────────────────┘
@@ -50,11 +82,13 @@ Guía técnica para desarrolladores que trabajan en este proyecto.
 ┌─────────────────────────────────────┐
 │        Renderer Process             │
 │  (React SPA en dist/index.html)     │
-│  ├── App.jsx (router, layout)       │
+│  ├── App.jsx (router, layout, theme)│
+│  ├── Ant Design ConfigProvider      │
 │  ├── ErrorBoundary                  │
 │  ├── ToastProvider (notificaciones) │
-│  ├── Componentes de negocio         │
+│  ├── Componentes de negocio (POS)   │
 │  ├── i18n (react-i18next)           │
+│  ├── Tailwind CSS + Preline UI      │
 │  └── window.api.* para IPC          │
 └─────────────────────────────────────┘
 ```
@@ -120,10 +154,43 @@ El logo se renderiza mediante el protocolo personalizado `media://`. Este protoc
 
 ---
 
+## Tailwind CSS + PostCSS
+
+El proyecto usa **Tailwind CSS v3** con **PostCSS**. La configuración está en:
+
+- `tailwind.config.js` — colores personalizados (indigo primario), dark mode vía `selector` (clase `.dark`), fuentes Inter y JetBrains Mono
+- `postcss.config.js` — plugins: `tailwindcss` + `autoprefixer`
+
+El pipeline de Webpack es: `style-loader ← css-loader ← postcss-loader`
+
+Las directivas `@tailwind` se declaran en `src/App.css`.
+
+---
+
+## Modo oscuro
+
+El proyecto sincroniza el atributo `data-theme` con la clase `dark` de Tailwind:
+
+```js
+root.setAttribute('data-theme', appliedTheme);
+root.classList.toggle('dark', appliedTheme === 'dark');
+```
+
+**CSS personalizado** — Usa variables CSS:
+- `--bg-primary` → `#ffffff` (light), `#0f172a` (dark)
+- `--bg-secondary` → `#f8f9fa` (light), `#1e293b` (dark)
+- `--text-primary`, `--text-secondary` — adaptados al tema
+
+**Tailwind** — Usa clases `dark:` (ej. `dark:bg-slate-800`) que dependen de la clase `.dark` en `<html>`.
+
+**Ant Design** — `ConfigProvider` con `theme.darkAlgorithm` / `theme.defaultAlgorithm` según el tema.
+
+---
+
 ## Flujo de trabajo típico
 
 ```bash
-# 1. Instalar dependencias
+# 1. Instalar dependencias (recompila módulos nativos automáticamente)
 npm install
 
 # 2. Compilar y ejecutar en desarrollo
@@ -133,13 +200,13 @@ npm run dev
 npm run build  # genera .exe en dist-electron/
 ```
 
-Si se agregan nuevos módulos nativos (como `better-sqlite3`), deben recompilarse para la versión de Node.js que usa Electron:
+Si la recompilación automática de `better-sqlite3` falla:
 
 ```bash
-npx @electron/rebuild -m . -o <modulo>
+npx @electron/rebuild -m . -o better-sqlite3
 ```
 
-El script `postinstall` ya ejecuta esto automáticamente para `better-sqlite3`.
+El script `postinstall` (`scripts/rebuild-native.js`) intenta primero descargar un prebuilt desde GitHub, y si falla ejecuta `@electron/rebuild` como respaldo.
 
 ---
 
@@ -201,18 +268,21 @@ Los scanners de código de barras se detectan por buffer rápido de teclado (car
 - El idioma se persiste en `localStorage`
 - El atributo `<html lang>` se actualiza dinámicamente
 
+---
+
 ## Temas (claro/oscuro)
 
 - Tres modos: `light`, `dark`, `system` (sigue la preferencia del SO)
-- Se aplica mediante el atributo `data-theme` en `<html>`
+- Se aplica mediante `data-theme` + clase `dark` en `<html>`
 - Se persiste en `localStorage`
-- Los estilos usan variables CSS personalizadas (`var(--primary-color)`, etc.)
+- Los estilos usan combinación de variables CSS y clases `dark:` de Tailwind
+- Ant Design se sincroniza vía `ConfigProvider` con `theme.darkAlgorithm`
 
 ---
 
 ## Módulos nativos y Electron
 
-`better-sqlite3` es un módulo nativo que debe compilarse contra la versión de Node.js incluida en Electron. Si al ejecutar la app aparece un error como:
+`better-sqlite3` y `sharp` son módulos nativos que deben compilarse contra la versión de Node.js incluida en Electron. Si al ejecutar la app aparece un error como:
 
 ```
 The module was compiled against a different Node.js version
@@ -222,6 +292,7 @@ Ejecutar:
 
 ```bash
 npx @electron/rebuild -m . -o better-sqlite3
+npx @electron/rebuild -m . -o sharp
 ```
 
 O simplemente reinstalar:

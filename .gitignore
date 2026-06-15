@@ -1,4 +1,13 @@
-node_modules
-data/
+node_modules/
+dist/
 dist-electron/
+data/
+media/
 uploads/
+config/
+skills/
+.clawhub/
+
+*.log
+.DS_Store
+Thumbs.db
