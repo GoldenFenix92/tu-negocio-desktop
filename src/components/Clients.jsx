@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Edit, Trash2, Users, Save, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useToast } from '../ToastContext';
+import { getMediaUrl } from '../utils';
 import './Clients.css';
 
 export default function Clients() {
   const { t } = useTranslation();
+  const showToast = useToast();
   const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
@@ -70,10 +73,10 @@ export default function Clients() {
       }
       setIsModalOpen(false);
       loadClients();
-      alert(t('common.save_success'));
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error saving client', err);
-      alert(t('common.save_error'));
+      showToast(t('common.save_error'), 'error');
     }
   };
 
@@ -82,15 +85,14 @@ export default function Clients() {
     try {
       await window.api.dbQuery('DELETE FROM clients WHERE id = ?', [id]);
       loadClients();
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error deleting client', err);
+      showToast(t('common.save_error'), 'error');
     }
   };
 
-  const getClientImage = (path) => {
-    if (path) return `media://${path}`;
-    return 'media://assets/cliente_comodin.webp';
-  };
+  const getClientImage = (path) => getMediaUrl(path, 'assets/cliente_comodin.webp');
 
   const filteredClients = clients.filter(c => 
     c.name.toLowerCase().includes(searchTerm.toLowerCase()) || 

@@ -16,7 +16,12 @@
     "confirm_delete": "Are you sure you want to delete this item?",
     "save_success": "Changes saved successfully",
     "save_error": "Error saving changes",
-    "menu": "Menu"
+    "menu": "Menu",
+    "hide": "Hide",
+    "show": "Show",
+    "import_error": "Import error",
+    "select_file": "Select file",
+    "confirm": "Confirm"
   },
   "login": {
     "title": "Tu Negocio Desktop",
@@ -60,6 +65,7 @@
     "no_category": "No category",
     "select_category": "Select category",
     "duplicate_code_error": "Error: Product code already exists.",
+    "cost": "Cost",
     "detected": "products detected",
     "import_instructions": "Select a CSV file with columns: code, name, price, cost, stock, category_id"
   },

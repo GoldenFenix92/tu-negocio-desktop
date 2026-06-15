@@ -9,7 +9,7 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: './',
   },
-  target: 'web',
+  target: 'electron-renderer',
   resolve: {
     extensions: ['.js', '.jsx'],
   },

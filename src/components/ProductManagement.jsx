@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Upload, Edit, Trash2, Package, X } from 'lucide-react';
+import { Plus, Search, Upload, Edit, Trash2, Package, X, Loader } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useToast } from '../ToastContext';
+import { getMediaUrl } from '../utils';
 import ImportModal from './ImportModal';
 import './ProductManagement.css';
 
 export default function ProductManagement() {
   const { t } = useTranslation();
+  const showToast = useToast();
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -81,6 +85,7 @@ export default function ProductManagement() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    setSaving(true);
     try {
       if (editingProduct) {
         const sql = 'UPDATE products SET code=?, name=?, price=?, cost=?, stock=?, category_id=?, image_path=? WHERE id=?';
@@ -91,14 +96,16 @@ export default function ProductManagement() {
       }
       closeModal();
       loadProducts();
-      alert(t('common.save_success'));
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error saving product', err);
-      if (err.code === 'ER_DUP_ENTRY' || (err.message && err.message.includes('Duplicate entry'))) {
-        alert(t('products.duplicate_code_error') || 'Error: El código de producto ya existe.');
+      if (err.message && (err.message.includes('UNIQUE constraint') || err.message.includes('Duplicate entry'))) {
+        showToast(t('products.duplicate_code_error') || 'Error: El código de producto ya existe.', 'error');
       } else {
-        alert(t('common.save_error'));
+        showToast(t('common.save_error'), 'error');
       }
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -107,8 +114,10 @@ export default function ProductManagement() {
     try {
       await window.api.dbQuery('DELETE FROM products WHERE id = ?', [id]);
       loadProducts();
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error deleting product', err);
+      showToast(t('common.save_error'), 'error');
     }
   };
 
@@ -116,14 +125,14 @@ export default function ProductManagement() {
     try {
       for (const item of data) {
         if (!item.code || !item.name) continue;
-        const sql = 'INSERT INTO products (code, name, price, cost, stock, category_id, image_path) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name=VALUES(name), price=VALUES(price), cost=VALUES(cost), stock=VALUES(stock), category_id=VALUES(category_id), image_path=VALUES(image_path)';
+        const sql = 'INSERT INTO products (code, name, price, cost, stock, category_id, image_path) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT(code) DO UPDATE SET name=excluded.name, price=excluded.price, cost=excluded.cost, stock=excluded.stock, category_id=excluded.category_id, image_path=excluded.image_path';
         await window.api.dbQuery(sql, [item.code, item.name, item.price, item.cost, item.stock, item.category_id || null, item.image_path || null]);
       }
-      alert(t('common.save_success'));
+      showToast(t('common.save_success'), 'success');
       loadProducts();
     } catch (err) {
       console.error('Error importing products', err);
-      alert(t('common.save_error'));
+      showToast(t('common.save_error'), 'error');
     }
   };
 
@@ -132,10 +141,7 @@ export default function ProductManagement() {
     p.code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getProductImage = (path) => {
-    if (path) return `media://${path}`;
-    return 'media://assets/producto_comodin.webp';
-  };
+  const getProductImage = (path) => getMediaUrl(path, 'assets/producto_comodin.webp');
 
   return (
     <div className="product-mgmt">
@@ -225,7 +231,7 @@ export default function ProductManagement() {
                   />
                 </div>
                 <div className="form-group flex-1">
-                  <label>Cost</label>
+                  <label>{t('products.cost') || 'Cost'}</label>
                   <input 
                     type="number" 
                     step="0.01" 
@@ -267,8 +273,8 @@ export default function ProductManagement() {
                 <button type="button" className="btn-secondary" onClick={() => setIsModalOpen(false)}>
                   {t('common.cancel')}
                 </button>
-                <button type="submit" className="btn-primary">
-                  {t('common.save')}
+                <button type="submit" className="btn-primary" disabled={saving}>
+                  {saving ? t('common.loading') : t('common.save')}
                 </button>
               </div>
             </form>

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useToast } from '../ToastContext';
 import { Eye, EyeOff, Shield } from 'lucide-react';
 import './Permissions.css';
 
 export default function Permissions() {
   const { t } = useTranslation();
+  const showToast = useToast();
   const [permissions, setPermissions] = useState({
     Administrator: ['Dashboard', 'Ventas', 'Productos', 'Clientes', 'Reportes', 'Configuración'],
     Supervisor: ['Dashboard', 'Ventas', 'Productos', 'Clientes', 'Reportes'],
@@ -35,7 +37,7 @@ export default function Permissions() {
 
   const savePermissions = () => {
     localStorage.setItem('section_permissions', JSON.stringify(permissions));
-    alert(t('permissions.save_success') || 'Permisos actualizados');
+    showToast(t('permissions.save_success') || 'Permisos actualizados', 'success');
   };
 
   return (

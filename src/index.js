@@ -4,21 +4,14 @@ import App from './App.jsx';
 import './i18n.js';
 import './App.css';
 
-console.log('Starting index.js execution...');
-
 function startApp() {
   try {
     const container = document.getElementById('root');
     if (!container) {
       throw new Error('No se encontró el elemento #root');
     }
-
-    console.log('Mounting React App...');
     const root = ReactDOM.createRoot(container);
-    root.render(
-      <App />
-    );
-    console.log('React Render called.');
+    root.render(<App />);
   } catch (err) {
     console.error('Fatal Initialization Error:', err);
     document.body.innerHTML = `
@@ -30,7 +23,6 @@ function startApp() {
   }
 }
 
-// Ensure DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', startApp);
 } else {

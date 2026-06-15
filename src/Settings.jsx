@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useToast } from './ToastContext';
+import { getMediaUrl } from './utils';
 import Permissions from './components/Permissions';
 import './Settings.css';
 
@@ -16,8 +18,10 @@ const initialConfig = {
 
 export default function Settings() {
   const { t } = useTranslation();
+  const showToast = useToast();
   const [config, setConfig] = useState(initialConfig);
   const [activeTab, setActiveTab] = useState('general');
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     async function fetchConfig() {
@@ -54,20 +58,19 @@ export default function Settings() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSaving(true);
     const success = await window.api.writeConfig(JSON.stringify(config));
     if (success) {
       if (confirm(t('settings.restart_confirm'))) {
         await window.api.restartApp();
       }
     } else {
-      alert(t('common.save_error') || 'Error al guardar la configuración');
+      showToast(t('common.save_error') || 'Error al guardar la configuración', 'error');
     }
+    setSaving(false);
   };
 
-  const mediaSrc = (path) => {
-    if (!path) return null;
-    return path.startsWith('media://') ? path : `media://${path}`;
-  };
+  const mediaSrc = (path) => path ? getMediaUrl(path) : null;
 
   return (
     <div className="settings-page">
@@ -156,7 +159,7 @@ export default function Settings() {
                 <option value="Outfit">Outfit</option>
               </select>
             </div>
-            <button type="submit" className="btn-primary">{t('common.save')}</button>
+            <button type="submit" className="btn-primary" disabled={saving}>{saving ? t('common.loading') : t('common.save')}</button>
           </form>
         </div>
       ) : (

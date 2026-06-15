@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingCart, Search, Trash2, Plus, Minus, CreditCard, User, Tag, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useToast } from '../ToastContext';
+import { getMediaUrl } from '../utils';
 import './SalesScreen.css';
 
 export default function SalesScreen() {
   const { t } = useTranslation();
+  const showToast = useToast();
   const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [allProducts, setAllProducts] = useState([]);
@@ -14,11 +17,38 @@ export default function SalesScreen() {
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
   const [clientSearchTerm, setClientSearchTerm] = useState('');
   const [allClients, setAllClients] = useState([]);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('cash');
   const searchInputRef = useRef(null);
+  const barcodeBuffer = useRef('');
+  const barcodeTimer = useRef(null);
 
   useEffect(() => {
     loadAllProducts();
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'F2') { e.preventDefault(); searchInputRef.current?.focus(); }
+      if (e.key === 'F4') { e.preventDefault(); handleFinishSale(); }
+      if (e.key === 'Escape') {
+        if (isClientModalOpen) setIsClientModalOpen(false);
+      }
+      if (e.key.length === 1 && e.key !== 'Escape') {
+        barcodeBuffer.current += e.key;
+        clearTimeout(barcodeTimer.current);
+        barcodeTimer.current = setTimeout(() => { barcodeBuffer.current = ''; }, 50);
+      }
+      if (e.key === 'Enter' && barcodeBuffer.current.length > 3) {
+        const code = barcodeBuffer.current;
+        barcodeBuffer.current = '';
+        const product = allProducts.find(p => p.code === code);
+        if (product) addToCart(product);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [allProducts, isClientModalOpen]);
 
   const loadAllProducts = async () => {
     try {
@@ -44,7 +74,7 @@ export default function SalesScreen() {
       const results = await window.api.dbQuery(sql, [couponCode.toUpperCase()]);
       
       if (results.length === 0) {
-        alert(t('coupons.not_found') || 'Cupón no encontrado');
+        showToast(t('coupons.not_found') || 'Cupón no encontrado', 'warning');
         return;
       }
 
@@ -52,13 +82,13 @@ export default function SalesScreen() {
       const isExpired = coupon.expiry_date && new Date(coupon.expiry_date) < new Date().setHours(0,0,0,0);
       
       if (isExpired) {
-        alert(t('coupons.expired_alert') || 'Este cupón ha expirado');
+        showToast(t('coupons.expired_alert') || 'Este cupón ha expirado', 'warning');
         return;
       }
 
       setAppliedCoupon(coupon);
       setCouponCode('');
-      alert(`${t('coupons.apply_success') || 'Cupón aplicado'}: ${coupon.code}`);
+      showToast(`${t('coupons.apply_success') || 'Cupón aplicado'}: ${coupon.code}`, 'success');
     } catch (err) {
       console.error('Error applying coupon', err);
     }
@@ -123,40 +153,45 @@ export default function SalesScreen() {
   const total = subtotal - discount;
 
   const handleFinishSale = async () => {
-    if (cart.length === 0) return;
+    if (cart.length === 0 || isProcessing) return;
+    setIsProcessing(true);
     try {
-      const saleSql = 'INSERT INTO sales (client_id, total) VALUES (?, ?)';
-      const saleResult = await window.api.dbQuery(saleSql, [client.id, total]);
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const saleResult = await window.api.dbQuery(
+        'INSERT INTO sales (user_id, client_id, total) VALUES (?, ?, ?)',
+        [user.id || null, client.id, total]
+      );
       const saleId = saleResult.insertId;
 
+      const queries = cart.map(item => ({
+        sql: 'INSERT INTO sale_items (sale_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
+        params: [saleId, item.id, item.quantity, item.price]
+      }));
       for (const item of cart) {
-        const itemSql = 'INSERT INTO sale_items (sale_id, product_id, quantity, price) VALUES (?, ?, ?, ?)';
-        await window.api.dbQuery(itemSql, [saleId, item.id, item.quantity, item.price]);
-        
-        const updateStockSql = 'UPDATE products SET stock = stock - ? WHERE id = ?';
-        await window.api.dbQuery(updateStockSql, [item.quantity, item.id]);
+        queries.push({
+          sql: 'UPDATE products SET stock = stock - ? WHERE id = ?',
+          params: [item.quantity, item.id]
+        });
       }
 
-      alert(t('sales.success_alert') || 'Venta realizada con éxito');
+      const result = await window.api.dbTransaction(queries);
+      if (!result.success) throw new Error(result.error);
+
+      showToast(t('sales.success_alert') || 'Venta realizada con éxito', 'success');
       setCart([]);
       setAppliedCoupon(null);
       setClient({ id: null, name: t('sales.final_consumer') });
-      loadAllProducts(); // Refresh stock
+      loadAllProducts();
     } catch (err) {
       console.error('Sale failed', err);
-      alert(t('sales.error_alert') || 'Error al procesar la venta');
+      showToast(t('sales.error_alert') || 'Error al procesar la venta', 'error');
+    } finally {
+      setIsProcessing(false);
     }
   };
 
-  const getProductImage = (path) => {
-    if (path) return `media://${path}`;
-    return 'media://assets/producto_comodin.webp';
-  };
-
-  const getClientImage = (path) => {
-    if (path) return `media://${path}`;
-    return 'media://assets/cliente_comodin.webp';
-  };
+  const getProductImage = (path) => getMediaUrl(path, 'assets/producto_comodin.webp');
+  const getClientImage = (path) => getMediaUrl(path, 'assets/cliente_comodin.webp');
 
   const filteredProducts = allProducts.filter(p => 
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -214,6 +249,22 @@ export default function SalesScreen() {
             </div>
           </div>
           
+          <div className="card-section">
+            <div className="section-title">
+              <CreditCard size={18} />
+              <span>Método de pago</span>
+            </div>
+            <select
+              value={paymentMethod}
+              onChange={e => setPaymentMethod(e.target.value)}
+              style={{ width: '100%', padding: '0.6rem', borderRadius: 8, border: '1px solid rgba(0,0,0,0.1)', background: 'var(--bg-primary)', color: 'var(--text-primary)', fontSize: '0.9rem' }}
+            >
+              <option value="cash">Efectivo</option>
+              <option value="card">Tarjeta</option>
+              <option value="transfer">Transferencia</option>
+            </select>
+          </div>
+
           <div className="card-section coupon-section">
             <div className="section-title">
               <Tag size={18} />
@@ -285,7 +336,7 @@ export default function SalesScreen() {
             </div>
           </div>
           
-          <button className="finish-btn" onClick={handleFinishSale} disabled={cart.length === 0}>
+          <button className="finish-btn" onClick={handleFinishSale} disabled={cart.length === 0 || isProcessing}>
             <CreditCard size={20} />
             {t('sales.finish')}
           </button>

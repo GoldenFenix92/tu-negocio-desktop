@@ -2,31 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Moon, Sun, Laptop } from 'lucide-react';
+import { ToastProvider } from './ToastContext';
+import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 import Login from './components/Login';
 import Sidebar from './components/Sidebar';
+import ProtectedRoute from './components/ProtectedRoute';
+import Dashboard from './components/Dashboard';
 import Settings from './Settings';
 import Products from './components/ProductManagement';
 import Categories from './components/Categories';
 import Clients from './components/Clients';
 import SalesScreen from './components/SalesScreen';
+import SalesHistory from './components/SalesHistory';
 import Reports from './components/Reports';
 import UserProfile from './components/UserProfile';
 import Coupons from './components/Coupons';
 
-// Mock components for other routes
-const Dashboard = () => {
-  const { t } = useTranslation();
-  return (
-    <div className="dashboard-view">
-      <h2>{t('menu.dashboard')}</h2>
-      <p>{t('app.welcome')}</p>
-    </div>
-  );
-};
-
-function App() {
+function AppContent() {
   const { t, i18n } = useTranslation();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'system');
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -38,9 +32,10 @@ function App() {
     }
   }, [i18n]);
 
-  console.log('App language:', i18n.language);
+  useEffect(() => {
+    document.documentElement.lang = i18n.language?.startsWith('es') ? 'es' : 'en';
+  }, [i18n.language]);
 
-  // Apply theme class to body
   useEffect(() => {
     const root = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -50,7 +45,6 @@ function App() {
   }, [theme]);
 
   const handleLogin = (userData) => {
-    console.log('User logged in:', userData);
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
@@ -75,64 +69,39 @@ function App() {
             </div>
             <div className="header-right">
               <div className="header-buttons">
-                <button 
+                <button
                   className={`icon-btn ${i18n.language?.startsWith('es') ? 'active' : ''}`}
-                  onClick={() => {
-                    i18n.changeLanguage('es');
-                    localStorage.setItem('language', 'es');
-                  }}
+                  onClick={() => { i18n.changeLanguage('es'); localStorage.setItem('language', 'es'); }}
                   title="Español"
-                >
-                  ES
-                </button>
-                <button 
+                >ES</button>
+                <button
                   className={`icon-btn ${i18n.language?.startsWith('en') ? 'active' : ''}`}
-                  onClick={() => {
-                    i18n.changeLanguage('en');
-                    localStorage.setItem('language', 'en');
-                  }}
+                  onClick={() => { i18n.changeLanguage('en'); localStorage.setItem('language', 'en'); }}
                   title="English"
-                >
-                  EN
-                </button>
+                >EN</button>
               </div>
-
               <div className="header-buttons">
-                <button 
-                  className={`icon-btn ${theme === 'light' ? 'active' : ''}`}
-                  onClick={() => setTheme('light')}
-                  title="Light Mode"
-                >
-                  <Sun size={18} />
-                </button>
-                <button 
-                  className={`icon-btn ${theme === 'dark' ? 'active' : ''}`}
-                  onClick={() => setTheme('dark')}
-                  title="Dark Mode"
-                >
-                  <Moon size={18} />
-                </button>
-                <button 
-                  className={`icon-btn ${theme === 'system' ? 'active' : ''}`}
-                  onClick={() => setTheme('system')}
-                  title="System Theme"
-                >
-                  <Laptop size={18} />
-                </button>
+                <button className={`icon-btn ${theme === 'light' ? 'active' : ''}`}
+                  onClick={() => setTheme('light')} title="Light Mode"><Sun size={18} /></button>
+                <button className={`icon-btn ${theme === 'dark' ? 'active' : ''}`}
+                  onClick={() => setTheme('dark')} title="Dark Mode"><Moon size={18} /></button>
+                <button className={`icon-btn ${theme === 'system' ? 'active' : ''}`}
+                  onClick={() => setTheme('system')} title="System Theme"><Laptop size={18} /></button>
               </div>
             </div>
           </header>
-          
+
           <main className="content-area">
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/sales" element={<SalesScreen />} />
-              <Route path="/products" element={<Products />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/clients" element={<Clients />} />
-              <Route path="/coupons" element={<Coupons />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route path="/sales" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><SalesScreen /></ProtectedRoute>} />
+              <Route path="/sales-history" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><SalesHistory /></ProtectedRoute>} />
+              <Route path="/products" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Products /></ProtectedRoute>} />
+              <Route path="/categories" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Categories /></ProtectedRoute>} />
+              <Route path="/clients" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><Clients /></ProtectedRoute>} />
+              <Route path="/coupons" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Coupons /></ProtectedRoute>} />
+              <Route path="/reports" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Reports /></ProtectedRoute>} />
+              <Route path="/settings" element={<ProtectedRoute allowedRoles={['Administrator']}><Settings /></ProtectedRoute>} />
               <Route path="/profile" element={<UserProfile user={user} onUpdateUser={handleLogin} />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
@@ -140,6 +109,16 @@ function App() {
         </div>
       </div>
     </Router>
+  );
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <ToastProvider>
+        <AppContent />
+      </ToastProvider>
+    </ErrorBoundary>
   );
 }
 

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Edit, Trash2, Tag, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useToast } from '../ToastContext';
+import { getMediaUrl } from '../utils';
 import './Categories.css';
 
 export default function Categories() {
   const { t } = useTranslation();
+  const showToast = useToast();
   const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,10 +31,7 @@ export default function Categories() {
     }
   };
 
-  const getCategoryImage = (path) => {
-    if (!path) return 'media://assets/categoria_comodin.webp';
-    return path.startsWith('media://') ? path : `media://${path}`;
-  };
+  const getCategoryImage = (path) => getMediaUrl(path, 'assets/categoria_comodin.webp');
 
   const handleOpenModal = (category = null) => {
     if (category) {
@@ -66,10 +66,10 @@ export default function Categories() {
       }
       setIsModalOpen(false);
       loadCategories();
-      alert(t('common.save_success'));
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error saving category', err);
-      alert(t('common.save_error'));
+      showToast(t('common.save_error'), 'error');
     }
   };
 
@@ -78,8 +78,10 @@ export default function Categories() {
     try {
       await window.api.dbQuery('DELETE FROM categories WHERE id = ?', [id]);
       loadCategories();
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error deleting category', err);
+      showToast(t('common.save_error'), 'error');
     }
   };
 

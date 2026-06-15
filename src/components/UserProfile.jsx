@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, MapPin, Lock, Save, Camera, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useToast } from '../ToastContext';
+import { getMediaUrl } from '../utils';
 import './UserProfile.css';
 
 export default function UserProfile({ user, onUpdateUser }) {
   const { t } = useTranslation();
+  const showToast = useToast();
   const [formData, setFormData] = useState({
     username: user.username,
     email: user.email || '',
@@ -19,12 +22,7 @@ export default function UserProfile({ user, onUpdateUser }) {
   });
   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
-  const getAvatarImage = (path) => {
-    if (!path) {
-      return `media://assets/${user.role === 'Administrator' ? 'administrador.webp' : user.role === 'Supervisor' ? 'supervisor.webp' : 'empleado.webp'}`;
-    }
-    return path.startsWith('media://') ? path : `media://${path}`;
-  };
+  const getAvatarImage = (path) => getMediaUrl(path, `assets/${user.role === 'Administrator' ? 'administrador.webp' : user.role === 'Supervisor' ? 'supervisor.webp' : 'empleado.webp'}`);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -44,39 +42,38 @@ export default function UserProfile({ user, onUpdateUser }) {
       
       const updatedUser = { ...user, username: formData.username, image_path: formData.image_path };
       onUpdateUser(updatedUser);
-      alert(t('common.save_success'));
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error updating profile', err);
-      alert(t('common.save_error'));
+      showToast(t('common.save_error'), 'error');
     }
   };
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (passwords.newPassword !== passwords.confirmPassword) {
-      alert(t('users.password_mismatch'));
+      showToast(t('users.password_mismatch'), 'warning');
       return;
     }
 
     try {
-      // Verify old password
       const userRes = await window.api.dbQuery('SELECT password FROM users WHERE id = ?', [user.id]);
       const isMatch = await window.api.comparePassword(passwords.oldPassword, userRes[0].password);
       
       if (!isMatch) {
-        alert(t('users.password_error'));
+        showToast(t('users.password_error'), 'error');
         return;
       }
 
       const newHash = await window.api.hashPassword(passwords.newPassword);
       await window.api.dbQuery('UPDATE users SET password = ? WHERE id = ?', [newHash, user.id]);
       
-      alert(t('users.password_updated'));
+      showToast(t('users.password_updated'), 'success');
       setPasswords({ oldPassword: '', newPassword: '', confirmPassword: '' });
       setIsChangingPassword(false);
     } catch (err) {
       console.error('Error changing password', err);
-      alert(t('common.save_error'));
+      showToast(t('common.save_error'), 'error');
     }
   };
 

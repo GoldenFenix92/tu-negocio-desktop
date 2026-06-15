@@ -54,14 +54,9 @@ function createWindow() {
 
   win.once('ready-to-show', () => {
     win.show();
-    console.log('Window is ready to show.');
   });
 
-
-  console.log('Loading preload from:', path.join(__dirname, 'preload.js'));
-
   const htmlPath = path.join(__dirname, 'dist', 'index.html');
-  console.log('Loading real application from:', htmlPath);
 
   win.loadFile(htmlPath).catch(err => {
     console.error('Failed to load application:', err);
@@ -72,7 +67,7 @@ function createWindow() {
     console.error('Window FAILED to load:', code, desc);
   });
 
-  win.webContents.openDevTools();
+  if (!app.isPackaged) win.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
@@ -97,6 +92,22 @@ ipcMain.handle('db-query', async (event, { sql, params }) => {
   } catch (err) {
     console.error('DB Query Error:', err);
     throw err;
+  }
+});
+
+ipcMain.handle('db-transaction', async (event, { queries }) => {
+  const database = db.getDb();
+  const runTransaction = database.transaction(() => {
+    for (const q of queries) {
+      database.prepare(q.sql).run(...(q.params || []));
+    }
+  });
+  try {
+    runTransaction();
+    return { success: true };
+  } catch (err) {
+    console.error('DB Transaction Error:', err);
+    return { success: false, error: err.message };
   }
 });
 
@@ -140,13 +151,24 @@ ipcMain.handle('restart-app', async () => {
   app.exit(0);
 });
 
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/bmp'];
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
 ipcMain.handle('save-image', async (event, { sourcePath, entityType }) => {
   try {
+    const stat = fs.statSync(sourcePath);
+    if (!stat.isFile()) return null;
+    if (stat.size > MAX_FILE_SIZE) throw new Error('File too large (max 5MB)');
+    if (stat.size === 0) throw new Error('File is empty');
+
+    const ext = path.extname(sourcePath).toLowerCase();
+    const allowedExts = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp'];
+    if (!allowedExts.includes(ext)) throw new Error('Invalid file type');
+
     const uploadDir = path.join(__dirname, 'uploads', entityType);
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
-    const ext = path.extname(sourcePath);
     const fileName = `${Date.now()}${ext}`;
     const destPath = path.join(uploadDir, fileName);
     fs.copyFileSync(sourcePath, destPath);

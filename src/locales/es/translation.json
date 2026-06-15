@@ -16,7 +16,12 @@
     "confirm_delete": "¿Estás seguro de eliminar este elemento?",
     "save_success": "Cambios guardados con éxito",
     "save_error": "Error al guardar los cambios",
-    "menu": "Menú"
+    "menu": "Menú",
+    "hide": "Ocultar",
+    "show": "Mostrar",
+    "import_error": "Error al importar",
+    "select_file": "Seleccionar archivo",
+    "confirm": "Confirmar"
   },
   "login": {
     "title": "Tu Negocio Desktop",
@@ -59,7 +64,10 @@
     "no_category": "Sin categoría",
     "image": "Imagen",
     "select_category": "Seleccionar categoría",
-    "duplicate_code_error": "Error: El código de producto ya existe."
+    "duplicate_code_error": "Error: El código de producto ya existe.",
+    "detected": "productos detectados",
+    "import_instructions": "Selecciona un archivo CSV con las columnas: code, name, price, cost, stock, category_id",
+    "cost": "Costo"
   },
   "clients": {
     "title": "Gestión de Clientes",

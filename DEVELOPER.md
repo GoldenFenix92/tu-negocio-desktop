@@ -15,6 +15,7 @@ Guía técnica para desarrolladores que trabajan en este proyecto.
 | Estilos | CSS (style-loader + css-loader) |
 | i18n | i18next + react-i18next |
 | Iconos | lucide-react |
+| Notificaciones | ToastContext (React Context) |
 | Empaquetado | electron-builder (NSIS Windows) |
 | Lenguaje | JavaScript (JSX), sin TypeScript |
 
@@ -31,6 +32,7 @@ Guía técnica para desarrolladores que trabajan en este proyecto.
 │  ├── Ventana Electron               │
 │  ├── Handlers IPC                   │
 │  ├── db/sqlite.js (queries)         │
+│  ├── db/init-db (schema + seed)     │
 │  ├── bcryptjs (hash/compare)        │
 │  ├── Protocolo media://             │
 │  └── fs (config file I/O)          │
@@ -49,6 +51,8 @@ Guía técnica para desarrolladores que trabajan en este proyecto.
 │        Renderer Process             │
 │  (React SPA en dist/index.html)     │
 │  ├── App.jsx (router, layout)       │
+│  ├── ErrorBoundary                  │
+│  ├── ToastProvider (notificaciones) │
 │  ├── Componentes de negocio         │
 │  ├── i18n (react-i18next)           │
 │  └── window.api.* para IPC          │
@@ -61,6 +65,8 @@ Guía técnica para desarrolladores que trabajan en este proyecto.
 - `nodeIntegration: false` — no se requiere `require()` en el renderer
 - `sandbox: true` — sandbox de Chromium activado
 - IPC expuesto solo mediante `contextBridge` en `preload.js`
+- DevTools solo en modo desarrollo (`!app.isPackaged`)
+- Validación de archivos subidos (tamaño máx 5MB, solo imágenes)
 
 ---
 
@@ -74,7 +80,7 @@ La base de datos se almacena en `data/tu_negocio.db` y se crea automáticamente 
 
 | Tabla | Propósito |
 |---|---|
-| `business_config` | Metadatos del negocio (no se usa actualmente — la config se guarda en JSON) |
+| `business_config` | Metadatos del negocio (no se usa — la config se guarda en JSON) |
 | `users` | Autenticación (username, bcrypt hash, role) |
 | `categories` | Categorías de productos |
 | `products` | Productos (code, name, price, cost, stock, FK → categories) |
@@ -85,9 +91,11 @@ La base de datos se almacena en `data/tu_negocio.db` y se crea automáticamente 
 | `promotions` | Promociones por temporada |
 | `sections_visibility` | Visibilidad de secciones por rol |
 
-### Migración de MySQL a SQLite
+**Índices:** Creados automáticamente en `products(category_id)`, `products(code)`, `sales(user_id)`, `sales(client_id)`, `sales(created_at)`, `sale_items(sale_id)`, `sale_items(product_id)`, `coupons(code)`.
 
-El proyecto original usaba MySQL. Se migró a SQLite para facilitar el desarrollo local sin dependencias externas. El archivo `db/schema.sql` contiene el esquema MySQL original como referencia. La implementación activa está en `db/init-db.js`.
+### Transacciones
+
+Las ventas se procesan dentro de una transacción atómica (`dbTransaction`) que agrupa: INSERT en `sales`, INSERT en `sale_items` y UPDATE de stock. Si falla cualquier paso, todo se revierte.
 
 ---
 
@@ -141,12 +149,57 @@ No se requieren variables de entorno. Toda la configuración se maneja mediante 
 
 ---
 
+## Sistema de notificaciones (Toast)
+
+Creado con React Context. Cualquier componente puede mostrar un toast:
+
+```jsx
+import { useToast } from '../ToastContext';
+
+function MiComponente() {
+  const showToast = useToast();
+  showToast('Mensaje', 'success'); // success | error | warning | info
+}
+```
+
+Los toasts se auto-destruyen después de 3 segundos y se apilan en la esquina superior derecha.
+
+---
+
+## Utilitarios compartidos (`src/utils.js`)
+
+```js
+getMediaUrl(path, fallback)    // Construye URL media:// consistente
+getUserAvatar(user)            // Obtiene avatar según rol del usuario
+```
+
+---
+
+## Protección de rutas
+
+Las rutas se protegen mediante `<ProtectedRoute allowedRoles={[...]}>`. Si el usuario no tiene el rol requerido, es redirigido al Dashboard. La Sidebar también filtra las opciones de menú por rol.
+
+---
+
+## Atajos de teclado (SalesScreen)
+
+| Tecla | Acción |
+|-------|--------|
+| `F2` | Enfocar búsqueda |
+| `F4` | Finalizar venta |
+| `Escape` | Cerrar modal |
+
+Los scanners de código de barras se detectan por buffer rápido de teclado (caracteres en <50ms seguido de Enter).
+
+---
+
 ## Internacionalización (i18n)
 
 - Archivos de traducción en `src/locales/{es,en}/translation.json`
 - Se usa `react-i18next` con `i18next`
 - Idioma por defecto: español
 - El idioma se persiste en `localStorage`
+- El atributo `<html lang>` se actualiza dinámicamente
 
 ## Temas (claro/oscuro)
 
@@ -191,9 +244,9 @@ Esto ejecuta:
 
 ### Configuración de electron-builder
 
-Ver `package.json` → sección `"build"`. Actualmente está configurado solo para Windows (NSIS).
+Ver `package.json` → sección `"build"`. Actualmente configurado solo para Windows (NSIS).
 
-Para agregar soporte macOS o Linux, añadir las secciones correspondientes en `package.json`:
+Para agregar soporte macOS o Linux:
 
 ```json
 "mac": { "target": "dmg" },

@@ -105,6 +105,15 @@ function initDatabase() {
       is_visible INTEGER DEFAULT 1,
       UNIQUE(role, section_name)
     );
+
+    CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
+    CREATE INDEX IF NOT EXISTS idx_products_code ON products(code);
+    CREATE INDEX IF NOT EXISTS idx_sales_user ON sales(user_id);
+    CREATE INDEX IF NOT EXISTS idx_sales_client ON sales(client_id);
+    CREATE INDEX IF NOT EXISTS idx_sales_created ON sales(created_at);
+    CREATE INDEX IF NOT EXISTS idx_sale_items_sale ON sale_items(sale_id);
+    CREATE INDEX IF NOT EXISTS idx_sale_items_product ON sale_items(product_id);
+    CREATE INDEX IF NOT EXISTS idx_coupons_code ON coupons(code);
   `);
 
   const hashPassword = (password) => bcrypt.hashSync(password, 10);

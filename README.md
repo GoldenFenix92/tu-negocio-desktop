@@ -6,15 +6,19 @@ Aplicación POS (Point of Sale) de escritorio para la gestión integral de peque
 
 ## Características
 
-- **Punto de venta** — Registro de ventas con búsqueda de productos, carrito, aplicación de cupones y selección de cliente.
-- **Gestión de inventario** — CRUD de productos, categorías, control de stock.
+- **Punto de venta** — Registro de ventas con búsqueda de productos, carrito, cupones, selección de cliente y método de pago (efectivo/tarjeta/transferencia). Atajos de teclado: F2 (buscar), F4 (finalizar), Escape (cerrar). Soporte para scanner de código de barras.
+- **Historial de ventas** — Consulta de ventas realizadas con filtro por fechas y detalle de productos.
+- **Dashboard** — KPIs en tiempo real: ventas hoy, ventas totales, productos en catálogo, stock bajo, cantidad de clientes.
+- **Gestión de inventario** — CRUD de productos y categorías, importación CSV con UPSERT.
 - **Clientes** — Base de datos de clientes con foto y datos de contacto.
 - **Cupones y promociones** — Descuentos por porcentaje o monto fijo, con fecha de expiración.
 - **Reportes** — Estadísticas de ventas, productos con stock bajo.
-- **Roles y permisos** — Administrador, Supervisor y Cajero; secciones configurables por rol.
+- **Roles y permisos** — Administrador, Supervisor y Cajero; rutas protegidas por rol.
 - **Tema claro/oscuro** — Con seguimiento automático del tema del sistema.
 - **Internacionalización** — Español e inglés.
 - **Logo con versión Light/Dark** — El negocio puede tener logos distintos para cada tema.
+- **Favicon personalizado** — Con fallback al icono por defecto.
+- **Notificaciones Toast** — Feedback visual no bloqueante para todas las operaciones.
 - **Base de datos local** — SQLite, sin necesidad de servidores externos.
 
 ---
@@ -60,6 +64,18 @@ La primera vez que se ejecuta, crea automáticamente la base de datos `data/tu_n
 
 ---
 
+## Atajos de teclado (Pantalla de ventas)
+
+| Tecla | Acción |
+|-------|--------|
+| `F2` | Enfocar búsqueda de productos |
+| `F4` | Finalizar venta |
+| `Escape` | Cerrar modal |
+
+Los scanners de código de barras son detectados automáticamente (buffer rápido + Enter).
+
+---
+
 ## Estructura del proyecto
 
 ```
@@ -77,11 +93,15 @@ tu-negocio-desktop/
 ├── data/
 │   └── tu_negocio.db       # Base de datos SQLite (se crea automáticamente)
 ├── src/                    # Código fuente React
-│   ├── App.jsx             # Componente principal
-│   ├── Settings.jsx        # Configuración del negocio
-│   ├── components/         # Componentes por funcionalidad
+│   ├── App.jsx             # Componente principal (router, layout, theme)
+│   ├── Settings.jsx        # Configuración del negocio (logo, favicon, etc.)
+│   ├── ToastContext.jsx    # Sistema de notificaciones Toast
+│   ├── utils.js            # Funciones utilitarias compartidas
+│   ├── components/
 │   │   ├── Login.jsx
-│   │   ├── SalesScreen.jsx
+│   │   ├── Dashboard.jsx           # KPIs del negocio
+│   │   ├── SalesScreen.jsx         # Punto de venta
+│   │   ├── SalesHistory.jsx        # Historial de ventas
 │   │   ├── ProductManagement.jsx
 │   │   ├── Categories.jsx
 │   │   ├── Clients.jsx
@@ -90,7 +110,10 @@ tu-negocio-desktop/
 │   │   ├── Sidebar.jsx
 │   │   ├── Permissions.jsx
 │   │   ├── ImportModal.jsx
-│   │   └── UserProfile.jsx
+│   │   ├── UserProfile.jsx
+│   │   ├── ProtectedRoute.jsx      # Guard de rutas por rol
+│   │   ├── ErrorBoundary.jsx       # Captura de errores de React
+│   │   └── ConfirmModal.jsx
 │   └── locales/           # Traducciones (es/en)
 ├── assets/                 # Imágenes estáticas
 └── dist/                   # Build de webpack

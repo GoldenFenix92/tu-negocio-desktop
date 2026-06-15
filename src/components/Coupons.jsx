@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Edit, Trash2, Ticket, Save, X, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useToast } from '../ToastContext';
 import './Coupons.css';
 
 export default function Coupons() {
   const { t } = useTranslation();
+  const showToast = useToast();
   const [coupons, setCoupons] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCoupon, setEditingCoupon] = useState(null);
   
@@ -37,6 +40,7 @@ export default function Coupons() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSaving(true);
     try {
       const discountVal = parseFloat(formData.discount);
       if (isNaN(discountVal)) throw new Error('Descuento inválido');
@@ -50,20 +54,24 @@ export default function Coupons() {
       }
       loadCoupons();
       closeModal();
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error saving coupon', err);
-      alert('Error al guardar el cupón: ' + err.message);
+      showToast(t('common.save_error') + ': ' + err.message, 'error');
+    } finally {
+      setSaving(false);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('¿Estás seguro de eliminar este cupón?')) return;
+    if (!confirm(t('common.confirm_delete'))) return;
     try {
       await window.api.dbQuery('DELETE FROM coupons WHERE id = ?', [id]);
       loadCoupons();
+      showToast(t('common.save_success'), 'success');
     } catch (err) {
       console.error('Error deleting coupon', err);
-      alert('Error al eliminar cupón');
+      showToast(t('common.save_error'), 'error');
     }
   };
 
@@ -226,8 +234,8 @@ export default function Coupons() {
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={closeModal}>{t('common.cancel')}</button>
-                <button type="submit" className="btn-primary">
-                  <Save size={18} /> {t('common.save')}
+                <button type="submit" className="btn-primary" disabled={saving}>
+                  <Save size={18} /> {saving ? t('common.loading') : t('common.save')}
                 </button>
               </div>
             </form>
