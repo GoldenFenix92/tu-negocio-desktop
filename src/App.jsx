@@ -69,10 +69,9 @@ function AppContent() {
   }, [themeMode]);
 
   useEffect(() => {
-    const design = getDesign(designId);
     applyDesignCSS(design);
     localStorage.setItem('themeDesign', designId);
-  }, [designId]);
+  }, [design, designId]);
 
   const loadBusinessConfig = async () => {
     try {
