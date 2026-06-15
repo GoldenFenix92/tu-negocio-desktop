@@ -7,7 +7,7 @@
     "start": "electron .",
     "dev": "webpack --mode development && electron .",
     "build": "webpack --mode production && electron-builder",
-    "postinstall": "npx @electron/rebuild -m . -o better-sqlite3 -o sharp"
+    "postinstall": "node scripts/rebuild-native.js"
   },
   "build": {
     "appId": "com.tunegocio.desktop",
