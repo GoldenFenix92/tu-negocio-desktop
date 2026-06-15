@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingCart, Search, Trash2, Plus, Minus, CreditCard, User, Tag, X } from 'lucide-react';
+import { ShoppingCart, Search, Trash2, Plus, Minus, CreditCard, User, Tag, X, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '../ToastContext';
 import { getMediaUrl } from '../utils';
@@ -12,20 +12,23 @@ export default function SalesScreen() {
   const [searchTerm, setSearchTerm] = useState('');
   const [allProducts, setAllProducts] = useState([]);
   const [client, setClient] = useState({ id: null, name: t('sales.final_consumer') });
-  const [couponCode, setCouponCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [clientSearchTerm, setClientSearchTerm] = useState('');
   const [allClients, setAllClients] = useState([]);
+  const [availableCoupons, setAvailableCoupons] = useState([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const searchInputRef = useRef(null);
   const barcodeBuffer = useRef('');
   const barcodeTimer = useRef(null);
 
-  useEffect(() => {
-    loadAllProducts();
-  }, []);
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const userRole = user?.role || '';
+  const isCashier = userRole === 'Cashier';
+
+  useEffect(() => { loadAllProducts(); }, []);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -33,6 +36,7 @@ export default function SalesScreen() {
       if (e.key === 'F4') { e.preventDefault(); handleFinishSale(); }
       if (e.key === 'Escape') {
         if (isClientModalOpen) setIsClientModalOpen(false);
+        if (isCouponModalOpen) setIsCouponModalOpen(false);
       }
       if (e.key.length === 1 && e.key !== 'Escape') {
         barcodeBuffer.current += e.key;
@@ -48,50 +52,57 @@ export default function SalesScreen() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [allProducts, isClientModalOpen]);
+  }, [allProducts, isClientModalOpen, isCouponModalOpen]);
 
   const loadAllProducts = async () => {
     try {
-      const sql = 'SELECT * FROM products WHERE stock > 0 ORDER BY name ASC';
-      const results = await window.api.dbQuery(sql);
+      const results = await window.api.dbQuery('SELECT * FROM products WHERE stock > 0 ORDER BY name ASC');
       setAllProducts(results);
     } catch (err) {
       console.error('Error loading products', err);
     }
   };
 
-  // Update client name when language changes if it's the default one
   useEffect(() => {
     if (client.id === null) {
       setClient(prev => ({ ...prev, name: t('sales.final_consumer') }));
     }
   }, [t]);
 
-  const handleApplyCoupon = async () => {
-    if (!couponCode) return;
+  const loadAvailableCoupons = async () => {
     try {
-      const sql = 'SELECT * FROM coupons WHERE code = ?';
-      const results = await window.api.dbQuery(sql, [couponCode.toUpperCase()]);
-      
-      if (results.length === 0) {
-        showToast(t('coupons.not_found') || 'Cupón no encontrado', 'warning');
-        return;
+      const today = new Date().toISOString().split('T')[0];
+      let sql;
+      let params;
+      if (client.id) {
+        sql = `SELECT * FROM coupons WHERE (is_global = 1 OR client_id = ?)
+          AND (valid_from IS NULL OR valid_from <= ?)
+          AND (valid_until IS NULL OR valid_until >= ?)
+          ORDER BY code ASC`;
+        params = [client.id, today, today];
+      } else {
+        sql = `SELECT * FROM coupons WHERE is_global = 1
+          AND (valid_from IS NULL OR valid_from <= ?)
+          AND (valid_until IS NULL OR valid_until >= ?)
+          ORDER BY code ASC`;
+        params = [today, today];
       }
-
-      const coupon = results[0];
-      const isExpired = coupon.expiry_date && new Date(coupon.expiry_date) < new Date().setHours(0,0,0,0);
-      
-      if (isExpired) {
-        showToast(t('coupons.expired_alert') || 'Este cupón ha expirado', 'warning');
-        return;
-      }
-
-      setAppliedCoupon(coupon);
-      setCouponCode('');
-      showToast(`${t('coupons.apply_success') || 'Cupón aplicado'}: ${coupon.code}`, 'success');
+      const results = await window.api.dbQuery(sql, params);
+      setAvailableCoupons(results);
     } catch (err) {
-      console.error('Error applying coupon', err);
+      console.error('Error loading coupons', err);
     }
+  };
+
+  const openCouponModal = () => {
+    loadAvailableCoupons();
+    setIsCouponModalOpen(true);
+  };
+
+  const selectCoupon = (coupon) => {
+    setAppliedCoupon(coupon);
+    setIsCouponModalOpen(false);
+    showToast(`${t('coupons.apply_success') || 'Cupón aplicado'}: ${coupon.code}`, 'success');
   };
 
   const removeCoupon = () => {
@@ -111,18 +122,24 @@ export default function SalesScreen() {
   const selectClient = (c) => {
     setClient({ id: c.id, name: c.name });
     setIsClientModalOpen(false);
+    // Re-evaluate coupon validity for new client
+    if (appliedCoupon) {
+      if (c.id && !appliedCoupon.is_global && appliedCoupon.client_id !== c.id) {
+        showToast('El cupón no aplica para este cliente', 'warning');
+        setAppliedCoupon(null);
+      }
+    }
   };
 
   const addToCart = (product) => {
     const existing = cart.find(item => item.id === product.id);
     if (existing) {
-      setCart(cart.map(item => 
+      setCart(cart.map(item =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
       ));
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
     }
-    // No longer clearing search to keep the catalog view
   };
 
   const updateQuantity = (id, delta) => {
@@ -140,7 +157,7 @@ export default function SalesScreen() {
   };
 
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  
+
   let discount = 0;
   if (appliedCoupon) {
     if (appliedCoupon.type === 'percentage') {
@@ -156,10 +173,9 @@ export default function SalesScreen() {
     if (cart.length === 0 || isProcessing) return;
     setIsProcessing(true);
     try {
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
       const saleResult = await window.api.dbQuery(
-        'INSERT INTO sales (user_id, client_id, total) VALUES (?, ?, ?)',
-        [user.id || null, client.id, total]
+        'INSERT INTO sales (user_id, client_id, total, coupon_id, discount_amount, payment_method) VALUES (?, ?, ?, ?, ?, ?)',
+        [user.id || null, client.id, total, appliedCoupon?.id || null, discount, paymentMethod]
       );
       const saleId = saleResult.insertId;
 
@@ -193,8 +209,8 @@ export default function SalesScreen() {
   const getProductImage = (path) => getMediaUrl(path, 'assets/producto_comodin.webp');
   const getClientImage = (path) => getMediaUrl(path, 'assets/cliente_comodin.webp');
 
-  const filteredProducts = allProducts.filter(p => 
-    p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredProducts = allProducts.filter(p =>
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     p.code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -203,19 +219,20 @@ export default function SalesScreen() {
       <div className="sales-left">
         <div className="pos-search-bar">
           <Search size={20} />
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder={t('sales.search_placeholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            ref={searchInputRef}
           />
         </div>
 
         <div className="product-catalog">
           <div className="product-grid">
             {filteredProducts.map(p => (
-              <div 
-                key={p.id} 
+              <div
+                key={p.id}
                 className={`product-card ${p.stock < 10 ? 'low-stock' : ''}`}
                 onClick={() => addToCart(p)}
               >
@@ -248,7 +265,7 @@ export default function SalesScreen() {
               <button className="btn-small" onClick={openClientModal}>{t('sales.change_client')}</button>
             </div>
           </div>
-          
+
           <div className="card-section">
             <div className="section-title">
               <CreditCard size={18} />
@@ -265,39 +282,30 @@ export default function SalesScreen() {
             </select>
           </div>
 
-          <div className="card-section coupon-section">
-            <div className="section-title">
-              <Tag size={18} />
-              <span>{t('coupons.title')}</span>
-            </div>
-            {!appliedCoupon ? (
-              <div className="coupon-input-group">
-                <input 
-                  type="text" 
-                  placeholder={t('sales.coupon_placeholder')} 
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      handleApplyCoupon();
-                    }
-                  }}
-                />
-                <button className="btn-apply" onClick={handleApplyCoupon}>{t('sales.apply')}</button>
+          {!isCashier && (
+            <div className="card-section coupon-section">
+              <div className="section-title">
+                <Tag size={18} />
+                <span>{t('coupons.title')}</span>
               </div>
-            ) : (
-              <div className="applied-coupon">
-                <div className="coupon-info">
-                  <span className="coupon-code">{appliedCoupon.code}</span>
-                  <span className="coupon-discount">
-                    -{appliedCoupon.discount}{appliedCoupon.type === 'percentage' ? '%' : '$'}
-                  </span>
+              {!appliedCoupon ? (
+                <button className="btn-select-coupon" onClick={openCouponModal}>
+                  <span>{t('sales.apply')}</span>
+                  <ChevronDown size={16} />
+                </button>
+              ) : (
+                <div className="applied-coupon">
+                  <div className="coupon-info">
+                    <span className="coupon-code">{appliedCoupon.code}</span>
+                    <span className="coupon-discount">
+                      -{appliedCoupon.discount}{appliedCoupon.type === 'percentage' ? '%' : '$'}
+                    </span>
+                  </div>
+                  <button className="btn-remove-coupon" onClick={removeCoupon}><X size={16} /></button>
                 </div>
-                <button className="btn-remove-coupon" onClick={removeCoupon}><X size={16} /></button>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
 
           <div className="cart-list-section">
             <div className="section-title">
@@ -335,7 +343,7 @@ export default function SalesScreen() {
               <span>${Number(total).toFixed(2)}</span>
             </div>
           </div>
-          
+
           <button className="finish-btn" onClick={handleFinishSale} disabled={cart.length === 0 || isProcessing}>
             <CreditCard size={20} />
             {t('sales.finish')}
@@ -353,19 +361,12 @@ export default function SalesScreen() {
             <div className="search-bar">
               <div className="search-input">
                 <Search size={18} />
-                <input 
-                  type="text" 
-                  placeholder={t('sales.search_client')} 
-                  value={clientSearchTerm}
-                  onChange={(e) => setClientSearchTerm(e.target.value)}
-                />
+                <input type="text" placeholder={t('sales.search_client')} value={clientSearchTerm}
+                  onChange={(e) => setClientSearchTerm(e.target.value)} />
               </div>
             </div>
             <div className="client-list">
-              <div 
-                className="client-item" 
-                onClick={() => selectClient({ id: null, name: t('sales.final_consumer') })}
-              >
+              <div className="client-item" onClick={() => selectClient({ id: null, name: t('sales.final_consumer') })}>
                 <div className="client-item-info">
                   <img src={getClientImage(null)} alt="Final Consumer" className="client-item-thumb" />
                   <span className="client-item-name">{t('sales.final_consumer')}</span>
@@ -388,8 +389,35 @@ export default function SalesScreen() {
           </div>
         </div>
       )}
+
+      {isCouponModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content" style={{ maxWidth: 450 }}>
+            <div className="modal-header">
+              <h3>{t('coupons.title')}</h3>
+              <button className="close-btn" onClick={() => setIsCouponModalOpen(false)}><X size={20} /></button>
+            </div>
+            <div className="coupon-select-list">
+              {availableCoupons.length === 0 ? (
+                <p style={{ textAlign: 'center', opacity: 0.6, padding: '2rem' }}>No hay cupones disponibles</p>
+              ) : (
+                availableCoupons.map(c => (
+                  <div key={c.id} className="coupon-select-item" onClick={() => selectCoupon(c)}>
+                    <div className="coupon-select-info">
+                      <span className="coupon-select-code">{c.code}</span>
+                      <span className="coupon-select-detail">
+                        {c.discount}{c.type === 'percentage' ? '%' : '$'} de descuento
+                        {!c.is_global && ' • Exclusivo'}
+                      </span>
+                    </div>
+                    <ChevronDown size={16} style={{ transform: 'rotate(-90deg)', opacity: 0.4 }} />
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-

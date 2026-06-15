@@ -2857,6 +2857,70 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.sales-container {
   opacity: 0.7;
 }
 
+.btn-select-coupon {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1px dashed rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.02);
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+[data-theme="dark"] .btn-select-coupon {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.03);
+}
+
+.btn-select-coupon:hover {
+  border-color: var(--primary-color);
+  background: rgba(52,152,219,0.05);
+}
+
+.coupon-select-list {
+  max-height: 350px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.coupon-select-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.02);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+[data-theme="dark"] .coupon-select-item {
+  background: rgba(255,255,255,0.03);
+}
+
+.coupon-select-item:hover {
+  background: rgba(52,152,219,0.08);
+  border-color: var(--primary-color);
+}
+
+.coupon-select-code {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.coupon-select-detail {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
 .coupon-input-group {
   display: flex;
   gap: 0.5rem;
@@ -3048,7 +3112,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.sales-container {
   color: inherit;
   font-size: 0.95rem;
 }
-`, "",{"version":3,"sources":["webpack://./src/components/SalesScreen.css"],"names":[],"mappings":"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","sourcesContent":[".sales-container {\r\n  display: grid;\r\n  grid-template-columns: 1fr 380px;\r\n  gap: 2rem;\r\n  height: calc(100vh - 120px);\r\n  padding: 1rem;\r\n}\r\n\r\n.sales-left {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1.5rem;\r\n  overflow: hidden;\r\n}\r\n\r\n.pos-search-bar {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n  background: var(--bg-secondary, #fff);\r\n  padding: 0.8rem 1.5rem;\r\n  border-radius: 12px;\r\n  box-shadow: 0 2px 10px rgba(0,0,0,0.05);\r\n  border: 1px solid transparent;\r\n  transition: all 0.2s ease;\r\n}\r\n\r\n.pos-search-bar:focus-within {\r\n  border-color: var(--primary-color);\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);\r\n}\r\n\r\n[data-theme=\"dark\"] .pos-search-bar {\r\n  background: #1e272e;\r\n}\r\n\r\n.pos-search-bar input {\r\n  flex: 1;\r\n  border: none;\r\n  background: transparent;\r\n  color: inherit;\r\n  font-size: 1rem;\r\n  outline: none !important;\r\n  box-shadow: none !important;\r\n}\r\n\r\n.product-catalog {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding-right: 0.5rem;\r\n}\r\n\r\n.product-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));\r\n  gap: 1rem;\r\n}\r\n\r\n.product-card {\r\n  background: var(--bg-secondary, #fff);\r\n  border-radius: 16px;\r\n  overflow: hidden;\r\n  box-shadow: 0 4px 15px rgba(0,0,0,0.05);\r\n  cursor: pointer;\r\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n  display: flex;\r\n  flex-direction: column;\r\n  position: relative;\r\n  border: 2px solid transparent;\r\n  max-width: 220px;\r\n}\r\n\r\n[data-theme=\"dark\"] .product-card {\r\n  background: #1e272e;\r\n}\r\n\r\n.product-card:hover {\r\n  transform: translateY(-5px);\r\n  box-shadow: 0 10px 25px rgba(0,0,0,0.1);\r\n  border-color: var(--primary-color);\r\n}\r\n\r\n.product-card.low-stock {\r\n  border-color: #f1c40f;\r\n}\r\n\r\n.product-card-image {\r\n  position: relative;\r\n  aspect-ratio: 1/1;\r\n  overflow: hidden;\r\n  background: #f8f9fa;\r\n}\r\n\r\n[data-theme=\"dark\"] .product-card-image {\r\n  background: #2c3e50;\r\n}\r\n\r\n.product-card-image img {\r\n  width: 100%;\r\n  height: 100%;\r\n  object-fit: cover;\r\n}\r\n\r\n.stock-warning {\r\n  position: absolute;\r\n  top: 8px;\r\n  right: 8px;\r\n  background: #f1c40f;\r\n  color: #000;\r\n  padding: 2px 8px;\r\n  border-radius: 20px;\r\n  font-size: 0.75rem;\r\n  font-weight: 700;\r\n}\r\n\r\n.product-card-info {\r\n  padding: 1rem;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.4rem;\r\n}\r\n\r\n.product-name {\r\n  font-weight: 600;\r\n  font-size: 0.95rem;\r\n  display: -webkit-box;\r\n  -webkit-line-clamp: 2;\r\n  line-clamp: 2;\r\n  -webkit-box-orient: vertical;\r\n  overflow: hidden;\r\n}\r\n\r\n.product-price {\r\n  color: var(--primary-color);\r\n  font-weight: 700;\r\n  font-size: 1.1rem;\r\n}\r\n\r\n.sales-right {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 100%;\r\n}\r\n\r\n.checkout-card {\r\n  background: var(--bg-secondary, #fff);\r\n  border-radius: 20px;\r\n  padding: 1.5rem;\r\n  box-shadow: 0 10px 30px rgba(0,0,0,0.08);\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1.2rem;\r\n  height: 100%;\r\n}\r\n\r\n[data-theme=\"dark\"] .checkout-card {\r\n  background: #1e272e;\r\n}\r\n\r\n.cart-list-section {\r\n  flex: 1;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1rem;\r\n  overflow: hidden;\r\n}\r\n\r\n.cart-items-mini {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.8rem;\r\n  padding-right: 0.5rem;\r\n}\r\n\r\n.cart-item-mini {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 0.8rem;\r\n  background: rgba(0,0,0,0.02);\r\n  border-radius: 12px;\r\n  gap: 0.5rem;\r\n}\r\n\r\n[data-theme=\"dark\"] .cart-item-mini {\r\n  background: rgba(255,255,255,0.03);\r\n}\r\n\r\n.item-info {\r\n  display: flex;\r\n  gap: 0.8rem;\r\n  align-items: center;\r\n  flex: 1;\r\n}\r\n\r\n.item-qty {\r\n  font-weight: 700;\r\n  color: var(--primary-color);\r\n  background: rgba(var(--primary-rgb, 52, 152, 219), 0.1);\r\n  padding: 2px 8px;\r\n  border-radius: 6px;\r\n  font-size: 0.85rem;\r\n}\r\n\r\n.item-name {\r\n  font-size: 0.9rem;\r\n  font-weight: 500;\r\n}\r\n\r\n.item-price-actions {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n}\r\n\r\n.item-total {\r\n  font-weight: 600;\r\n  font-size: 0.95rem;\r\n}\r\n\r\n.btn-remove {\r\n  background: transparent;\r\n  border: none;\r\n  color: #e74c3c;\r\n  cursor: pointer;\r\n  padding: 4px;\r\n  border-radius: 4px;\r\n}\r\n\r\n.btn-remove:hover {\r\n  background: rgba(231, 76, 60, 0.1);\r\n}\r\n\r\n.empty-msg {\r\n  text-align: center;\r\n  margin-top: 2rem;\r\n  opacity: 0.5;\r\n  font-style: italic;\r\n}\r\n\r\n.summary {\r\n  margin-top: auto;\r\n  padding-top: 1rem;\r\n  border-top: 1px solid rgba(0,0,0,0.05);\r\n}\r\n\r\n[data-theme=\"dark\"] .summary {\r\n  border-top-color: rgba(255,255,255,0.05);\r\n}\r\n\r\n.summary-row {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-bottom: 0.5rem;\r\n  font-size: 0.95rem;\r\n}\r\n\r\n.summary-row.discount {\r\n  color: #27ae60;\r\n}\r\n\r\n.total-row {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-top: 0.8rem;\r\n  font-size: 1.5rem;\r\n  font-weight: 800;\r\n  color: var(--primary-color);\r\n}\r\n\r\n.finish-btn {\r\n  width: 100%;\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n  background: var(--primary-color);\r\n  color: white;\r\n  border: none;\r\n  font-weight: 700;\r\n  font-size: 1rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  gap: 0.8rem;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n}\r\n\r\n.finish-btn:hover:not(:disabled) {\r\n  transform: translateY(-2px);\r\n  filter: brightness(1.1);\r\n  box-shadow: 0 5px 15px rgba(var(--primary-rgb, 52, 152, 219), 0.3);\r\n}\r\n\r\n.finish-btn:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\r\n}\r\n\r\n.section-title {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.6rem;\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  opacity: 0.7;\r\n}\r\n\r\n.coupon-input-group {\r\n  display: flex;\r\n  gap: 0.5rem;\r\n}\r\n\r\n.coupon-input-group input {\r\n  flex: 1;\r\n  padding: 8px 12px;\r\n  border-radius: 8px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  background: rgba(0,0,0,0.02);\r\n  outline: none;\r\n}\r\n\r\n[data-theme=\"dark\"] .coupon-input-group input {\r\n  background: rgba(255,255,255,0.05);\r\n  border-color: rgba(255,255,255,0.1);\r\n}\r\n\r\n.btn-apply {\r\n  padding: 8px 15px;\r\n  background: var(--primary-color);\r\n  color: white;\r\n  border: none;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n}\r\n\r\n.applied-coupon {\r\n  background: rgba(39, 174, 96, 0.1);\r\n  padding: 10px 15px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n}\r\n\r\n.coupon-code {\r\n  font-weight: 700;\r\n  color: #27ae60;\r\n}\r\n\r\n.btn-remove-coupon {\r\n  background: transparent;\r\n  border: none;\r\n  color: #e74c3c;\r\n  cursor: pointer;\r\n}\r\n\r\n.client-display {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.8rem;\r\n  padding: 0.8rem;\r\n  background: rgba(0,0,0,0.02);\r\n  border-radius: 12px;\r\n}\r\n\r\n[data-theme=\"dark\"] .client-display {\r\n  background: rgba(255,255,255,0.03);\r\n}\r\n\r\n.client-avatar-mini {\r\n  width: 32px;\r\n  height: 32px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\r\n}\r\n\r\n.client-avatar-mini img {\r\n  width: 100%;\r\n  height: 100%;\r\n  object-fit: cover;\r\n}\r\n\r\n.client-name {\r\n  flex: 1;\r\n  font-weight: 600;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.btn-small {\r\n  padding: 4px 8px;\r\n  font-size: 0.75rem;\r\n  border-radius: 6px;\r\n  background: var(--primary-color);\r\n  color: white;\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n/* Restored Client Modal specific styles */\r\n.client-list {\r\n  max-height: 400px;\r\n  overflow-y: auto;\r\n  margin-top: 1rem;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.8rem;\r\n}\r\n\r\n.client-item {\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n  background: rgba(0,0,0,0.02);\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  border: 1px solid transparent;\r\n}\r\n\r\n[data-theme=\"dark\"] .client-item {\r\n  background: rgba(255,255,255,0.03);\r\n}\r\n\r\n.client-item:hover {\r\n  background: rgba(var(--primary-rgb, 52, 152, 219), 0.1);\r\n  border-color: var(--primary-color);\r\n}\r\n\r\n.client-item-info {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n}\r\n\r\n.client-item-thumb {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  object-fit: cover;\r\n}\r\n\r\n.client-item-name {\r\n  font-weight: 600;\r\n  display: block;\r\n}\r\n\r\n.client-item-sub {\r\n  font-size: 0.8rem;\r\n  opacity: 0.6;\r\n}\r\n\r\n.modal-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.close-btn {\r\n  background: transparent;\r\n  border: none;\r\n  cursor: pointer;\r\n  padding: 5px;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: background 0.2s;\r\n}\r\n\r\n.close-btn:hover {\r\n  background: rgba(0,0,0,0.05);\r\n}\r\n\r\n.search-bar {\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.8rem;\r\n  background: rgba(0,0,0,0.02);\r\n  padding: 0.8rem 1.2rem;\r\n  border-radius: 10px;\r\n}\r\n\r\n[data-theme=\"dark\"] .search-input {\r\n  background: rgba(255,255,255,0.05);\r\n}\r\n\r\n.search-input input {\r\n  flex: 1;\r\n  border: none;\r\n  background: transparent;\r\n  outline: none;\r\n  color: inherit;\r\n  font-size: 0.95rem;\r\n}\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/components/SalesScreen.css"],"names":[],"mappings":"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","sourcesContent":[".sales-container {\r\n  display: grid;\r\n  grid-template-columns: 1fr 380px;\r\n  gap: 2rem;\r\n  height: calc(100vh - 120px);\r\n  padding: 1rem;\r\n}\r\n\r\n.sales-left {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1.5rem;\r\n  overflow: hidden;\r\n}\r\n\r\n.pos-search-bar {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n  background: var(--bg-secondary, #fff);\r\n  padding: 0.8rem 1.5rem;\r\n  border-radius: 12px;\r\n  box-shadow: 0 2px 10px rgba(0,0,0,0.05);\r\n  border: 1px solid transparent;\r\n  transition: all 0.2s ease;\r\n}\r\n\r\n.pos-search-bar:focus-within {\r\n  border-color: var(--primary-color);\r\n  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);\r\n}\r\n\r\n[data-theme=\"dark\"] .pos-search-bar {\r\n  background: #1e272e;\r\n}\r\n\r\n.pos-search-bar input {\r\n  flex: 1;\r\n  border: none;\r\n  background: transparent;\r\n  color: inherit;\r\n  font-size: 1rem;\r\n  outline: none !important;\r\n  box-shadow: none !important;\r\n}\r\n\r\n.product-catalog {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding-right: 0.5rem;\r\n}\r\n\r\n.product-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));\r\n  gap: 1rem;\r\n}\r\n\r\n.product-card {\r\n  background: var(--bg-secondary, #fff);\r\n  border-radius: 16px;\r\n  overflow: hidden;\r\n  box-shadow: 0 4px 15px rgba(0,0,0,0.05);\r\n  cursor: pointer;\r\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n  display: flex;\r\n  flex-direction: column;\r\n  position: relative;\r\n  border: 2px solid transparent;\r\n  max-width: 220px;\r\n}\r\n\r\n[data-theme=\"dark\"] .product-card {\r\n  background: #1e272e;\r\n}\r\n\r\n.product-card:hover {\r\n  transform: translateY(-5px);\r\n  box-shadow: 0 10px 25px rgba(0,0,0,0.1);\r\n  border-color: var(--primary-color);\r\n}\r\n\r\n.product-card.low-stock {\r\n  border-color: #f1c40f;\r\n}\r\n\r\n.product-card-image {\r\n  position: relative;\r\n  aspect-ratio: 1/1;\r\n  overflow: hidden;\r\n  background: #f8f9fa;\r\n}\r\n\r\n[data-theme=\"dark\"] .product-card-image {\r\n  background: #2c3e50;\r\n}\r\n\r\n.product-card-image img {\r\n  width: 100%;\r\n  height: 100%;\r\n  object-fit: cover;\r\n}\r\n\r\n.stock-warning {\r\n  position: absolute;\r\n  top: 8px;\r\n  right: 8px;\r\n  background: #f1c40f;\r\n  color: #000;\r\n  padding: 2px 8px;\r\n  border-radius: 20px;\r\n  font-size: 0.75rem;\r\n  font-weight: 700;\r\n}\r\n\r\n.product-card-info {\r\n  padding: 1rem;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.4rem;\r\n}\r\n\r\n.product-name {\r\n  font-weight: 600;\r\n  font-size: 0.95rem;\r\n  display: -webkit-box;\r\n  -webkit-line-clamp: 2;\r\n  line-clamp: 2;\r\n  -webkit-box-orient: vertical;\r\n  overflow: hidden;\r\n}\r\n\r\n.product-price {\r\n  color: var(--primary-color);\r\n  font-weight: 700;\r\n  font-size: 1.1rem;\r\n}\r\n\r\n.sales-right {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 100%;\r\n}\r\n\r\n.checkout-card {\r\n  background: var(--bg-secondary, #fff);\r\n  border-radius: 20px;\r\n  padding: 1.5rem;\r\n  box-shadow: 0 10px 30px rgba(0,0,0,0.08);\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1.2rem;\r\n  height: 100%;\r\n}\r\n\r\n[data-theme=\"dark\"] .checkout-card {\r\n  background: #1e272e;\r\n}\r\n\r\n.cart-list-section {\r\n  flex: 1;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1rem;\r\n  overflow: hidden;\r\n}\r\n\r\n.cart-items-mini {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.8rem;\r\n  padding-right: 0.5rem;\r\n}\r\n\r\n.cart-item-mini {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 0.8rem;\r\n  background: rgba(0,0,0,0.02);\r\n  border-radius: 12px;\r\n  gap: 0.5rem;\r\n}\r\n\r\n[data-theme=\"dark\"] .cart-item-mini {\r\n  background: rgba(255,255,255,0.03);\r\n}\r\n\r\n.item-info {\r\n  display: flex;\r\n  gap: 0.8rem;\r\n  align-items: center;\r\n  flex: 1;\r\n}\r\n\r\n.item-qty {\r\n  font-weight: 700;\r\n  color: var(--primary-color);\r\n  background: rgba(var(--primary-rgb, 52, 152, 219), 0.1);\r\n  padding: 2px 8px;\r\n  border-radius: 6px;\r\n  font-size: 0.85rem;\r\n}\r\n\r\n.item-name {\r\n  font-size: 0.9rem;\r\n  font-weight: 500;\r\n}\r\n\r\n.item-price-actions {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n}\r\n\r\n.item-total {\r\n  font-weight: 600;\r\n  font-size: 0.95rem;\r\n}\r\n\r\n.btn-remove {\r\n  background: transparent;\r\n  border: none;\r\n  color: #e74c3c;\r\n  cursor: pointer;\r\n  padding: 4px;\r\n  border-radius: 4px;\r\n}\r\n\r\n.btn-remove:hover {\r\n  background: rgba(231, 76, 60, 0.1);\r\n}\r\n\r\n.empty-msg {\r\n  text-align: center;\r\n  margin-top: 2rem;\r\n  opacity: 0.5;\r\n  font-style: italic;\r\n}\r\n\r\n.summary {\r\n  margin-top: auto;\r\n  padding-top: 1rem;\r\n  border-top: 1px solid rgba(0,0,0,0.05);\r\n}\r\n\r\n[data-theme=\"dark\"] .summary {\r\n  border-top-color: rgba(255,255,255,0.05);\r\n}\r\n\r\n.summary-row {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-bottom: 0.5rem;\r\n  font-size: 0.95rem;\r\n}\r\n\r\n.summary-row.discount {\r\n  color: #27ae60;\r\n}\r\n\r\n.total-row {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-top: 0.8rem;\r\n  font-size: 1.5rem;\r\n  font-weight: 800;\r\n  color: var(--primary-color);\r\n}\r\n\r\n.finish-btn {\r\n  width: 100%;\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n  background: var(--primary-color);\r\n  color: white;\r\n  border: none;\r\n  font-weight: 700;\r\n  font-size: 1rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  gap: 0.8rem;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n}\r\n\r\n.finish-btn:hover:not(:disabled) {\r\n  transform: translateY(-2px);\r\n  filter: brightness(1.1);\r\n  box-shadow: 0 5px 15px rgba(var(--primary-rgb, 52, 152, 219), 0.3);\r\n}\r\n\r\n.finish-btn:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\r\n}\r\n\r\n.section-title {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.6rem;\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  opacity: 0.7;\r\n}\r\n\r\n.btn-select-coupon {\r\n  width: 100%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 0.7rem 1rem;\r\n  border-radius: 10px;\r\n  border: 1px dashed rgba(0,0,0,0.15);\r\n  background: rgba(0,0,0,0.02);\r\n  color: inherit;\r\n  cursor: pointer;\r\n  font-size: 0.9rem;\r\n  transition: all 0.2s;\r\n}\r\n\r\n[data-theme=\"dark\"] .btn-select-coupon {\r\n  border-color: rgba(255,255,255,0.15);\r\n  background: rgba(255,255,255,0.03);\r\n}\r\n\r\n.btn-select-coupon:hover {\r\n  border-color: var(--primary-color);\r\n  background: rgba(52,152,219,0.05);\r\n}\r\n\r\n.coupon-select-list {\r\n  max-height: 350px;\r\n  overflow-y: auto;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.5rem;\r\n}\r\n\r\n.coupon-select-item {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 0.8rem 1rem;\r\n  border-radius: 10px;\r\n  background: rgba(0,0,0,0.02);\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  border: 1px solid transparent;\r\n}\r\n\r\n[data-theme=\"dark\"] .coupon-select-item {\r\n  background: rgba(255,255,255,0.03);\r\n}\r\n\r\n.coupon-select-item:hover {\r\n  background: rgba(52,152,219,0.08);\r\n  border-color: var(--primary-color);\r\n}\r\n\r\n.coupon-select-code {\r\n  font-weight: 700;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.coupon-select-detail {\r\n  font-size: 0.8rem;\r\n  opacity: 0.6;\r\n}\r\n\r\n.coupon-input-group {\r\n  display: flex;\r\n  gap: 0.5rem;\r\n}\r\n\r\n.coupon-input-group input {\r\n  flex: 1;\r\n  padding: 8px 12px;\r\n  border-radius: 8px;\r\n  border: 1px solid rgba(0,0,0,0.1);\r\n  background: rgba(0,0,0,0.02);\r\n  outline: none;\r\n}\r\n\r\n[data-theme=\"dark\"] .coupon-input-group input {\r\n  background: rgba(255,255,255,0.05);\r\n  border-color: rgba(255,255,255,0.1);\r\n}\r\n\r\n.btn-apply {\r\n  padding: 8px 15px;\r\n  background: var(--primary-color);\r\n  color: white;\r\n  border: none;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n}\r\n\r\n.applied-coupon {\r\n  background: rgba(39, 174, 96, 0.1);\r\n  padding: 10px 15px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n}\r\n\r\n.coupon-code {\r\n  font-weight: 700;\r\n  color: #27ae60;\r\n}\r\n\r\n.btn-remove-coupon {\r\n  background: transparent;\r\n  border: none;\r\n  color: #e74c3c;\r\n  cursor: pointer;\r\n}\r\n\r\n.client-display {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.8rem;\r\n  padding: 0.8rem;\r\n  background: rgba(0,0,0,0.02);\r\n  border-radius: 12px;\r\n}\r\n\r\n[data-theme=\"dark\"] .client-display {\r\n  background: rgba(255,255,255,0.03);\r\n}\r\n\r\n.client-avatar-mini {\r\n  width: 32px;\r\n  height: 32px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\r\n}\r\n\r\n.client-avatar-mini img {\r\n  width: 100%;\r\n  height: 100%;\r\n  object-fit: cover;\r\n}\r\n\r\n.client-name {\r\n  flex: 1;\r\n  font-weight: 600;\r\n  font-size: 0.9rem;\r\n}\r\n\r\n.btn-small {\r\n  padding: 4px 8px;\r\n  font-size: 0.75rem;\r\n  border-radius: 6px;\r\n  background: var(--primary-color);\r\n  color: white;\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n/* Restored Client Modal specific styles */\r\n.client-list {\r\n  max-height: 400px;\r\n  overflow-y: auto;\r\n  margin-top: 1rem;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 0.8rem;\r\n}\r\n\r\n.client-item {\r\n  padding: 1rem;\r\n  border-radius: 12px;\r\n  background: rgba(0,0,0,0.02);\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  border: 1px solid transparent;\r\n}\r\n\r\n[data-theme=\"dark\"] .client-item {\r\n  background: rgba(255,255,255,0.03);\r\n}\r\n\r\n.client-item:hover {\r\n  background: rgba(var(--primary-rgb, 52, 152, 219), 0.1);\r\n  border-color: var(--primary-color);\r\n}\r\n\r\n.client-item-info {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 1rem;\r\n}\r\n\r\n.client-item-thumb {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  object-fit: cover;\r\n}\r\n\r\n.client-item-name {\r\n  font-weight: 600;\r\n  display: block;\r\n}\r\n\r\n.client-item-sub {\r\n  font-size: 0.8rem;\r\n  opacity: 0.6;\r\n}\r\n\r\n.modal-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.close-btn {\r\n  background: transparent;\r\n  border: none;\r\n  cursor: pointer;\r\n  padding: 5px;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: background 0.2s;\r\n}\r\n\r\n.close-btn:hover {\r\n  background: rgba(0,0,0,0.05);\r\n}\r\n\r\n.search-bar {\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.8rem;\r\n  background: rgba(0,0,0,0.02);\r\n  padding: 0.8rem 1.2rem;\r\n  border-radius: 10px;\r\n}\r\n\r\n[data-theme=\"dark\"] .search-input {\r\n  background: rgba(255,255,255,0.05);\r\n}\r\n\r\n.search-input input {\r\n  flex: 1;\r\n  border: none;\r\n  background: transparent;\r\n  outline: none;\r\n  color: inherit;\r\n  font-size: 0.95rem;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6428,6 +6492,37 @@ const Check = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("
 
 /***/ },
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-down.js ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ ChevronDown)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("chevron-down", __iconNode);
+
+
+//# sourceMappingURL=chevron-down.js.map
+
+
+/***/ },
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js"
 /*!*******************************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/chevron-right.js ***!
@@ -6723,6 +6818,41 @@ const FileText = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"]
 
 
 //# sourceMappingURL=file-text.js.map
+
+
+/***/ },
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/globe.js"
+/*!***********************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/globe.js ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __iconNode: () => (/* binding */ __iconNode),
+/* harmony export */   "default": () => (/* binding */ Globe)
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.562.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const __iconNode = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
+  ["path", { d: "M2 12h20", key: "9i4pu4" }]
+];
+const Globe = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("globe", __iconNode);
+
+
+//# sourceMappingURL=globe.js.map
 
 
 /***/ },
@@ -59362,45 +59492,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/square-pen.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/calendar.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/globe.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/plus.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/save.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/ticket.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
-/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../ToastContext */ "./src/ToastContext.jsx");
-/* harmony import */ var _Coupons_css__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Coupons.css */ "./src/components/Coupons.css");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/user.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../ToastContext */ "./src/ToastContext.jsx");
+/* harmony import */ var _Coupons_css__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Coupons.css */ "./src/components/Coupons.css");
 
 
 
 
 
+const emptyForm = {
+  code: '',
+  discount: '',
+  type: 'percentage',
+  is_global: true,
+  client_id: '',
+  valid_from: '',
+  valid_until: ''
+};
 function Coupons() {
   const {
     t
-  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_9__.useTranslation)();
-  const showToast = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_10__.useToast)();
+  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_10__.useTranslation)();
+  const showToast = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_11__.useToast)();
   const [coupons, setCoupons] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [clients, setClients] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [searchTerm, setSearchTerm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const [saving, setSaving] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [isModalOpen, setIsModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [editingCoupon, setEditingCoupon] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [formData, setFormData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    code: '',
-    discount: '',
-    type: 'percentage',
-    expiry_date: ''
+    ...emptyForm
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     loadCoupons();
+    loadClients();
   }, []);
   const loadCoupons = async () => {
     setLoading(true);
     try {
-      const sql = 'SELECT * FROM coupons ORDER BY id DESC';
+      const sql = `SELECT c.*, cl.name as client_name FROM coupons c
+        LEFT JOIN clients cl ON c.client_id = cl.id ORDER BY c.id DESC`;
       const results = await window.api.dbQuery(sql);
       setCoupons(results);
     } catch (err) {
@@ -59409,24 +59549,32 @@ function Coupons() {
       setLoading(false);
     }
   };
+  const loadClients = async () => {
+    try {
+      const results = await window.api.dbQuery('SELECT id, name FROM clients ORDER BY name ASC');
+      setClients(results);
+    } catch (err) {
+      console.error('Failed to load clients', err);
+    }
+  };
   const handleSubmit = async e => {
     e.preventDefault();
     setSaving(true);
     try {
       const discountVal = parseFloat(formData.discount);
-      if (isNaN(discountVal)) throw new Error('Descuento inválido');
+      if (isNaN(discountVal)) throw new Error('Invalid discount');
+      const params = [formData.code.toUpperCase(), discountVal, formData.type, formData.is_global ? 1 : 0, formData.is_global ? null : formData.client_id ? parseInt(formData.client_id) : null, formData.valid_from || null, formData.valid_until || null];
       if (editingCoupon) {
-        const sql = 'UPDATE coupons SET code=?, discount=?, type=?, expiry_date=? WHERE id=?';
-        await window.api.dbQuery(sql, [formData.code.toUpperCase(), discountVal, formData.type, formData.expiry_date || null, editingCoupon.id]);
+        const sql = `UPDATE coupons SET code=?, discount=?, type=?, is_global=?, client_id=?, valid_from=?, valid_until=? WHERE id=?`;
+        await window.api.dbQuery(sql, [...params, editingCoupon.id]);
       } else {
-        const sql = 'INSERT INTO coupons (code, discount, type, expiry_date) VALUES (?, ?, ?, ?)';
-        await window.api.dbQuery(sql, [formData.code.toUpperCase(), discountVal, formData.type, formData.expiry_date || null]);
+        const sql = `INSERT INTO coupons (code, discount, type, is_global, client_id, valid_from, valid_until) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        await window.api.dbQuery(sql, params);
       }
       loadCoupons();
       closeModal();
       showToast(t('common.save_success'), 'success');
     } catch (err) {
-      console.error('Error saving coupon', err);
       showToast(t('common.save_error') + ': ' + err.message, 'error');
     } finally {
       setSaving(false);
@@ -59439,32 +59587,25 @@ function Coupons() {
       loadCoupons();
       showToast(t('common.save_success'), 'success');
     } catch (err) {
-      console.error('Error deleting coupon', err);
       showToast(t('common.save_error'), 'error');
     }
   };
   const openModal = (coupon = null) => {
     if (coupon) {
       setEditingCoupon(coupon);
-      // Format date for input type="date"
-      let dateStr = '';
-      if (coupon.expiry_date) {
-        const d = new Date(coupon.expiry_date);
-        dateStr = d.toISOString().split('T')[0];
-      }
       setFormData({
         code: coupon.code,
         discount: coupon.discount.toString(),
         type: coupon.type,
-        expiry_date: dateStr
+        is_global: !!coupon.is_global,
+        client_id: coupon.client_id ? coupon.client_id.toString() : '',
+        valid_from: coupon.valid_from ? coupon.valid_from.split('T')[0] : '',
+        valid_until: coupon.valid_until ? coupon.valid_until.split('T')[0] : ''
       });
     } else {
       setEditingCoupon(null);
       setFormData({
-        code: '',
-        discount: '',
-        type: 'percentage',
-        expiry_date: ''
+        ...emptyForm
       });
     }
     setIsModalOpen(true);
@@ -59473,6 +59614,7 @@ function Coupons() {
     setIsModalOpen(false);
     setEditingCoupon(null);
   };
+  const today = new Date().setHours(0, 0, 0, 0);
   const filteredCoupons = coupons.filter(c => c.code.toLowerCase().includes(searchTerm.toLowerCase()));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "coupon-mgmt"
@@ -59490,7 +59632,7 @@ function Coupons() {
     onClick: () => openModal()
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
     size: 18
-  }), t('coupons.new')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }), " ", t('coupons.new')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "search-bar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "search-input"
@@ -59505,21 +59647,39 @@ function Coupons() {
     className: "coupon-table-wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", {
     className: "coupon-table"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.code')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.discount')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.type')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.expiry')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.status')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('common.actions')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-    colSpan: "6",
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.code')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.discount')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.type')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Alcance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "V\xE1lido desde"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "V\xE1lido hasta"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('coupons.status')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, t('common.actions')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
+    colSpan: "8",
     style: {
       textAlign: 'center'
     }
   }, t('common.loading'))) : filteredCoupons.length > 0 ? filteredCoupons.map(coupon => {
-    const isExpired = coupon.expiry_date && new Date(coupon.expiry_date) < new Date().setHours(0, 0, 0, 0);
+    const expired = coupon.valid_until && new Date(coupon.valid_until) < today;
+    const notStarted = coupon.valid_from && new Date(coupon.valid_from) > today;
+    const status = expired ? 'expired' : notStarted ? 'pending' : 'active';
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", {
       key: coupon.id,
-      className: isExpired ? 'expired-row' : ''
+      className: status === 'expired' ? 'expired-row' : status === 'pending' ? 'pending-row' : ''
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
       className: "code-cell"
-    }, coupon.code), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, coupon.discount, coupon.type === 'percentage' ? '%' : '$'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, coupon.type === 'percentage' ? t('coupons.percentage') : t('coupons.fixed')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, coupon.expiry_date ? new Date(coupon.expiry_date).toLocaleDateString() : t('coupons.never')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: `status-badge ${isExpired ? 'expired' : 'active'}`
-    }, isExpired ? t('coupons.expired') : t('coupons.active'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
+    }, coupon.code), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, coupon.discount, coupon.type === 'percentage' ? '%' : '$'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, coupon.type === 'percentage' ? t('coupons.percentage') : t('coupons.fixed')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, coupon.is_global ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 4
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      size: 14
+    }), " Global") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 4
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      size: 14
+    }), " ", coupon.client_name || `#${coupon.client_id}`)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, coupon.valid_from ? new Date(coupon.valid_from).toLocaleDateString() : '-'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, coupon.valid_until ? new Date(coupon.valid_until).toLocaleDateString() : '-'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: `status-badge ${status}`
+    }, status === 'expired' ? t('coupons.expired') : status === 'pending' ? 'Próximo' : t('coupons.active'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
       className: "actions-cell"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       className: "btn-icon edit",
@@ -59535,7 +59695,7 @@ function Coupons() {
       size: 16
     }))));
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-    colSpan: "6",
+    colSpan: "8",
     style: {
       textAlign: 'center'
     }
@@ -59548,7 +59708,7 @@ function Coupons() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, editingCoupon ? t('coupons.edit_title') : t('coupons.new_title')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: "close-btn",
     onClick: closeModal
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
     size: 20
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleSubmit
@@ -59592,20 +59752,62 @@ function Coupons() {
   }, t('coupons.percentage')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: "fixed"
   }, t('coupons.fixed'))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, t('coupons.expiry'), ":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "input-with-icon"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    size: 18,
-    className: "input-icon"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "date",
-    value: formData.expiry_date,
+    className: "form-group",
+    style: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: '0.5rem',
+      marginTop: '0.5rem'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "checkbox",
+    id: "is_global",
+    checked: formData.is_global,
     onChange: e => setFormData(prev => ({
       ...prev,
-      expiry_date: e.target.value
+      is_global: e.target.checked,
+      client_id: ''
+    }))
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "is_global",
+    style: {
+      margin: 0,
+      cursor: 'pointer'
+    }
+  }, "Disponible para todos los clientes")), !formData.is_global && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Cliente:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    value: formData.client_id,
+    onChange: e => setFormData(prev => ({
+      ...prev,
+      client_id: e.target.value
     })),
     required: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: ""
+  }, "Seleccionar cliente"), clients.map(c => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    key: c.id,
+    value: c.id
+  }, c.name)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "form-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "form-group flex-1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "V\xE1lido desde:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "date",
+    value: formData.valid_from,
+    onChange: e => setFormData(prev => ({
+      ...prev,
+      valid_from: e.target.value
+    }))
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "form-group flex-1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "V\xE1lido hasta:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "date",
+    value: formData.valid_until,
+    onChange: e => setFormData(prev => ({
+      ...prev,
+      valid_until: e.target.value
+    }))
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "modal-actions"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
@@ -60960,10 +61162,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/calendar.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/credit-card.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/dollar-sign.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/package.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/tag.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/user.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
 
 
 
@@ -60976,6 +61182,7 @@ function SalesHistory() {
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const [selectedSale, setSelectedSale] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [saleItems, setSaleItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [saleCoupon, setSaleCoupon] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [dateFrom, setDateFrom] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [dateTo, setDateTo] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -60984,9 +61191,13 @@ function SalesHistory() {
   const loadSales = async () => {
     setLoading(true);
     try {
-      let sql = `SELECT s.id, s.total, s.created_at, u.username, c.name as client_name
-        FROM sales s LEFT JOIN users u ON s.user_id = u.id
-        LEFT JOIN clients c ON s.client_id = c.id`;
+      let sql = `SELECT s.id, s.total, s.discount_amount, s.payment_method, s.created_at,
+        u.username, c.name as client_name,
+        cp.code as coupon_code
+        FROM sales s
+        LEFT JOIN users u ON s.user_id = u.id
+        LEFT JOIN clients c ON s.client_id = c.id
+        LEFT JOIN coupons cp ON s.coupon_id = cp.id`;
       const params = [];
       const conditions = [];
       if (dateFrom) {
@@ -61009,13 +61220,20 @@ function SalesHistory() {
   };
   const viewSale = async sale => {
     setSelectedSale(sale);
+    setSaleCoupon(null);
     try {
-      const items = await window.api.dbQuery(`SELECT si.*, p.name, p.image_path FROM sale_items si
-         LEFT JOIN products p ON si.product_id = p.id WHERE si.sale_id = ?`, [sale.id]);
+      const [items, coupon] = await Promise.all([window.api.dbQuery(`SELECT si.*, p.name, p.image_path FROM sale_items si
+           LEFT JOIN products p ON si.product_id = p.id WHERE si.sale_id = ?`, [sale.id]), sale.coupon_code ? window.api.dbQuery('SELECT * FROM coupons WHERE code = ?', [sale.coupon_code]) : Promise.resolve([])]);
       setSaleItems(items);
+      setSaleCoupon(coupon[0] || null);
     } catch (err) {
-      console.error('Error loading sale items', err);
+      console.error('Error loading sale details', err);
     }
+  };
+  const paymentLabels = {
+    cash: 'Efectivo',
+    card: 'Tarjeta',
+    transfer: 'Transferencia'
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "sales-history"
@@ -61058,7 +61276,7 @@ function SalesHistory() {
     style: {
       padding: '0.5rem 1rem'
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
     size: 16
   }), " Filtrar"), (dateFrom || dateTo) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: "btn-secondary",
@@ -61070,11 +61288,7 @@ function SalesHistory() {
     style: {
       padding: '0.5rem 1rem'
     }
-  }, "Limpiar")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "sales-split"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "sales-list-panel"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", {
+  }, "Limpiar")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", {
     className: "product-table"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "#"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Fecha"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Usuario"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Cliente"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Total"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
     colSpan: "6",
@@ -61087,30 +61301,100 @@ function SalesHistory() {
       textAlign: 'center'
     }
   }, t('common.no_results'))) : sales.map(s => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", {
-    key: s.id,
-    className: selectedSale?.id === s.id ? 'selected-row' : ''
+    key: s.id
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, s.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, s.created_at), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, s.username || '-'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, s.client_name || 'Consumidor Final'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "$", Number(s.total).toFixed(2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: "btn-icon",
     onClick: () => viewSale(s),
     title: "Ver detalle"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
     size: 16
-  })))))))), selectedSale && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "sale-detail-panel"
+  }))))))), selectedSale && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "modal-overlay",
+    onClick: () => setSelectedSale(null)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "detail-header"
+    className: "modal-content",
+    onClick: e => e.stopPropagation(),
+    style: {
+      maxWidth: 650
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "modal-header"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Venta #", selectedSale.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: "close-btn",
     onClick: () => setSelectedSale(null)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
     size: 20
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Fecha:"), " ", selectedSale.created_at), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Usuario:"), " ", selectedSale.username || '-'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Cliente:"), " ", selectedSale.client_name || 'Consumidor Final'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Total:"), " $", Number(selectedSale.total).toFixed(2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      marginTop: '1rem'
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: '0.5rem',
+      marginBottom: '1rem',
+      fontSize: '0.9rem'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    size: 14,
+    style: {
+      opacity: 0.5,
+      marginRight: 4
+    }
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Total:"), " $", Number(selectedSale.total).toFixed(2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    size: 14,
+    style: {
+      opacity: 0.5,
+      marginRight: 4
+    }
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Fecha:"), " ", selectedSale.created_at), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    size: 14,
+    style: {
+      opacity: 0.5,
+      marginRight: 4
+    }
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Usuario:"), " ", selectedSale.username || '-'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    size: 14,
+    style: {
+      opacity: 0.5,
+      marginRight: 4
+    }
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Cliente:"), " ", selectedSale.client_name || 'Consumidor Final'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    size: 14,
+    style: {
+      opacity: 0.5,
+      marginRight: 4
+    }
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Pago:"), " ", paymentLabels[selectedSale.payment_method] || selectedSale.payment_method), selectedSale.discount_amount > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    size: 14,
+    style: {
+      opacity: 0.5,
+      marginRight: 4
+    }
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Descuento:"), " -$", Number(selectedSale.discount_amount).toFixed(2))), selectedSale.coupon_code && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      background: 'rgba(39,174,96,0.08)',
+      padding: '0.5rem 0.8rem',
+      borderRadius: 8,
+      marginBottom: '1rem',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      fontSize: '0.85rem'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    size: 14,
+    style: {
+      color: '#27ae60'
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Cup\xF3n:"), " ", selectedSale.coupon_code), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", {
+    style: {
+      margin: '0 0 0.5rem',
+      fontSize: '0.95rem'
     }
   }, "Productos"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", {
-    className: "product-table"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Producto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Cant."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Precio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Subtotal"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, saleItems.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", {
+    className: "product-table",
+    style: {
+      fontSize: '0.85rem'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Producto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Cant."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "P. Unit."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", null, "Subtotal"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, saleItems.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", {
     key: item.id
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
     style: {
@@ -61119,11 +61403,11 @@ function SalesHistory() {
       gap: '0.5rem'
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
-    src: (0,_utils__WEBPACK_IMPORTED_MODULE_6__.getMediaUrl)(item.image_path, 'assets/producto_comodin.webp'),
+    src: (0,_utils__WEBPACK_IMPORTED_MODULE_10__.getMediaUrl)(item.image_path, 'assets/producto_comodin.webp'),
     alt: "",
     style: {
-      width: 30,
-      height: 30,
+      width: 28,
+      height: 28,
       borderRadius: 4,
       objectFit: 'cover'
     }
@@ -61200,16 +61484,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/credit-card.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/shopping-cart.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/tag.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/user.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
-/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../ToastContext */ "./src/ToastContext.jsx");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
-/* harmony import */ var _SalesScreen_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./SalesScreen.css */ "./src/components/SalesScreen.css");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/credit-card.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/shopping-cart.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/tag.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/user.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../ToastContext */ "./src/ToastContext.jsx");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
+/* harmony import */ var _SalesScreen_css__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./SalesScreen.css */ "./src/components/SalesScreen.css");
 
 
 
@@ -61219,8 +61504,8 @@ __webpack_require__.r(__webpack_exports__);
 function SalesScreen() {
   const {
     t
-  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_7__.useTranslation)();
-  const showToast = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_8__.useToast)();
+  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_8__.useTranslation)();
+  const showToast = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_9__.useToast)();
   const [cart, setCart] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [searchTerm, setSearchTerm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [allProducts, setAllProducts] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
@@ -61228,16 +61513,20 @@ function SalesScreen() {
     id: null,
     name: t('sales.final_consumer')
   });
-  const [couponCode, setCouponCode] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [appliedCoupon, setAppliedCoupon] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [isClientModalOpen, setIsClientModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [isCouponModalOpen, setIsCouponModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [clientSearchTerm, setClientSearchTerm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [allClients, setAllClients] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [availableCoupons, setAvailableCoupons] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [isProcessing, setIsProcessing] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [paymentMethod, setPaymentMethod] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('cash');
   const searchInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const barcodeBuffer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)('');
   const barcodeTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const userRole = user?.role || '';
+  const isCashier = userRole === 'Cashier';
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     loadAllProducts();
   }, []);
@@ -61253,6 +61542,7 @@ function SalesScreen() {
       }
       if (e.key === 'Escape') {
         if (isClientModalOpen) setIsClientModalOpen(false);
+        if (isCouponModalOpen) setIsCouponModalOpen(false);
       }
       if (e.key.length === 1 && e.key !== 'Escape') {
         barcodeBuffer.current += e.key;
@@ -61270,18 +61560,15 @@ function SalesScreen() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [allProducts, isClientModalOpen]);
+  }, [allProducts, isClientModalOpen, isCouponModalOpen]);
   const loadAllProducts = async () => {
     try {
-      const sql = 'SELECT * FROM products WHERE stock > 0 ORDER BY name ASC';
-      const results = await window.api.dbQuery(sql);
+      const results = await window.api.dbQuery('SELECT * FROM products WHERE stock > 0 ORDER BY name ASC');
       setAllProducts(results);
     } catch (err) {
       console.error('Error loading products', err);
     }
   };
-
-  // Update client name when language changes if it's the default one
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (client.id === null) {
       setClient(prev => ({
@@ -61290,27 +61577,38 @@ function SalesScreen() {
       }));
     }
   }, [t]);
-  const handleApplyCoupon = async () => {
-    if (!couponCode) return;
+  const loadAvailableCoupons = async () => {
     try {
-      const sql = 'SELECT * FROM coupons WHERE code = ?';
-      const results = await window.api.dbQuery(sql, [couponCode.toUpperCase()]);
-      if (results.length === 0) {
-        showToast(t('coupons.not_found') || 'Cupón no encontrado', 'warning');
-        return;
+      const today = new Date().toISOString().split('T')[0];
+      let sql;
+      let params;
+      if (client.id) {
+        sql = `SELECT * FROM coupons WHERE (is_global = 1 OR client_id = ?)
+          AND (valid_from IS NULL OR valid_from <= ?)
+          AND (valid_until IS NULL OR valid_until >= ?)
+          ORDER BY code ASC`;
+        params = [client.id, today, today];
+      } else {
+        sql = `SELECT * FROM coupons WHERE is_global = 1
+          AND (valid_from IS NULL OR valid_from <= ?)
+          AND (valid_until IS NULL OR valid_until >= ?)
+          ORDER BY code ASC`;
+        params = [today, today];
       }
-      const coupon = results[0];
-      const isExpired = coupon.expiry_date && new Date(coupon.expiry_date) < new Date().setHours(0, 0, 0, 0);
-      if (isExpired) {
-        showToast(t('coupons.expired_alert') || 'Este cupón ha expirado', 'warning');
-        return;
-      }
-      setAppliedCoupon(coupon);
-      setCouponCode('');
-      showToast(`${t('coupons.apply_success') || 'Cupón aplicado'}: ${coupon.code}`, 'success');
+      const results = await window.api.dbQuery(sql, params);
+      setAvailableCoupons(results);
     } catch (err) {
-      console.error('Error applying coupon', err);
+      console.error('Error loading coupons', err);
     }
+  };
+  const openCouponModal = () => {
+    loadAvailableCoupons();
+    setIsCouponModalOpen(true);
+  };
+  const selectCoupon = coupon => {
+    setAppliedCoupon(coupon);
+    setIsCouponModalOpen(false);
+    showToast(`${t('coupons.apply_success') || 'Cupón aplicado'}: ${coupon.code}`, 'success');
   };
   const removeCoupon = () => {
     setAppliedCoupon(null);
@@ -61330,6 +61628,13 @@ function SalesScreen() {
       name: c.name
     });
     setIsClientModalOpen(false);
+    // Re-evaluate coupon validity for new client
+    if (appliedCoupon) {
+      if (c.id && !appliedCoupon.is_global && appliedCoupon.client_id !== c.id) {
+        showToast('El cupón no aplica para este cliente', 'warning');
+        setAppliedCoupon(null);
+      }
+    }
   };
   const addToCart = product => {
     const existing = cart.find(item => item.id === product.id);
@@ -61344,7 +61649,6 @@ function SalesScreen() {
         quantity: 1
       }]);
     }
-    // No longer clearing search to keep the catalog view
   };
   const updateQuantity = (id, delta) => {
     setCart(cart.map(item => {
@@ -61375,8 +61679,7 @@ function SalesScreen() {
     if (cart.length === 0 || isProcessing) return;
     setIsProcessing(true);
     try {
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const saleResult = await window.api.dbQuery('INSERT INTO sales (user_id, client_id, total) VALUES (?, ?, ?)', [user.id || null, client.id, total]);
+      const saleResult = await window.api.dbQuery('INSERT INTO sales (user_id, client_id, total, coupon_id, discount_amount, payment_method) VALUES (?, ?, ?, ?, ?, ?)', [user.id || null, client.id, total, appliedCoupon?.id || null, discount, paymentMethod]);
       const saleId = saleResult.insertId;
       const queries = cart.map(item => ({
         sql: 'INSERT INTO sale_items (sale_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
@@ -61405,8 +61708,8 @@ function SalesScreen() {
       setIsProcessing(false);
     }
   };
-  const getProductImage = path => (0,_utils__WEBPACK_IMPORTED_MODULE_9__.getMediaUrl)(path, 'assets/producto_comodin.webp');
-  const getClientImage = path => (0,_utils__WEBPACK_IMPORTED_MODULE_9__.getMediaUrl)(path, 'assets/cliente_comodin.webp');
+  const getProductImage = path => (0,_utils__WEBPACK_IMPORTED_MODULE_10__.getMediaUrl)(path, 'assets/producto_comodin.webp');
+  const getClientImage = path => (0,_utils__WEBPACK_IMPORTED_MODULE_10__.getMediaUrl)(path, 'assets/cliente_comodin.webp');
   const filteredProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.code.toLowerCase().includes(searchTerm.toLowerCase()));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "sales-container"
@@ -61414,13 +61717,14 @@ function SalesScreen() {
     className: "sales-left"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "pos-search-bar"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
     size: 20
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     placeholder: t('sales.search_placeholder'),
     value: searchTerm,
-    onChange: e => setSearchTerm(e.target.value)
+    onChange: e => setSearchTerm(e.target.value),
+    ref: searchInputRef
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "product-catalog"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -61450,7 +61754,7 @@ function SalesScreen() {
     className: "card-section client-section"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "section-title"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
     size: 18
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, t('sales.client'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "client-display"
@@ -61468,7 +61772,7 @@ function SalesScreen() {
     className: "card-section"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "section-title"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
     size: 18
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "M\xE9todo de pago")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
     value: paymentMethod,
@@ -61488,29 +61792,18 @@ function SalesScreen() {
     value: "card"
   }, "Tarjeta"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: "transfer"
-  }, "Transferencia"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, "Transferencia"))), !isCashier && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "card-section coupon-section"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "section-title"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_5__["default"], {
     size: 18
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, t('coupons.title'))), !appliedCoupon ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "coupon-input-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "text",
-    placeholder: t('sales.coupon_placeholder'),
-    value: couponCode,
-    onChange: e => setCouponCode(e.target.value.toUpperCase()),
-    onKeyDown: e => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        handleApplyCoupon();
-      }
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    className: "btn-apply",
-    onClick: handleApplyCoupon
-  }, t('sales.apply'))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, t('coupons.title'))), !appliedCoupon ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: "btn-select-coupon",
+    onClick: openCouponModal
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, t('sales.apply')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    size: 16
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "applied-coupon"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "coupon-info"
@@ -61521,13 +61814,13 @@ function SalesScreen() {
   }, "-", appliedCoupon.discount, appliedCoupon.type === 'percentage' ? '%' : '$')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: "btn-remove-coupon",
     onClick: removeCoupon
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
     size: 16
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "cart-list-section"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "section-title"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
     size: 18
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, t('menu.sales'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "cart-items-mini"
@@ -61547,7 +61840,7 @@ function SalesScreen() {
   }, "$", (item.price * item.quantity).toFixed(2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     onClick: () => removeFromCart(item.id),
     className: "btn-remove"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
     size: 14
   }))))), cart.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     className: "empty-msg"
@@ -61563,7 +61856,7 @@ function SalesScreen() {
     className: "finish-btn",
     onClick: handleFinishSale,
     disabled: cart.length === 0 || isProcessing
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
     size: 20
   }), t('sales.finish')))), isClientModalOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "modal-overlay"
@@ -61574,13 +61867,13 @@ function SalesScreen() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, t('sales.select_client')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: "close-btn",
     onClick: () => setIsClientModalOpen(false)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
     size: 20
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "search-bar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "search-input"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
     size: 18
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
@@ -61619,7 +61912,45 @@ function SalesScreen() {
     className: "client-item-name"
   }, c.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "client-item-sub"
-  }, c.email || c.phone || t('common.no_results'))))))))));
+  }, c.email || c.phone || t('common.no_results'))))))))), isCouponModalOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "modal-overlay"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "modal-content",
+    style: {
+      maxWidth: 450
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "modal-header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, t('coupons.title')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: "close-btn",
+    onClick: () => setIsCouponModalOpen(false)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    size: 20
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "coupon-select-list"
+  }, availableCoupons.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    style: {
+      textAlign: 'center',
+      opacity: 0.6,
+      padding: '2rem'
+    }
+  }, "No hay cupones disponibles") : availableCoupons.map(c => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    key: c.id,
+    className: "coupon-select-item",
+    onClick: () => selectCoupon(c)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "coupon-select-info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "coupon-select-code"
+  }, c.code), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "coupon-select-detail"
+  }, c.discount, c.type === 'percentage' ? '%' : '$', " de descuento", !c.is_global && ' • Exclusivo')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    size: 16,
+    style: {
+      transform: 'rotate(-90deg)',
+      opacity: 0.4
+    }
+  })))))));
 }
 
 /***/ },

@@ -92,14 +92,14 @@ function seedDatabase() {
   }
 
   const insertCoupon = database.prepare(
-    "INSERT INTO coupons (code, discount, type, expiry_date) VALUES (?, ?, ?, ?)"
+    "INSERT INTO coupons (code, discount, type, is_global, client_id, valid_from, valid_until) VALUES (?, ?, ?, ?, ?, ?, ?)"
   );
   const coupons = [
-    ['BIENVENIDO10', 10, 'percentage', '2027-12-31'],
-    ['VERANO20', 20, 'percentage', '2026-09-30'],
-    ['50PESOS', 50, 'fixed', '2026-12-31'],
-    ['3X2', 33.33, 'percentage', '2026-08-31'],
-    ['CLIENTE5', 5, 'percentage', '2027-06-30'],
+    ['BIENVENIDO10', 10, 'percentage', 1, null, '2026-01-01', '2027-12-31'],
+    ['VERANO20', 20, 'percentage', 1, null, '2026-06-01', '2026-09-30'],
+    ['50PESOS', 50, 'fixed', 1, null, '2026-01-01', '2026-12-31'],
+    ['3X2', 33.33, 'percentage', 1, null, '2026-01-01', '2026-08-31'],
+    ['CLIENTE5', 5, 'percentage', 0, 2, '2026-01-01', '2027-06-30'],
   ];
   for (const c of coupons) {
     insertCoupon.run(...c);

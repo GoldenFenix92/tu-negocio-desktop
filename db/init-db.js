@@ -66,9 +66,13 @@ function initDatabase() {
       user_id INTEGER,
       client_id INTEGER,
       total REAL NOT NULL,
+      coupon_id INTEGER,
+      discount_amount REAL DEFAULT 0,
+      payment_method TEXT DEFAULT 'cash',
       created_at TEXT DEFAULT (datetime('now')),
       FOREIGN KEY (user_id) REFERENCES users(id),
-      FOREIGN KEY (client_id) REFERENCES clients(id)
+      FOREIGN KEY (client_id) REFERENCES clients(id),
+      FOREIGN KEY (coupon_id) REFERENCES coupons(id)
     );
 
     CREATE TABLE IF NOT EXISTS sale_items (
@@ -86,7 +90,11 @@ function initDatabase() {
       code TEXT UNIQUE NOT NULL,
       discount REAL NOT NULL,
       type TEXT NOT NULL CHECK(type IN ('percentage', 'fixed')),
-      expiry_date TEXT
+      is_global INTEGER DEFAULT 1,
+      client_id INTEGER,
+      valid_from TEXT,
+      valid_until TEXT,
+      FOREIGN KEY (client_id) REFERENCES clients(id)
     );
 
     CREATE TABLE IF NOT EXISTS promotions (

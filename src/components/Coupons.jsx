@@ -1,34 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Edit, Trash2, Ticket, Save, X, Calendar } from 'lucide-react';
+import { Plus, Search, Edit, Trash2, Ticket, Save, X, Globe, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '../ToastContext';
 import './Coupons.css';
+
+const emptyForm = {
+  code: '',
+  discount: '',
+  type: 'percentage',
+  is_global: true,
+  client_id: '',
+  valid_from: '',
+  valid_until: '',
+};
 
 export default function Coupons() {
   const { t } = useTranslation();
   const showToast = useToast();
   const [coupons, setCoupons] = useState([]);
+  const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCoupon, setEditingCoupon] = useState(null);
-  
-  const [formData, setFormData] = useState({
-    code: '',
-    discount: '',
-    type: 'percentage',
-    expiry_date: ''
-  });
+  const [formData, setFormData] = useState({ ...emptyForm });
 
   useEffect(() => {
     loadCoupons();
+    loadClients();
   }, []);
 
   const loadCoupons = async () => {
     setLoading(true);
     try {
-      const sql = 'SELECT * FROM coupons ORDER BY id DESC';
+      const sql = `SELECT c.*, cl.name as client_name FROM coupons c
+        LEFT JOIN clients cl ON c.client_id = cl.id ORDER BY c.id DESC`;
       const results = await window.api.dbQuery(sql);
       setCoupons(results);
     } catch (err) {
@@ -38,25 +45,43 @@ export default function Coupons() {
     }
   };
 
+  const loadClients = async () => {
+    try {
+      const results = await window.api.dbQuery('SELECT id, name FROM clients ORDER BY name ASC');
+      setClients(results);
+    } catch (err) {
+      console.error('Failed to load clients', err);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
     try {
       const discountVal = parseFloat(formData.discount);
-      if (isNaN(discountVal)) throw new Error('Descuento inválido');
+      if (isNaN(discountVal)) throw new Error('Invalid discount');
+
+      const params = [
+        formData.code.toUpperCase(),
+        discountVal,
+        formData.type,
+        formData.is_global ? 1 : 0,
+        formData.is_global ? null : (formData.client_id ? parseInt(formData.client_id) : null),
+        formData.valid_from || null,
+        formData.valid_until || null,
+      ];
 
       if (editingCoupon) {
-        const sql = 'UPDATE coupons SET code=?, discount=?, type=?, expiry_date=? WHERE id=?';
-        await window.api.dbQuery(sql, [formData.code.toUpperCase(), discountVal, formData.type, formData.expiry_date || null, editingCoupon.id]);
+        const sql = `UPDATE coupons SET code=?, discount=?, type=?, is_global=?, client_id=?, valid_from=?, valid_until=? WHERE id=?`;
+        await window.api.dbQuery(sql, [...params, editingCoupon.id]);
       } else {
-        const sql = 'INSERT INTO coupons (code, discount, type, expiry_date) VALUES (?, ?, ?, ?)';
-        await window.api.dbQuery(sql, [formData.code.toUpperCase(), discountVal, formData.type, formData.expiry_date || null]);
+        const sql = `INSERT INTO coupons (code, discount, type, is_global, client_id, valid_from, valid_until) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        await window.api.dbQuery(sql, params);
       }
       loadCoupons();
       closeModal();
       showToast(t('common.save_success'), 'success');
     } catch (err) {
-      console.error('Error saving coupon', err);
       showToast(t('common.save_error') + ': ' + err.message, 'error');
     } finally {
       setSaving(false);
@@ -70,7 +95,6 @@ export default function Coupons() {
       loadCoupons();
       showToast(t('common.save_success'), 'success');
     } catch (err) {
-      console.error('Error deleting coupon', err);
       showToast(t('common.save_error'), 'error');
     }
   };
@@ -78,21 +102,18 @@ export default function Coupons() {
   const openModal = (coupon = null) => {
     if (coupon) {
       setEditingCoupon(coupon);
-      // Format date for input type="date"
-      let dateStr = '';
-      if (coupon.expiry_date) {
-        const d = new Date(coupon.expiry_date);
-        dateStr = d.toISOString().split('T')[0];
-      }
-      setFormData({ 
-        code: coupon.code, 
-        discount: coupon.discount.toString(), 
-        type: coupon.type, 
-        expiry_date: dateStr 
+      setFormData({
+        code: coupon.code,
+        discount: coupon.discount.toString(),
+        type: coupon.type,
+        is_global: !!coupon.is_global,
+        client_id: coupon.client_id ? coupon.client_id.toString() : '',
+        valid_from: coupon.valid_from ? coupon.valid_from.split('T')[0] : '',
+        valid_until: coupon.valid_until ? coupon.valid_until.split('T')[0] : '',
       });
     } else {
       setEditingCoupon(null);
-      setFormData({ code: '', discount: '', type: 'percentage', expiry_date: '' });
+      setFormData({ ...emptyForm });
     }
     setIsModalOpen(true);
   };
@@ -102,7 +123,8 @@ export default function Coupons() {
     setEditingCoupon(null);
   };
 
-  const filteredCoupons = coupons.filter(c => 
+  const today = new Date().setHours(0, 0, 0, 0);
+  const filteredCoupons = coupons.filter(c =>
     c.code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -118,8 +140,7 @@ export default function Coupons() {
         </div>
         <div className="header-actions">
           <button className="btn-primary" onClick={() => openModal()}>
-            <Plus size={18} />
-            {t('coupons.new')}
+            <Plus size={18} /> {t('coupons.new')}
           </button>
         </div>
       </div>
@@ -127,12 +148,7 @@ export default function Coupons() {
       <div className="search-bar">
         <div className="search-input">
           <Search size={18} />
-          <input 
-            type="text" 
-            placeholder={t('common.search')} 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <input type="text" placeholder={t('common.search')} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
         </div>
       </div>
 
@@ -143,26 +159,38 @@ export default function Coupons() {
               <th>{t('coupons.code')}</th>
               <th>{t('coupons.discount')}</th>
               <th>{t('coupons.type')}</th>
-              <th>{t('coupons.expiry')}</th>
+              <th>Alcance</th>
+              <th>Válido desde</th>
+              <th>Válido hasta</th>
               <th>{t('coupons.status')}</th>
               <th>{t('common.actions')}</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan="6" style={{textAlign: 'center'}}>{t('common.loading')}</td></tr>
+              <tr><td colSpan="8" style={{ textAlign: 'center' }}>{t('common.loading')}</td></tr>
             ) : filteredCoupons.length > 0 ? (
               filteredCoupons.map(coupon => {
-                const isExpired = coupon.expiry_date && new Date(coupon.expiry_date) < new Date().setHours(0,0,0,0);
+                const expired = coupon.valid_until && new Date(coupon.valid_until) < today;
+                const notStarted = coupon.valid_from && new Date(coupon.valid_from) > today;
+                const status = expired ? 'expired' : notStarted ? 'pending' : 'active';
                 return (
-                  <tr key={coupon.id} className={isExpired ? 'expired-row' : ''}>
+                  <tr key={coupon.id} className={status === 'expired' ? 'expired-row' : status === 'pending' ? 'pending-row' : ''}>
                     <td className="code-cell">{coupon.code}</td>
                     <td>{coupon.discount}{coupon.type === 'percentage' ? '%' : '$'}</td>
                     <td>{coupon.type === 'percentage' ? t('coupons.percentage') : t('coupons.fixed')}</td>
-                    <td>{coupon.expiry_date ? new Date(coupon.expiry_date).toLocaleDateString() : t('coupons.never')}</td>
                     <td>
-                      <span className={`status-badge ${isExpired ? 'expired' : 'active'}`}>
-                        {isExpired ? t('coupons.expired') : t('coupons.active')}
+                      {coupon.is_global ? (
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Globe size={14} /> Global</span>
+                      ) : (
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><User size={14} /> {coupon.client_name || `#${coupon.client_id}`}</span>
+                      )}
+                    </td>
+                    <td>{coupon.valid_from ? new Date(coupon.valid_from).toLocaleDateString() : '-'}</td>
+                    <td>{coupon.valid_until ? new Date(coupon.valid_until).toLocaleDateString() : '-'}</td>
+                    <td>
+                      <span className={`status-badge ${status}`}>
+                        {status === 'expired' ? t('coupons.expired') : status === 'pending' ? 'Próximo' : t('coupons.active')}
                       </span>
                     </td>
                     <td className="actions-cell">
@@ -173,7 +201,7 @@ export default function Coupons() {
                 );
               })
             ) : (
-              <tr><td colSpan="6" style={{textAlign: 'center'}}>{t('common.no_results')}</td></tr>
+              <tr><td colSpan="8" style={{ textAlign: 'center' }}>{t('common.no_results')}</td></tr>
             )}
           </tbody>
         </table>
@@ -189,49 +217,54 @@ export default function Coupons() {
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>{t('coupons.code')}:</label>
-                <input 
-                  type="text" 
-                  required 
-                  placeholder="EJ: VERANO20"
-                  value={formData.code} 
-                  onChange={e => setFormData(prev => ({...prev, code: e.target.value}))}
-                  style={{textTransform: 'uppercase'}}
-                />
+                <input type="text" required placeholder="EJ: VERANO20" value={formData.code}
+                  onChange={e => setFormData(prev => ({ ...prev, code: e.target.value }))}
+                  style={{ textTransform: 'uppercase' }} />
               </div>
               <div className="form-row">
                 <div className="form-group flex-1">
                   <label>{t('coupons.discount')}:</label>
-                  <input 
-                    type="number" 
-                    step="0.01"
-                    required 
-                    value={formData.discount} 
-                    onChange={e => setFormData(prev => ({...prev, discount: e.target.value}))}
-                  />
+                  <input type="number" step="0.01" required value={formData.discount}
+                    onChange={e => setFormData(prev => ({ ...prev, discount: e.target.value }))} />
                 </div>
                 <div className="form-group flex-1">
                   <label>{t('coupons.type')}:</label>
-                  <select 
-                    value={formData.type} 
-                    onChange={e => setFormData(prev => ({...prev, type: e.target.value}))}
-                  >
+                  <select value={formData.type} onChange={e => setFormData(prev => ({ ...prev, type: e.target.value }))}>
                     <option value="percentage">{t('coupons.percentage')}</option>
                     <option value="fixed">{t('coupons.fixed')}</option>
                   </select>
                 </div>
               </div>
-              <div className="form-group">
-                <label>{t('coupons.expiry')}:</label>
-                <div className="input-with-icon">
-                  <Calendar size={18} className="input-icon" />
-                   <input 
-                    type="date" 
-                    value={formData.expiry_date} 
-                    onChange={e => setFormData(prev => ({...prev, expiry_date: e.target.value}))}
-                    required 
-                  />
+
+              <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
+                <input type="checkbox" id="is_global" checked={formData.is_global}
+                  onChange={e => setFormData(prev => ({ ...prev, is_global: e.target.checked, client_id: '' }))} />
+                <label htmlFor="is_global" style={{ margin: 0, cursor: 'pointer' }}>Disponible para todos los clientes</label>
+              </div>
+
+              {!formData.is_global && (
+                <div className="form-group">
+                  <label>Cliente:</label>
+                  <select value={formData.client_id} onChange={e => setFormData(prev => ({ ...prev, client_id: e.target.value }))} required>
+                    <option value="">Seleccionar cliente</option>
+                    {clients.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                  </select>
+                </div>
+              )}
+
+              <div className="form-row">
+                <div className="form-group flex-1">
+                  <label>Válido desde:</label>
+                  <input type="date" value={formData.valid_from}
+                    onChange={e => setFormData(prev => ({ ...prev, valid_from: e.target.value }))} />
+                </div>
+                <div className="form-group flex-1">
+                  <label>Válido hasta:</label>
+                  <input type="date" value={formData.valid_until}
+                    onChange={e => setFormData(prev => ({ ...prev, valid_until: e.target.value }))} />
                 </div>
               </div>
+
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={closeModal}>{t('common.cancel')}</button>
                 <button type="submit" className="btn-primary" disabled={saving}>

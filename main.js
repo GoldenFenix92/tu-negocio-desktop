@@ -76,6 +76,8 @@ function createWindow() {
 app.whenReady().then(() => {
   const initDatabase = require('./db/init-db');
   initDatabase();
+  const migrateDatabase = require('./db/migrate');
+  migrateDatabase();
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
