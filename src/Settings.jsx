@@ -258,7 +258,7 @@ function DesignCard({ design, isSelected, onSelect, isES }) {
           </div>
           <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold"
             style={{ background: colors.primary, color: '#fff' }}>
-            {colors.primary === '#4f46e5' ? 'IN' : colors.primary === '#d97706' ? 'AM' : 'VI'}
+            {colors.primary === '#2563eb' ? 'BL' : colors.primary === '#d97706' ? 'GO' : colors.primary === '#22c55e' ? 'GR' : 'OC'}
           </div>
         </div>
       </div>

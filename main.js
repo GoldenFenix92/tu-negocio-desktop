@@ -71,6 +71,12 @@ function createWindow() {
   });
 
   if (!app.isPackaged) win.webContents.openDevTools();
+
+  win.webContents.on('console-message', (event, level, message, line, sourceId) => {
+    if (sourceId && sourceId.startsWith('devtools://')) {
+      event.preventDefault();
+    }
+  });
 }
 
 app.whenReady().then(() => {
