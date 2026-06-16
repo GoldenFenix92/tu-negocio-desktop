@@ -47,7 +47,6 @@ export default function Sidebar({ user, onLogout }) {
               {(businessName || 'TN').slice(0, 2).toUpperCase()}
             </div>
           )}
-          {!collapsed && <span className="text-sm font-bold text-on-surface tracking-tight truncate">{businessName || 'Tu Negocio'}</span>}
         </div>
         <button
           className="collapse-btn"
@@ -68,7 +67,7 @@ export default function Sidebar({ user, onLogout }) {
               to={item.to}
               className={`nav-item ${isActive ? 'active' : ''}`}
             >
-              <Icon size={20} />
+              <Icon size={collapsed ? 40 : 20} />
               {!collapsed && <span>{t(item.label)}</span>}
             </NavLink>
           );

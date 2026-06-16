@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moon, Sun, Laptop, Languages, Minus, Square, X } from 'lucide-react';
+import { Moon, Sun, Laptop, Languages, Minus, Square } from 'lucide-react';
 import { useBusinessConfig } from '../BusinessConfigContext';
 import { getMediaUrl } from '../utils';
 import './TitleBar.css';
@@ -73,9 +73,6 @@ export default function TitleBar({ themeMode, onThemeChange, onLanguageToggle, c
         </button>
         <button className="win-btn" onClick={() => window.api.maximizeApp?.()} title="Maximize">
           <Square size={12} />
-        </button>
-        <button className="win-btn win-btn-close" onClick={() => window.api.quitApp?.()} title="Close">
-          <X size={14} />
         </button>
       </div>
     </header>
