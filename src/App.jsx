@@ -68,6 +68,20 @@ function AppContent() {
     localStorage.setItem('theme', themeMode);
   }, [themeMode]);
 
+  const design = useMemo(() => resolveDesign(themeMode, designId), [themeMode, designId]);
+  const antdTheme = useMemo(() => ({
+    algorithm: design.mode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    token: {
+      colorPrimary: design.colors.primary,
+      borderRadius: design.antd.borderRadius,
+      fontSize: 14,
+    },
+    components: {
+      Button: { controlHeight: 38 },
+      Table: { headerBg: design.mode === 'dark' ? '#1f1f1f' : '#fafafa' },
+    },
+  }), [design]);
+
   useEffect(() => {
     applyDesignCSS(design);
     localStorage.setItem('themeDesign', designId);
@@ -115,20 +129,6 @@ function AppContent() {
 
   const businessName = businessConfig?.businessName || t('app.title');
   const needsSetup = configLoaded && user && !businessConfig?.businessName;
-
-  const design = useMemo(() => resolveDesign(themeMode, designId), [themeMode, designId]);
-  const antdTheme = useMemo(() => ({
-    algorithm: design.mode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-    token: {
-      colorPrimary: design.colors.primary,
-      borderRadius: design.antd.borderRadius,
-      fontSize: 14,
-    },
-    components: {
-      Button: { controlHeight: 38 },
-      Table: { headerBg: design.mode === 'dark' ? '#1f1f1f' : '#fafafa' },
-    },
-  }), [design]);
 
   if (!user) {
     return <Login onLogin={handleLogin} businessName={businessName} />;

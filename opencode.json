@@ -1,34 +1,3 @@
 {
-  "skills": [
-    {
-      "name": "ant-design-skill",
-      "description": "Patrones y theming para React con Ant Design v5",
-      "location": "skills/ant-design-skill"
-    },
-    {
-      "name": "beautify-ui",
-      "description": "UI beautification con 30 estilos de diseño (Notion, Figma, Linear, Apple)",
-      "location": "skills/beautify-ui"
-    },
-    {
-      "name": "chart-maker",
-      "description": "Generación de gráficas y visualización de datos",
-      "location": "skills/chart-maker"
-    },
-    {
-      "name": "ai-pdf-builder",
-      "description": "Generación de PDFs (tickets, facturas, reportes)",
-      "location": "skills/ai-pdf-builder"
-    },
-    {
-      "name": "skywork-excel",
-      "description": "Generación de reportes en Excel",
-      "location": "skills/skywork-excel"
-    },
-    {
-      "name": "agentic-devops",
-      "description": "DevOps toolkit: Docker, monitoreo, logs, health checks",
-      "location": "skills/agentic-devops"
-    }
-  ]
+  "$schema": "https://opencode.ai/config.json",
 }
