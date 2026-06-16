@@ -5,6 +5,7 @@ import {
   LayoutDashboard, ShoppingCart, History, Package, Tags, Users, TicketPercent,
   BarChart3, Settings, LogOut, ChevronLeft, ChevronRight, User
 } from 'lucide-react';
+import { useBusinessConfig } from '../BusinessConfigContext';
 import { getMediaUrl, getUserAvatar } from '../utils';
 import './Sidebar.css';
 
@@ -24,18 +25,29 @@ export default function Sidebar({ user, onLogout }) {
   const { t } = useTranslation();
   const location = useLocation();
   const [collapsed, setCollapsed] = React.useState(false);
+  const { businessConfig, businessName } = useBusinessConfig();
 
   const userRole = user?.role || 'Cashier';
   const visibleItems = navItems.filter(item => item.roles.includes(userRole));
+
+  const appliedTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  const logoPath = businessConfig?.hasThemeLogos
+    ? (appliedTheme === 'dark' ? businessConfig.logoDarkPath : businessConfig.logoLightPath)
+    : businessConfig?.logoLightPath;
+  const logoSrc = logoPath ? getMediaUrl(logoPath) : null;
 
   return (
     <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
         <div className="sidebar-logo">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-white text-sm font-bold shadow-lg shrink-0">
-            TN
-          </div>
-          {!collapsed && <span className="text-sm font-bold text-on-surface tracking-tight">Tu Negocio</span>}
+          {logoSrc ? (
+            <img src={logoSrc} alt={businessName} className="sidebar-logo-img" />
+          ) : (
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-white text-sm font-bold shadow-lg shrink-0">
+              {(businessName || 'TN').slice(0, 2).toUpperCase()}
+            </div>
+          )}
+          {!collapsed && <span className="text-sm font-bold text-on-surface tracking-tight truncate">{businessName || 'Tu Negocio'}</span>}
         </div>
         <button
           className="collapse-btn"

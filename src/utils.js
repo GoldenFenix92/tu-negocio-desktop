@@ -1,6 +1,8 @@
 export function getMediaUrl(path, fallback) {
   if (!path) return `media://${fallback || 'assets/producto_comodin.webp'}`;
-  return path.startsWith('media://') ? path : `media://${path}`;
+  if (path.startsWith('media://')) return path;
+  const normalized = path.replace(/\\/g, '/');
+  return `media://${normalized}`;
 }
 
 export function getUserAvatar(user) {

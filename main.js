@@ -7,17 +7,35 @@ const bcrypt = require('bcryptjs');
 const sharp = require('sharp');
 const db = require('./db/sqlite');
 
+// Register custom scheme as privileged BEFORE app.whenReady()
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: 'media',
+    privileges: {
+      standard: true,
+      secure: true,
+      bypassCSP: true,
+      supportFetchAPI: true,
+      corsEnabled: true,
+      stream: true,
+    },
+  },
+]);
+
 // Register custom protocol for local images
 app.whenReady().then(() => {
   protocol.handle('media', (request) => {
-    const rawUrl = request.url.replace('media://', '');
-    // Remove query params if any
-    const url = rawUrl.split('?')[0];
-    const decodedPath = decodeURIComponent(url);
-    const fullPath = path.isAbsolute(decodedPath) 
-      ? decodedPath 
-      : path.join(__dirname, decodedPath);
-    
+    // Remove scheme (media:) and leading slashes (// or /// or /)
+    const afterScheme = request.url.substring(request.url.indexOf(':') + 1).replace(/^\/+/, '');
+    // Decode percent-encoding and remove query params
+    let filePath = decodeURIComponent(afterScheme.split('?')[0]);
+    // On Windows, convert forward slashes back to backslashes for filesystem
+    if (process.platform === 'win32') {
+      filePath = filePath.replace(/\//g, '\\');
+    }
+    const fullPath = path.isAbsolute(filePath) 
+      ? filePath 
+      : path.join(__dirname, filePath);
     return net.fetch(pathToFileURL(fullPath).toString());
   });
 });
@@ -31,12 +49,14 @@ function resolveIcon(config) {
 
 function createWindow() {
   let iconPath = path.join(__dirname, 'assets', 'app_icon.png');
+  let windowTitle = 'Tu Negocio Desktop';
   const configPath = path.join(__dirname, 'config', 'businessConfig.json');
   if (fs.existsSync(configPath)) {
     try {
       const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
       const resolved = resolveIcon(config);
       if (resolved) iconPath = resolved;
+      if (config.businessName) windowTitle = config.businessName;
     } catch (e) {}
   }
 
@@ -44,6 +64,7 @@ function createWindow() {
     width: 1200,
     height: 800,
     frame: false,
+    title: windowTitle,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -139,18 +160,34 @@ ipcMain.handle('write-config', async (event, { filename, data }) => {
     if (filename === 'businessConfig.json') {
       const config = JSON.parse(data);
       const resolved = resolveIcon(config);
-      if (resolved) {
-        const win = BrowserWindow.getAllWindows()[0];
-        if (win) win.setIcon(resolved);
+      const win = BrowserWindow.getAllWindows()[0];
+      if (win) {
+        if (resolved) win.setIcon(resolved);
+        if (config.businessName) win.setTitle(config.businessName);
       }
       // Notify renderer of config change
-      const win = BrowserWindow.getAllWindows()[0];
       if (win) win.webContents.send('config-changed', config);
     }
     return true;
   } catch (e) {
     console.error('Failed to write config', e);
     return false;
+  }
+});
+
+ipcMain.handle('minimize-app', async () => {
+  const win = BrowserWindow.getAllWindows()[0];
+  if (win) win.minimize();
+});
+
+ipcMain.handle('maximize-app', async () => {
+  const win = BrowserWindow.getAllWindows()[0];
+  if (win) {
+    if (win.isMaximized()) {
+      win.unmaximize();
+    } else {
+      win.maximize();
+    }
   }
 });
 

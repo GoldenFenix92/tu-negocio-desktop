@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Moon, Sun, Laptop, Languages } from 'lucide-react';
 import { ConfigProvider, theme } from 'antd';
 import { ToastProvider } from './ToastContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import SetupWizard from './components/SetupWizard';
 import { resolveDesign, applyDesignCSS, getDesign, applyInitialTheme } from './themeDesigns';
+import { BusinessConfigContext, useBusinessConfigLoader } from './BusinessConfigContext';
+import TitleBar from './components/TitleBar';
 import './App.css';
 
 import Login from './components/Login';
@@ -41,8 +42,7 @@ function AppContent() {
   const [themeMode, setThemeMode] = useState(localStorage.getItem('theme') || 'system');
   const [designId, setDesignId] = useState(localStorage.getItem('themeDesign') || 'light-default');
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-  const [businessConfig, setBusinessConfig] = useState(null);
-  const [configLoaded, setConfigLoaded] = useState(false);
+  const { businessConfig, businessName, configLoaded, setBusinessConfig } = useBusinessConfigLoader();
 
   const applyTypography = useCallback((family) => {
     if (!family) return;
@@ -70,6 +70,13 @@ function AppContent() {
     localStorage.setItem('theme', themeMode);
   }, [themeMode]);
 
+  // Apply typography whenever businessConfig loads or changes
+  useEffect(() => {
+    if (businessConfig?.typography) {
+      applyTypography(businessConfig.typography);
+    }
+  }, [businessConfig?.typography, applyTypography]);
+
   const design = useMemo(() => resolveDesign(themeMode, designId), [themeMode, designId]);
   const antdTheme = useMemo(() => ({
     algorithm: design.mode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
@@ -89,31 +96,6 @@ function AppContent() {
     localStorage.setItem('themeDesign', designId);
   }, [design, designId]);
 
-  const loadBusinessConfig = async () => {
-    try {
-      const data = await window.api.readConfig();
-      if (data) {
-        const parsed = JSON.parse(data);
-        setBusinessConfig(parsed);
-        applyTypography(parsed.typography);
-      }
-    } catch (e) {
-      console.error('Failed to load business config', e);
-    }
-    setConfigLoaded(true);
-  };
-
-  useEffect(() => {
-    loadBusinessConfig();
-  }, []);
-
-  useEffect(() => {
-    window.api.onConfigChanged((config) => {
-      setBusinessConfig(config);
-      applyTypography(config.typography);
-    });
-  }, [applyTypography]);
-
   const handleLogin = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
@@ -126,76 +108,58 @@ function AppContent() {
 
   const handleSetupComplete = (config) => {
     setBusinessConfig(config);
-    applyTypography(config.typography);
   };
 
-  const businessName = businessConfig?.businessName || t('app.title');
+  const handleLanguageToggle = () => {
+    const next = i18n.language?.startsWith('es') ? 'en' : 'es';
+    i18n.changeLanguage(next);
+    localStorage.setItem('language', next);
+  };
+
   const needsSetup = configLoaded && user && !businessConfig?.businessName;
 
-  if (!user) {
-    return <Login onLogin={handleLogin} businessName={businessName} />;
-  }
-
-  const pillActive = 'bg-primary/10 text-primary';
-  const pillInactive = 'text-on-surface-secondary hover:bg-surface-secondary';
-
-  const themeBtnClass = (mode) =>
-    `p-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-      themeMode === mode ? pillActive : pillInactive
-    }`;
+  const contextValue = useMemo(() => ({ businessConfig, businessName }), [businessConfig, businessName]);
 
   return (
-    <ConfigProvider theme={antdTheme}>
-      <Router>
-        <div className="app-root">
-          {needsSetup && <SetupWizard config={businessConfig} onComplete={handleSetupComplete} />}
-          <div className="app-layout">
-            <Sidebar user={user} onLogout={handleLogout} />
-            <div className="flex flex-col flex-1 min-w-0">
-              <header className="h-14 flex items-center justify-between px-6 border-b bg-surface/80 dark:bg-surface/80 backdrop-blur-md border-on-surface-secondary/10">
-                <h1 className="text-sm font-semibold text-on-surface truncate">
-                  {businessName}
-                </h1>
-                <div className="flex items-center gap-1.5">
-                  <button className={pillInactive}
-                    onClick={() => {
-                      const next = i18n.language?.startsWith('es') ? 'en' : 'es';
-                      i18n.changeLanguage(next);
-                      localStorage.setItem('language', next);
-                    }}
-                    title={i18n.language?.startsWith('es') ? 'English' : 'Español'}>
-                    <Languages size={16} />
-                    <span className="text-xs font-bold tracking-wide ml-1">{i18n.language?.startsWith('es') ? 'EN' : 'ES'}</span>
-                  </button>
-                  <div className="w-px h-5 bg-on-surface-secondary/20 mx-1" />
-                  <button className={themeBtnClass('light')}
-                    onClick={() => setThemeMode('light')} title="Light Mode"><Sun size={16} /></button>
-                  <button className={themeBtnClass('dark')}
-                    onClick={() => setThemeMode('dark')} title="Dark Mode"><Moon size={16} /></button>
-                  <button className={themeBtnClass('system')}
-                    onClick={() => setThemeMode('system')} title="System Theme"><Laptop size={16} /></button>
+    <BusinessConfigContext.Provider value={contextValue}>
+      {!user ? (
+        <Login onLogin={handleLogin} />
+      ) : (
+        <ConfigProvider theme={antdTheme}>
+          <Router>
+            <div className="app-root">
+              {needsSetup && <SetupWizard config={businessConfig} onComplete={handleSetupComplete} />}
+              <div className="app-layout">
+                <Sidebar user={user} onLogout={handleLogout} />
+                <div className="flex flex-col flex-1 min-w-0">
+                  <TitleBar
+                    themeMode={themeMode}
+                    onThemeChange={setThemeMode}
+                    onLanguageToggle={handleLanguageToggle}
+                    currentLang={i18n.language}
+                  />
+                  <main className="flex-1 overflow-auto bg-surface">
+                    <Routes>
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/sales" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><SalesScreen /></ProtectedRoute>} />
+                      <Route path="/sales-history" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><SalesHistory /></ProtectedRoute>} />
+                      <Route path="/products" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Products /></ProtectedRoute>} />
+                      <Route path="/categories" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Categories /></ProtectedRoute>} />
+                      <Route path="/clients" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><Clients /></ProtectedRoute>} />
+                      <Route path="/coupons" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Coupons /></ProtectedRoute>} />
+                      <Route path="/reports" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Reports /></ProtectedRoute>} />
+                      <Route path="/settings" element={<ProtectedRoute allowedRoles={['Administrator']}><Settings designId={designId} onDesignChange={setDesignId} /></ProtectedRoute>} />
+                      <Route path="/profile" element={<UserProfile user={user} onUpdateUser={handleLogin} />} />
+                      <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
+                  </main>
                 </div>
-              </header>
-              <main className="flex-1 overflow-auto bg-surface">
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/sales" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><SalesScreen /></ProtectedRoute>} />
-                  <Route path="/sales-history" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><SalesHistory /></ProtectedRoute>} />
-                  <Route path="/products" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Products /></ProtectedRoute>} />
-                  <Route path="/categories" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Categories /></ProtectedRoute>} />
-                  <Route path="/clients" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><Clients /></ProtectedRoute>} />
-                  <Route path="/coupons" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Coupons /></ProtectedRoute>} />
-                  <Route path="/reports" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor']}><Reports /></ProtectedRoute>} />
-                  <Route path="/settings" element={<ProtectedRoute allowedRoles={['Administrator']}><Settings designId={designId} onDesignChange={setDesignId} /></ProtectedRoute>} />
-                  <Route path="/profile" element={<UserProfile user={user} onUpdateUser={handleLogin} />} />
-                  <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
-              </main>
+              </div>
             </div>
-          </div>
-        </div>
-      </Router>
-    </ConfigProvider>
+          </Router>
+        </ConfigProvider>
+      )}
+    </BusinessConfigContext.Provider>
   );
 }
 

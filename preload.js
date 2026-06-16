@@ -11,6 +11,8 @@ contextBridge.exposeInMainWorld('api', {
   comparePassword: (password, hash) => ipcRenderer.invoke('compare-password', { password, hash }),
   restartApp: () => ipcRenderer.invoke('restart-app'),
   quitApp: () => ipcRenderer.invoke('quit-app'),
+  minimizeApp: () => ipcRenderer.invoke('minimize-app'),
+  maximizeApp: () => ipcRenderer.invoke('maximize-app'),
   onConfigChanged: (callback) => {
     ipcRenderer.on('config-changed', (_event, config) => callback(config));
   },

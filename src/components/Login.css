@@ -41,6 +41,13 @@
   color: var(--color-primary);
 }
 
+.login-logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
 .login-logo-svg {
   @apply w-full h-full;
 }

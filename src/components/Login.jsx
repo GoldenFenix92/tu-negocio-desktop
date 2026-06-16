@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { User, Lock, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useBusinessConfig } from '../BusinessConfigContext';
+import { getMediaUrl } from '../utils';
 import './Login.css';
 
-export default function Login({ onLogin, businessName }) {
+export default function Login({ onLogin }) {
   const { t } = useTranslation();
+  const { businessConfig, businessName } = useBusinessConfig();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -52,11 +55,15 @@ export default function Login({ onLogin, businessName }) {
           <div className="login-card-inner">
             <div className="login-header">
               <div className="login-logo-ring">
-                <div className="login-logo-icon">
-                  <svg className="login-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13 12H3" />
-                  </svg>
-                </div>
+                {businessConfig?.logoLightPath ? (
+                  <img src={getMediaUrl(businessConfig.logoLightPath)} alt={businessName} className="login-logo-img" />
+                ) : (
+                  <div className="login-logo-icon">
+                    <svg className="login-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13 12H3" />
+                    </svg>
+                  </div>
+                )}
               </div>
               <h2 className="login-title">{businessName || t('app.title')}</h2>
               <p className="login-subtitle">{t('login.subtitle')}</p>

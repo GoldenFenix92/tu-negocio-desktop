@@ -28,6 +28,14 @@
   overflow: hidden;
 }
 
+.sidebar-logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .collapse-btn {
   background: none;
   border: none;
