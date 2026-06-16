@@ -8,17 +8,7 @@
   --color-bg-dark: #0b1120;
   --color-text-light: #1e293b;
   --color-text-dark: #e2e8f0;
-  --primary-color: #2563eb;
-  --bg-primary: #ffffff;
-  --bg-secondary: #f1f5f9;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
   --bg-gradient: none;
-}
-
-[data-theme="light"] {
-  background-color: var(--color-bg-light);
-  color: var(--color-text-light);
 }
 
 [data-theme="dark"] {
@@ -31,6 +21,13 @@ body {
   margin: 0;
   font-family: var(--font-family);
   overflow: hidden;
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-on-surface, #1e293b);
+}
+
+[data-theme="dark"] body {
+  background-color: var(--color-surface, #0f172a);
+  color: var(--color-on-surface, #e2e8f0);
 }
 
 * {
@@ -38,8 +35,7 @@ body {
 }
 
 input, select, textarea {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  color: var(--color-on-surface);
   border: 1px solid rgba(0,0,0,0.1);
   padding: 8px;
   border-radius: 6px;
@@ -47,34 +43,23 @@ input, select, textarea {
   user-select: text !important;
 }
 
-input, select, textarea, button {
-  pointer-events: auto !important;
-}
-
 [data-theme="dark"] input, 
 [data-theme="dark"] select, 
 [data-theme="dark"] textarea {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
+  background-color: var(--color-surface-secondary);
+  color: var(--color-on-surface);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] select option {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
+  background-color: var(--color-surface-secondary);
+  color: var(--color-on-surface);
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 30%, transparent);
-}
-
-[data-theme="dark"] input:focus, 
-[data-theme="dark"] select:focus, 
-[data-theme="dark"] textarea:focus {
-  background-color: rgba(255,255,255,0.08) !important;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 40%, transparent);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 30%, transparent);
 }
 
 .app-root {
@@ -107,7 +92,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .modal-content {
-  background: var(--bg-primary, #fff);
+  background: var(--color-surface);
   padding: 2.5rem;
   border-radius: 20px;
   width: 90%;
@@ -120,7 +105,6 @@ input:focus, select:focus, textarea:focus {
 }
 
 [data-theme="dark"] .modal-content {
-  background: #1e272e;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -180,7 +164,7 @@ input:focus, select:focus, textarea:focus {
 .sale-detail-panel {
   width: 400px;
   flex-shrink: 0;
-  background: var(--bg-secondary);
+  background: var(--color-surface-secondary);
   padding: 1.25rem;
   border-radius: 12px;
   animation: fadeIn 0.3s ease-out;
@@ -200,12 +184,12 @@ input:focus, select:focus, textarea:focus {
   padding: 0.4rem 0.6rem;
   border-radius: 6px;
   border: 1px solid rgba(0,0,0,0.1);
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
   font-size: 0.85rem;
 }
 
 [data-theme="dark"] .search-bar label input[type="date"] {
   border-color: rgba(255,255,255,0.1);
-  background: #2c3e50;
+  background: var(--color-surface-secondary);
 }

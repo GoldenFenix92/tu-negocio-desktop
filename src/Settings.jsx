@@ -168,12 +168,12 @@ export default function Settings({ designId, onDesignChange }) {
       ) : activeTab === 'theme' ? (
         <div className="settings-content">
           <h2>{t('settings.themes') || 'Temas y Diseños'}</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+          <p className="text-sm text-on-surface-secondary mb-6">
             {t('settings.theme_subtitle') || 'Selecciona el diseño visual que prefieras para cada modo'}
           </p>
 
           <div className="mb-8">
-            <h3 className="text-base font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
+            <h3 className="text-base font-semibold text-on-surface mb-4 flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-amber-400" />
               {t('settings.light_designs') || 'Modo Claro'}
             </h3>
@@ -191,8 +191,8 @@ export default function Settings({ designId, onDesignChange }) {
           </div>
 
           <div>
-            <h3 className="text-base font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-indigo-400" />
+            <h3 className="text-base font-semibold text-on-surface mb-4 flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-primary/60" />
               {t('settings.dark_designs') || 'Modo Oscuro'}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -224,10 +224,10 @@ function DesignCard({ design, isSelected, onSelect, isES }) {
       onClick={() => onSelect(design.id)}
       className={`relative rounded-2xl overflow-hidden border-2 transition-all duration-200 text-left ${
         isSelected
-          ? 'border-indigo-500 shadow-lg shadow-indigo-500/20 ring-2 ring-indigo-500/30'
-          : 'border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 hover:shadow-md'
+          ? 'border-primary shadow-lg ring-2 ring-primary/30'
+          : 'border-on-surface-secondary/20 hover:border-on-surface-secondary/40 hover:shadow-md'
       }`}
-      style={{ background: colors['bg-primary'], color: colors['text-primary'] }}
+      style={{ background: colors.surface, color: colors['on-surface'] }}
     >
       <div className="p-4">
         <div className="flex items-center gap-3 mb-3">
@@ -239,12 +239,12 @@ function DesignCard({ design, isSelected, onSelect, isES }) {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold truncate">{label}</p>
-            <p className="text-xs opacity-60" style={{ color: colors['text-secondary'] }}>
+            <p className="text-xs opacity-60" style={{ color: colors['on-surface-secondary'] }}>
               {design.mode === 'light' ? 'Light' : 'Dark'} · {colors.primary}
             </p>
           </div>
           {isSelected && (
-            <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center">
+            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
               <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
@@ -253,8 +253,8 @@ function DesignCard({ design, isSelected, onSelect, isES }) {
         </div>
         <div className="flex gap-2">
           <div className="flex-1 h-10 rounded-lg flex items-center px-3 text-xs font-medium"
-            style={{ background: colors['bg-secondary'], color: colors['text-secondary'] }}>
-            <span className="truncate">{colors['text-secondary']}</span>
+            style={{ background: colors['surface-secondary'], color: colors['on-surface-secondary'] }}>
+            <span className="truncate">{colors['on-surface-secondary']}</span>
           </div>
           <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold"
             style={{ background: colors.primary, color: '#fff' }}>

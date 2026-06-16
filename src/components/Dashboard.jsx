@@ -84,8 +84,8 @@ export default function Dashboard() {
   if (!stats) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="flex items-center gap-3 text-slate-400">
-          <div className="w-5 h-5 rounded-full border-2 border-indigo-400 border-t-transparent animate-spin" />
+        <div className="flex items-center gap-3 text-on-surface-secondary">
+          <div className="w-5 h-5 rounded-full border-2 border-primary border-t-transparent animate-spin" />
           <span className="text-sm">{t('common.loading')}</span>
         </div>
       </div>
@@ -95,8 +95,8 @@ export default function Dashboard() {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-800 dark:text-white">{t('menu.dashboard')}</h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <h1 className="text-2xl font-bold text-on-surface">{t('menu.dashboard')}</h1>
+        <p className="text-sm text-on-surface-secondary mt-1">
           {t('reports.subtitle')}
         </p>
       </div>
@@ -111,19 +111,19 @@ export default function Dashboard() {
           return (
             <div
               key={kpi.key}
-              className="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-800/80 p-5 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 dark:hover:bg-slate-700/80"
+              className="group relative overflow-hidden rounded-2xl bg-surface p-5 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
             >
-              <div className={`absolute -top-6 -right-6 w-28 h-28 rounded-full bg-gradient-to-br ${kpi.gradient} opacity-5 dark:opacity-10 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity blur-xl`} />
+              <div className={`absolute -top-6 -right-6 w-28 h-28 rounded-full bg-gradient-to-br ${kpi.gradient} opacity-5 group-hover:opacity-10 transition-opacity blur-xl`} />
               <div className="flex items-start justify-between">
                 <div className={`w-11 h-11 rounded-xl flex items-center justify-center bg-gradient-to-br ${kpi.gradient} shadow-lg ${kpi.shadow}`}>
                   <Icon size={22} className="text-white" />
                 </div>
               </div>
               <div className="mt-4">
-                <p className="text-2xl font-bold text-slate-800 dark:text-white tracking-tight">
+                <p className="text-2xl font-bold text-on-surface tracking-tight">
                   {displayValue}
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-sm text-on-surface-secondary mt-1">
                   {t(kpi.labelKey)}
                 </p>
               </div>

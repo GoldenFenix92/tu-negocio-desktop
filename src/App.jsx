@@ -6,7 +6,7 @@ import { ConfigProvider, theme } from 'antd';
 import { ToastProvider } from './ToastContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import SetupWizard from './components/SetupWizard';
-import { resolveDesign, applyDesignCSS, getDesign } from './themeDesigns';
+import { resolveDesign, applyDesignCSS, getDesign, applyInitialTheme } from './themeDesigns';
 import './App.css';
 
 import Login from './components/Login';
@@ -22,6 +22,8 @@ import SalesHistory from './components/SalesHistory';
 import Reports from './components/Reports';
 import UserProfile from './components/UserProfile';
 import Coupons from './components/Coupons';
+
+applyInitialTheme();
 
 function loadFont(family) {
   const id = 'dynamic-google-font';
@@ -73,7 +75,7 @@ function AppContent() {
     algorithm: design.mode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
     token: {
       colorPrimary: design.colors.primary,
-      borderRadius: design.antd.borderRadius,
+      borderRadius: 10,
       fontSize: 14,
     },
     components: {
@@ -134,18 +136,17 @@ function AppContent() {
     return <Login onLogin={handleLogin} businessName={businessName} />;
   }
 
-  const themeBtnClass = (mode) =>
-    `p-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-      themeMode === mode
-        ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300'
-        : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700/50'
-    }`;
+  const pillActive = 'bg-primary/10 text-primary';
+  const pillInactive = 'text-on-surface-secondary hover:bg-surface-secondary';
 
   const langBtnClass = (lang) =>
     `p-2 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 ${
-      i18n.language?.startsWith(lang)
-        ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300'
-        : 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700/50'
+      i18n.language?.startsWith(lang) ? pillActive : pillInactive
+    }`;
+
+  const themeBtnClass = (mode) =>
+    `p-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+      themeMode === mode ? pillActive : pillInactive
     }`;
 
   return (
@@ -156,8 +157,8 @@ function AppContent() {
           <div className="app-layout">
             <Sidebar user={user} onLogout={handleLogout} />
             <div className="flex flex-col flex-1 min-w-0">
-              <header className="h-14 flex items-center justify-between px-6 border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-slate-200 dark:border-slate-700/50">
-                <h1 className="text-sm font-semibold text-slate-700 dark:text-slate-300 truncate">
+              <header className="h-14 flex items-center justify-between px-6 border-b bg-surface/80 dark:bg-surface/80 backdrop-blur-md border-on-surface-secondary/10">
+                <h1 className="text-sm font-semibold text-on-surface truncate">
                   {businessName}
                 </h1>
                 <div className="flex items-center gap-1.5">
@@ -167,7 +168,7 @@ function AppContent() {
                   <button className={langBtnClass('en')}
                     onClick={() => { i18n.changeLanguage('en'); localStorage.setItem('language', 'en'); }}
                     title="English">EN</button>
-                  <div className="w-px h-5 bg-slate-200 dark:bg-slate-700 mx-1" />
+                  <div className="w-px h-5 bg-on-surface-secondary/20 mx-1" />
                   <button className={themeBtnClass('light')}
                     onClick={() => setThemeMode('light')} title="Light Mode"><Sun size={16} /></button>
                   <button className={themeBtnClass('dark')}
@@ -176,7 +177,7 @@ function AppContent() {
                     onClick={() => setThemeMode('system')} title="System Theme"><Laptop size={16} /></button>
                 </div>
               </header>
-              <main className="flex-1 overflow-auto bg-slate-50 dark:bg-slate-900">
+              <main className="flex-1 overflow-auto bg-surface">
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/sales" element={<ProtectedRoute allowedRoles={['Administrator','Supervisor','Cashier']}><SalesScreen /></ProtectedRoute>} />
