@@ -14,7 +14,7 @@ Aplicación POS (Point of Sale) de escritorio para la gestión integral de peque
 - **Cupones y promociones** — Descuentos por porcentaje o monto fijo, con fecha de expiración.
 - **Reportes** — Gráficos de ventas diarias (últimos 7 días) y top 5 productos más vendidos con Recharts.
 - **Roles y permisos** — Administrador, Supervisor y Cajero; rutas protegidas por rol.
-- **Tema claro/oscuro** — Tres modos: light, dark, system. Dark mode completo con fondos slate-900 y gradientes sutiles.
+- **Temas visuales** — 10 diseños predefinidos (5 claros + 5 oscuros): Azul/Dorado/Rosa/Teal/Lavanda en claro, Bosque/Océano/Cyberpunk/Matrix/Ámbar en oscuro. Paletas con acentos vibrantes y contraste optimizado. Los modales usan formularios en grid horizontal para mejor aprovechamiento del ancho.
 - **Internacionalización** — Español e inglés (react-i18next).
 - **Logo con versión Light/Dark** — El negocio puede tener logos distintos para cada tema.
 - **Favicon personalizado** — Con fallback al icono por defecto.
@@ -103,6 +103,7 @@ tu-negocio-desktop/
 │   ├── index.js            # Entry point de React + import Preline
 │   ├── App.jsx             # Componente principal (router, layout, theme, i18n)
 │   ├── App.css             # Tailwind directives + CSS variables + modales/toasts
+│   ├── themeDesigns.js     # 10 temas visuales (colores, gradientes, aplicación dinámica)
 │   ├── Settings.jsx        # Configuración del negocio (logo, favicon, etc.)
 │   ├── Settings.css
 │   ├── ToastContext.jsx    # Sistema de notificaciones Toast

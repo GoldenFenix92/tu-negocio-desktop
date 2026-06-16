@@ -93,10 +93,10 @@ input:focus, select:focus, textarea:focus {
 
 .modal-content {
   background: var(--color-surface);
-  padding: 2.5rem;
+  padding: 2rem 2.5rem;
   border-radius: 20px;
   width: 90%;
-  max-width: 550px;
+  max-width: 750px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
@@ -143,10 +143,10 @@ input:focus, select:focus, textarea:focus {
   max-width: 400px;
 }
 
-.toast-success { background: #27ae60; }
-.toast-error { background: #e74c3c; }
-.toast-info { background: #3b82f6; }
-.toast-warning { background: #f59e0b; }
+.toast-success { background: #16a34a; }
+.toast-error { background: #dc2626; }
+.toast-info { background: var(--color-primary); }
+.toast-warning { background: #d97706; }
 
 @keyframes slideIn {
   from { transform: translateX(100%); opacity: 0; }

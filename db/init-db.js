@@ -33,12 +33,14 @@ function initDatabase() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE NOT NULL,
       password TEXT NOT NULL,
-      role TEXT NOT NULL CHECK(role IN ('Administrator', 'Supervisor', 'Cashier'))
+      role TEXT NOT NULL CHECK(role IN ('Administrator', 'Supervisor', 'Cashier')),
+      image_path TEXT
     );
 
     CREATE TABLE IF NOT EXISTS categories (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT UNIQUE NOT NULL
+      name TEXT UNIQUE NOT NULL,
+      image_path TEXT
     );
 
     CREATE TABLE IF NOT EXISTS products (
@@ -50,6 +52,7 @@ function initDatabase() {
       cost REAL NOT NULL,
       stock INTEGER DEFAULT 0,
       category_id INTEGER,
+      image_path TEXT,
       FOREIGN KEY (category_id) REFERENCES categories(id)
     );
 
@@ -58,7 +61,8 @@ function initDatabase() {
       name TEXT NOT NULL,
       email TEXT,
       phone TEXT,
-      address TEXT
+      address TEXT,
+      image_path TEXT
     );
 
     CREATE TABLE IF NOT EXISTS sales (

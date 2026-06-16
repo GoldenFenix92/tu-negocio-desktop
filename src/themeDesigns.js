@@ -6,6 +6,7 @@ function hexToRgb(hex) {
 }
 
 const designs = [
+  // ─── Light ────────────────────────────────────────────────
   {
     id: 'light-default',
     name: 'Claro Azul',
@@ -35,8 +36,52 @@ const designs = [
     gradient: '',
   },
   {
+    id: 'light-rose',
+    name: 'Rosa Vibrante',
+    nameEn: 'Rose Light',
+    mode: 'light',
+    colors: {
+      primary: '#e11d48',
+      surface: '#ffffff',
+      'surface-secondary': '#fce7f3',
+      'on-surface': '#1e293b',
+      'on-surface-secondary': '#64748b',
+    },
+    gradient: '',
+  },
+  {
+    id: 'light-slate',
+    name: 'Pizarra Teal',
+    nameEn: 'Slate Teal',
+    mode: 'light',
+    colors: {
+      primary: '#0f766e',
+      surface: '#f8fafc',
+      'surface-secondary': '#e2e8f0',
+      'on-surface': '#0c0a09',
+      'on-surface-secondary': '#57534e',
+    },
+    gradient: '',
+  },
+  {
+    id: 'light-lavender',
+    name: 'Lavanda',
+    nameEn: 'Lavender Light',
+    mode: 'light',
+    colors: {
+      primary: '#7c3aed',
+      surface: '#ffffff',
+      'surface-secondary': '#f3e8ff',
+      'on-surface': '#1e1b4b',
+      'on-surface-secondary': '#6b7280',
+    },
+    gradient: '',
+  },
+
+  // ─── Dark ─────────────────────────────────────────────────
+  {
     id: 'dark-default',
-    name: 'Oscuro Verde',
+    name: 'Oscuro Bosque',
     nameEn: 'Forest Dark',
     mode: 'dark',
     colors: {
@@ -50,7 +95,7 @@ const designs = [
   },
   {
     id: 'dark-midnight',
-    name: 'Oscuro Azul',
+    name: 'Oscuro Océano',
     nameEn: 'Ocean Dark',
     mode: 'dark',
     colors: {
@@ -61,6 +106,48 @@ const designs = [
       'on-surface-secondary': '#7dd3fc',
     },
     gradient: 'radial-gradient(ellipse at top right, rgba(14,165,233,0.07) 0%, transparent 60%), radial-gradient(ellipse at bottom left, rgba(56,189,248,0.04) 0%, transparent 60%)',
+  },
+  {
+    id: 'dark-cyberpunk',
+    name: 'Cyberpunk Neón',
+    nameEn: 'Cyberpunk Dark',
+    mode: 'dark',
+    colors: {
+      primary: '#f43f5e',
+      surface: '#0a0015',
+      'surface-secondary': '#1c0030',
+      'on-surface': '#fce7f3',
+      'on-surface-secondary': '#f9a8d4',
+    },
+    gradient: 'radial-gradient(ellipse at top right, rgba(244,63,94,0.1) 0%, transparent 60%), radial-gradient(ellipse at bottom left, rgba(6,182,212,0.06) 0%, transparent 60%)',
+  },
+  {
+    id: 'dark-matrix',
+    name: 'Matrix Esmeralda',
+    nameEn: 'Matrix Emerald',
+    mode: 'dark',
+    colors: {
+      primary: '#10b981',
+      surface: '#020202',
+      'surface-secondary': '#0a1a0f',
+      'on-surface': '#d1fae5',
+      'on-surface-secondary': '#6ee7b7',
+    },
+    gradient: 'radial-gradient(ellipse at top right, rgba(16,185,129,0.08) 0%, transparent 60%)',
+  },
+  {
+    id: 'dark-ember',
+    name: 'Oscuro Ámbar',
+    nameEn: 'Ember Dark',
+    mode: 'dark',
+    colors: {
+      primary: '#f97316',
+      surface: '#0f0b08',
+      'surface-secondary': '#1c1510',
+      'on-surface': '#fff7ed',
+      'on-surface-secondary': '#fdba74',
+    },
+    gradient: 'radial-gradient(ellipse at top right, rgba(249,115,22,0.08) 0%, transparent 60%), radial-gradient(ellipse at bottom left, rgba(239,68,68,0.04) 0%, transparent 60%)',
   },
 ];
 

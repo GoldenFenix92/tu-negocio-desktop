@@ -117,11 +117,11 @@
 .setup-checkbox input {
   width: 16px;
   height: 16px;
-  accent-color: #3498db;
+  accent-color: var(--color-primary);
 }
 
 .setup-submit {
-  background: #3498db;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   padding: 0.85rem;
@@ -134,7 +134,7 @@
 }
 
 .setup-submit:hover {
-  background: #2980b9;
+  filter: brightness(1.1);
   transform: translateY(-1px);
 }
 

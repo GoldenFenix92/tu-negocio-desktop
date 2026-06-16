@@ -13,6 +13,7 @@ Guía técnica para desarrolladores que trabajan en este proyecto.
 | Bundler | Webpack 5 + Babel (presets env + react) |
 | CSS | Tailwind CSS v3 + PostCSS + autoprefixer |
 | Componentes UI | Preline UI + Ant Design v5 (ConfigProvider) |
+| Sistema de temas | themeDesigns.js (10 temas, CSS custom properties dinámicas) |
 | Gráficos | Recharts (BarChart, ResponsiveContainer) |
 | Base de datos | SQLite (better-sqlite3) |
 | Imágenes | sharp (conversión a WebP) |
@@ -158,32 +159,84 @@ El logo se renderiza mediante el protocolo personalizado `media://`. Este protoc
 
 El proyecto usa **Tailwind CSS v3** con **PostCSS**. La configuración está en:
 
-- `tailwind.config.js` — colores personalizados (indigo primario), dark mode vía `selector` (clase `.dark`), fuentes Inter y JetBrains Mono
+- `tailwind.config.js` — dark mode vía `selector` (clase `.dark`), fuentes Inter y JetBrains Mono
 - `postcss.config.js` — plugins: `tailwindcss` + `autoprefixer`
 
 El pipeline de Webpack es: `style-loader ← css-loader ← postcss-loader`
 
 Las directivas `@tailwind` se declaran en `src/App.css`.
 
+### CSS Custom Properties (sistema de temas)
+
+El proyecto define y actualiza dinámicamente variables CSS en `<html>` mediante `themeDesigns.js`:
+
+| Variable | Propósito |
+|---|---|
+| `--color-primary` | Color de acento principal |
+| `--color-surface` | Fondo principal de paneles |
+| `--color-surface-secondary` | Fondo secundario (tarjetas, inputs) |
+| `--color-on-surface` | Color de texto principal |
+| `--color-on-surface-secondary` | Color de texto secundario |
+| `--bg-gradient` | Gradient decorativo de fondo (dark themes) |
+| `--bg-primary` | Alias de `--color-surface` (legacy) |
+| `--bg-secondary` | Alias de `--color-surface-secondary` (legacy) |
+| `--text-primary` | Alias de `--color-on-surface` (legacy) |
+| `--text-secondary` | Alias de `--color-on-surface-secondary` (legacy) |
+
+Cada variable también tiene su variante `--*-rgb` con valores RGB separados por coma para usar en `rgba()` o `color-mix()`.
+
 ---
 
-## Modo oscuro
+## Sistema de temas (Theme Design System)
 
-El proyecto sincroniza el atributo `data-theme` con la clase `dark` de Tailwind:
+El proyecto reemplazó el simple toggle claro/oscuro por un sistema de **10 temas visuales** (5 claros + 5 oscuros) definidos en `src/themeDesigns.js`.
+
+### Cómo funciona
 
 ```js
-root.setAttribute('data-theme', appliedTheme);
-root.classList.toggle('dark', appliedTheme === 'dark');
+// themeDesigns.js — exporta:
+themeDesigns          // objeto { id → design }
+getDesign(id)         // obtiene un diseño por ID
+resolveDesign(mode, designId)  // resuelve modo+ID → diseño válido
+getDesignsForMode(mode)        // lista de diseños para light/dark
+applyDesignCSS(design)         // aplica colores como CSS custom properties en :root
+applyInitialTheme()            // restaura tema desde localStorage al cargar
 ```
 
-**CSS personalizado** — Usa variables CSS:
-- `--bg-primary` → `#ffffff` (light), `#0f172a` (dark)
-- `--bg-secondary` → `#f8f9fa` (light), `#1e293b` (dark)
-- `--text-primary`, `--text-secondary` — adaptados al tema
+### Flujo de aplicación
 
-**Tailwind** — Usa clases `dark:` (ej. `dark:bg-slate-800`) que dependen de la clase `.dark` en `<html>`.
+1. El usuario selecciona un `themeMode` (`light` | `dark` | `system`) y un `themeDesign` (ID del diseño).
+2. Ambos se persisten en `localStorage` (`theme` y `themeDesign`).
+3. `resolveDesign()` determina el diseño activo según el modo y el diseño guardado, cambiando automáticamente al diseño por defecto del modo contrario si es necesario.
+4. `applyDesignCSS()` escribe las variables CSS en `<html>` (colores, RGBs, gradient).
+5. Se sincroniza `data-theme` y `class="dark"` en `<html>` para compatibilidad con Tailwind y Ant Design.
 
-**Ant Design** — `ConfigProvider` con `theme.darkAlgorithm` / `theme.defaultAlgorithm` según el tema.
+### CSS y compatibilidad
+
+- **Tailwind** usa la clase `.dark` en `<html>` para `dark:` variants.
+- **Ant Design** usa `ConfigProvider` con `darkAlgorithm` / `defaultAlgorithm`.
+- **CSS personalizado** usa variables `--color-*` que se actualizan dinámicamente.
+- **Componentes heredados** que usan `--bg-primary`, `--text-primary` etc. siguen funcionando porque `applyDesignCSS()` los escribe como alias.
+- El gradient de fondo (`--bg-gradient`) se aplica solo en temas oscuros como `radial-gradient`.
+
+### Temas disponibles
+
+| ID | Nombre | Modo | Acento |
+|---|---|---|---|
+| `light-default` | Claro Azul | light | `#2563eb` |
+| `light-warm` | Claro Dorado | light | `#d97706` |
+| `light-rose` | Rosa Vibrante | light | `#e11d48` |
+| `light-slate` | Pizarra Teal | light | `#0f766e` |
+| `light-lavender` | Lavanda | light | `#7c3aed` |
+| `dark-default` | Oscuro Bosque | dark | `#22c55e` |
+| `dark-midnight` | Oscuro Océano | dark | `#0ea5e9` |
+| `dark-cyberpunk` | Cyberpunk Neón | dark | `#f43f5e` |
+| `dark-matrix` | Matrix Esmeralda | dark | `#10b981` |
+| `dark-ember` | Oscuro Ámbar | dark | `#f97316` |
+
+### Legacy
+
+Las variables antiguas (`--bg-primary`, `--bg-secondary`, `--text-primary`, `--text-secondary`) se mantienen como alias en `applyDesignCSS()` para compatibilidad con componentes CSS que aún no migraron al sistema `--color-*`.
 
 ---
 
@@ -270,13 +323,15 @@ Los scanners de código de barras se detectan por buffer rápido de teclado (car
 
 ---
 
-## Temas (claro/oscuro)
+## Temas (Theme Design System)
 
-- Tres modos: `light`, `dark`, `system` (sigue la preferencia del SO)
-- Se aplica mediante `data-theme` + clase `dark` en `<html>`
-- Se persiste en `localStorage`
-- Los estilos usan combinación de variables CSS y clases `dark:` de Tailwind
-- Ant Design se sincroniza vía `ConfigProvider` con `theme.darkAlgorithm`
+- 10 temas visuales (5 claros + 5 oscuros) definidos en `src/themeDesigns.js`
+- Cada tema define 5 colores base: `primary`, `surface`, `surface-secondary`, `on-surface`, `on-surface-secondary`
+- Se aplican como CSS custom properties dinámicas en `<html>` mediante `applyDesignCSS()`
+- El usuario selecciona un modo (`light`/`dark`/`system`) y un diseño específico
+- Persistencia en `localStorage` bajo las claves `theme` y `themeDesign`
+- Los gradientes decorativos de fondo se activan solo en temas oscuros
+- Ant Design se sincroniza vía `ConfigProvider` con `theme.darkAlgorithm` / `defaultAlgorithm`
 
 ---
 

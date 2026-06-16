@@ -236,7 +236,7 @@ export default function Coupons() {
                 </div>
               </div>
 
-              <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
+              <div className="form-group full-width" style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
                 <input type="checkbox" id="is_global" checked={formData.is_global}
                   onChange={e => setFormData(prev => ({ ...prev, is_global: e.target.checked, client_id: '' }))} />
                 <label htmlFor="is_global" style={{ margin: 0, cursor: 'pointer' }}>Disponible para todos los clientes</label>

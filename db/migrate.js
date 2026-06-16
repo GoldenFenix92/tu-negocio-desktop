@@ -43,6 +43,23 @@ function migrateDatabase() {
     migrated = true;
   }
 
+  if (!columnExists('products', 'image_path')) {
+    dbInstance.exec('ALTER TABLE products ADD COLUMN image_path TEXT');
+    migrated = true;
+  }
+  if (!columnExists('clients', 'image_path')) {
+    dbInstance.exec('ALTER TABLE clients ADD COLUMN image_path TEXT');
+    migrated = true;
+  }
+  if (!columnExists('users', 'image_path')) {
+    dbInstance.exec('ALTER TABLE users ADD COLUMN image_path TEXT');
+    migrated = true;
+  }
+  if (!columnExists('categories', 'image_path')) {
+    dbInstance.exec('ALTER TABLE categories ADD COLUMN image_path TEXT');
+    migrated = true;
+  }
+
   if (migrated) console.log('Database migrated successfully.');
   return migrated;
 }

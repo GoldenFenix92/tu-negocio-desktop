@@ -9,15 +9,11 @@
 }
 
 .coupon-table-wrapper {
-  background: var(--bg-secondary, #fff);
+  background: var(--color-surface);
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px color-mix(in srgb, var(--color-on-surface) 5%, transparent);
   overflow: hidden;
   flex: 1;
-}
-
-[data-theme="dark"] .coupon-table-wrapper {
-  background: #1e272e;
 }
 
 .coupon-table {
@@ -28,19 +24,21 @@
 .coupon-table th, .coupon-table td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-on-surface-secondary) 8%, transparent);
+  color: var(--color-on-surface);
 }
 
-[data-theme="dark"] .coupon-table th, 
-[data-theme="dark"] .coupon-table td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+.coupon-table th {
+  font-weight: 600;
+  background: color-mix(in srgb, var(--color-on-surface) 3%, var(--color-surface));
+  color: var(--color-on-surface-secondary);
 }
 
 .code-cell {
   font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--primary-color, #3498db);
+  color: var(--color-primary);
 }
 
 .status-badge {
@@ -52,13 +50,13 @@
 }
 
 .status-badge.active {
-  background: rgba(46, 204, 113, 0.1);
-  color: #2ecc71;
+  background: color-mix(in srgb, #22c55e 10%, transparent);
+  color: #16a34a;
 }
 
 .status-badge.expired {
-  background: rgba(231, 76, 60, 0.1);
-  color: #e74c3c;
+  background: color-mix(in srgb, #ef4444 10%, transparent);
+  color: #dc2626;
 }
 
 .expired-row {
@@ -78,11 +76,30 @@
   margin-bottom: 1.25rem;
 }
 
+.coupon-mgmt .modal-content form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.5rem;
+}
+
+.coupon-mgmt .modal-content form > .form-row,
+.coupon-mgmt .modal-content form > .modal-actions {
+  grid-column: 1 / -1;
+}
+
+.coupon-mgmt .modal-content form > .form-group {
+  margin-bottom: 0;
+}
+
+.coupon-mgmt .modal-content form > .full-width {
+  grid-column: 1 / -1;
+}
+
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--color-on-surface);
 }
 
 .form-group input,
@@ -90,20 +107,14 @@
 .form-group textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface-secondary) 15%, transparent);
   border-radius: 8px;
   font-size: 0.95rem;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--color-surface-secondary);
+  color: var(--color-on-surface);
   outline: none;
   transition: border-color 0.2s;
   box-sizing: border-box;
-}
-
-[data-theme="dark"] .form-group input,
-[data-theme="dark"] .form-group select {
-  background: #2c3e50;
-  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .modal-actions {
@@ -122,7 +133,7 @@
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #999;
+  color: var(--color-on-surface-secondary);
 }
 
 .input-with-icon input {

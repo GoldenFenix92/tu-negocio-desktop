@@ -25,7 +25,7 @@
   align-items: center;
   gap: 1.2rem;
   color: white;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px color-mix(in srgb, var(--color-on-surface) 10%, transparent);
   transition: transform 0.3s;
 }
 
@@ -33,10 +33,10 @@
   transform: translateY(-5px);
 }
 
-.stat-card.blue { background: linear-gradient(135deg, #3498db, #2980b9); }
-.stat-card.green { background: linear-gradient(135deg, #2ecc71, #27ae60); }
-.stat-card.purple { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-.stat-card.orange { background: linear-gradient(135deg, #e67e22, #d35400); }
+.stat-card.blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.stat-card.green { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.stat-card.purple { background: linear-gradient(135deg, #a855f7, #9333ea); }
+.stat-card.orange { background: linear-gradient(135deg, #f97316, #ea580c); }
 
 .stat-icon {
   background: rgba(255, 255, 255, 0.2);
@@ -66,22 +66,16 @@
 }
 
 .chart-card {
-  background: var(--bg-primary);
+  background: var(--color-surface);
   padding: 1.5rem;
   border-radius: 25px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0,0,0,0.04);
-}
-
-[data-theme="dark"] .chart-card {
-  background: var(--bg-primary);
-  border-color: rgba(255,255,255,0.06);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--color-on-surface) 3%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface-secondary) 8%, transparent);
 }
 
 .chart-title {
   margin: 0 0 1rem 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--color-on-surface);
 }

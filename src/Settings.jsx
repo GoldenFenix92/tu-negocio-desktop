@@ -177,7 +177,7 @@ export default function Settings({ designId, onDesignChange }) {
               <span className="w-3 h-3 rounded-full bg-amber-400" />
               {t('settings.light_designs') || 'Modo Claro'}
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {lightDesigns.map((d) => (
                 <DesignCard
                   key={d.id}
@@ -195,7 +195,7 @@ export default function Settings({ designId, onDesignChange }) {
               <span className="w-3 h-3 rounded-full bg-primary/60" />
               {t('settings.dark_designs') || 'Modo Oscuro'}
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {darkDesigns.map((d) => (
                 <DesignCard
                   key={d.id}
@@ -218,52 +218,56 @@ export default function Settings({ designId, onDesignChange }) {
 function DesignCard({ design, isSelected, onSelect, isES }) {
   const { colors } = design;
   const label = isES ? design.name : (design.nameEn || design.name);
+  const badge = (design.nameEn || design.name)
+    .split(' ')
+    .map(w => w[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <button
       onClick={() => onSelect(design.id)}
-      className={`relative rounded-2xl overflow-hidden border-2 transition-all duration-200 text-left ${
+      className={`relative rounded-xl overflow-hidden border-2 transition-all duration-200 text-left ${
         isSelected
-          ? 'border-primary shadow-lg ring-2 ring-primary/30'
-          : 'border-on-surface-secondary/20 hover:border-on-surface-secondary/40 hover:shadow-md'
+          ? 'border-primary shadow-md ring-2 ring-primary/30'
+          : 'border-on-surface-secondary/20 hover:border-on-surface-secondary/40 hover:shadow-sm'
       }`}
       style={{ background: colors.surface, color: colors['on-surface'] }}
     >
-      <div className="p-4">
-        <div className="flex items-center gap-3 mb-3">
+      <div className="p-3">
+        <div className="flex items-center gap-2 mb-2">
           <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold shadow-sm"
+            className="w-6 h-6 rounded-md flex items-center justify-center text-white text-xs font-bold shrink-0"
             style={{ background: colors.primary }}
           >
-            A
+            {badge}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold truncate">{label}</p>
-            <p className="text-xs opacity-60" style={{ color: colors['on-surface-secondary'] }}>
+            <p className="text-xs font-semibold truncate">{label}</p>
+            <p className="text-[10px] opacity-60 leading-tight" style={{ color: colors['on-surface-secondary'] }}>
               {design.mode === 'light' ? 'Light' : 'Dark'} · {colors.primary}
             </p>
           </div>
           {isSelected && (
-            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-              <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center shrink-0">
+              <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
               </svg>
             </div>
           )}
         </div>
-        <div className="flex gap-2">
-          <div className="flex-1 h-10 rounded-lg flex items-center px-3 text-xs font-medium"
-            style={{ background: colors['surface-secondary'], color: colors['on-surface-secondary'] }}>
-            <span className="truncate">{colors['on-surface-secondary']}</span>
-          </div>
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold"
-            style={{ background: colors.primary, color: '#fff' }}>
-            {colors.primary === '#2563eb' ? 'BL' : colors.primary === '#d97706' ? 'GO' : colors.primary === '#22c55e' ? 'GR' : 'OC'}
+        <div className="flex gap-1.5">
+          <div className="flex-1 h-7 rounded-md" style={{ background: colors.surface }} />
+          <div className="flex-1 h-7 rounded-md" style={{ background: colors['surface-secondary'] }} />
+          <div className="w-7 h-7 rounded-md flex items-center justify-center text-[10px] font-bold text-white"
+            style={{ background: colors.primary }}>
+            A
           </div>
         </div>
       </div>
       {design.gradient && (
-        <div className="h-6" style={{ background: design.gradient, opacity: 0.15 }} />
+        <div className="h-1.5" style={{ background: design.gradient }} />
       )}
     </button>
   );

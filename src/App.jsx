@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Moon, Sun, Laptop } from 'lucide-react';
+import { Moon, Sun, Laptop, Languages } from 'lucide-react';
 import { ConfigProvider, theme } from 'antd';
 import { ToastProvider } from './ToastContext';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -139,11 +139,6 @@ function AppContent() {
   const pillActive = 'bg-primary/10 text-primary';
   const pillInactive = 'text-on-surface-secondary hover:bg-surface-secondary';
 
-  const langBtnClass = (lang) =>
-    `p-2 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 ${
-      i18n.language?.startsWith(lang) ? pillActive : pillInactive
-    }`;
-
   const themeBtnClass = (mode) =>
     `p-2 rounded-lg text-sm font-medium transition-all duration-200 ${
       themeMode === mode ? pillActive : pillInactive
@@ -162,12 +157,16 @@ function AppContent() {
                   {businessName}
                 </h1>
                 <div className="flex items-center gap-1.5">
-                  <button className={langBtnClass('es')}
-                    onClick={() => { i18n.changeLanguage('es'); localStorage.setItem('language', 'es'); }}
-                    title="Español">ES</button>
-                  <button className={langBtnClass('en')}
-                    onClick={() => { i18n.changeLanguage('en'); localStorage.setItem('language', 'en'); }}
-                    title="English">EN</button>
+                  <button className={pillInactive}
+                    onClick={() => {
+                      const next = i18n.language?.startsWith('es') ? 'en' : 'es';
+                      i18n.changeLanguage(next);
+                      localStorage.setItem('language', next);
+                    }}
+                    title={i18n.language?.startsWith('es') ? 'English' : 'Español'}>
+                    <Languages size={16} />
+                    <span className="text-xs font-bold tracking-wide ml-1">{i18n.language?.startsWith('es') ? 'EN' : 'ES'}</span>
+                  </button>
                   <div className="w-px h-5 bg-on-surface-secondary/20 mx-1" />
                   <button className={themeBtnClass('light')}
                     onClick={() => setThemeMode('light')} title="Light Mode"><Sun size={16} /></button>

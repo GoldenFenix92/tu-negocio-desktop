@@ -392,7 +392,7 @@ export default function SalesScreen() {
 
       {isCouponModalOpen && (
         <div className="modal-overlay">
-          <div className="modal-content" style={{ maxWidth: 450 }}>
+          <div className="modal-content" style={{ maxWidth: 600 }}>
             <div className="modal-header">
               <h3>{t('coupons.title')}</h3>
               <button className="close-btn" onClick={() => setIsCouponModalOpen(false)}><X size={20} /></button>
