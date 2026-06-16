@@ -9,5 +9,6 @@ skills/
 .clawhub/
 
 *.log
+*.txt
 .DS_Store
 Thumbs.db
